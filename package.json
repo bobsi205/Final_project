@@ -1,0 +1,34 @@
+{
+  "name": "final_project",
+  "version": "1.0.0",
+  "description": "summery sharing website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bobsi205/Final_project.git"
+  },
+  "author": "Eyal Shalom & Lilach Katzabi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bobsi205/Final_project/issues"
+  },
+  "homepage": "https://github.com/bobsi205/Final_project#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.2",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "mongoose": "^5.10.15"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  }
+}
