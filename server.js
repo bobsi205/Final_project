@@ -12,10 +12,10 @@ app.use(express.json({ extended: false }));
 
 //define Routes
 
-app.use('/api/users', require('./routes/api/users'));
-app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/profile', require('./routes/api/profile'));
-app.use('/api/post', require('./routes/api/post'));
+// app.use('/api/users', require('./routes/api/users'));
+// app.use('/api/auth', require('./routes/api/auth'));
+// app.use('/api/profile', require('./routes/api/profile'));
+// app.use('/api/post', require('./routes/api/post'));
 
 // Server static assets in production
 if (process.env.NODE_ENV === 'production') {
