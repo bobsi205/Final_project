@@ -1,6 +1,7 @@
 import './App.css';
 import './navbar/Navigate'
 import Navigate from './navbar/Navigate';
+import Facebook from './components/auth/Facebook';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         >
           Learn React
         </a>
+        <Facebook />
       </header>
     </div>
   );
