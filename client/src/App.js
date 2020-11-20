@@ -1,4 +1,5 @@
 import './App.css';
+import Facebook from './components/auth/Facebook';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         >
           Learn React
         </a>
+        <Facebook />
       </header>
     </div>
   );
