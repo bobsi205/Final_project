@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema({
   firstName: {
@@ -44,7 +43,7 @@ const UserSchema = new mongoose.Schema({
   uploadedSummaries: [
     {
       summary: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'summery',
       },
     },
@@ -52,7 +51,7 @@ const UserSchema = new mongoose.Schema({
   BoughtSummaries: [
     {
       summary: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'summery',
       },
     },
@@ -60,7 +59,7 @@ const UserSchema = new mongoose.Schema({
   RecentSummaries: [
     {
       summary: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'summery',
       },
     },
