@@ -20,8 +20,7 @@ router.post(
       'password',
       'Please enter a password with 6 or more characters'
     ).isLength({ min: 6 }),
-    check('dateOfBirth', 'Please Enter date of birth'),
-    not().isEmpty(),
+    //need to add check for date of birth
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -29,7 +28,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, password, dateOfBirth } = req.body;
 
     try {
       let user = await User.findOne({ email });

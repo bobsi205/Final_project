@@ -25,6 +25,7 @@
     "config": "^3.3.2",
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
+    "jsonwebtoken": "^8.5.1",
     "mdbreact": "^4.27.0",
     "mongoose": "^5.10.15",
     "react-icons": "^3.11.0"
