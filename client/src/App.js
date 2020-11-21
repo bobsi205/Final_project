@@ -1,9 +1,12 @@
 import './App.css';
+import './navbar/Navigate'
+import Navigate from './navbar/Navigate';
 import Facebook from './components/auth/Facebook';
 
 function App() {
   return (
     <div className="App">
+      <Navigate/>
       <header className="App-header">
         <p>
           Edit <code>src/App.js</code> and save to reload.
