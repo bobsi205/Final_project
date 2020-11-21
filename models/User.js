@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
   picture: {
     type: String,
   },
+  dateOfBirth: {
+    type: Date,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now,
@@ -46,6 +50,14 @@ const UserSchema = new mongoose.Schema({
     },
   ],
   BoughtSummaries: [
+    {
+      summary: {
+        type: Schema.Types.ObjectId,
+        ref: 'summery',
+      },
+    },
+  ],
+  RecentSummaries: [
     {
       summary: {
         type: Schema.Types.ObjectId,
