@@ -18,7 +18,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </a> 
         <Facebook />
       </header>
     </div>
