@@ -1,7 +1,7 @@
 {
   "name": "final_project",
   "version": "1.0.0",
-  "description": "summery sharing website",
+  "description": "summary sharing website",
   "main": "server.js",
   "scripts": {
     "start": "node server",

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const SummerySchema = new Schema({
+const SummarySchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'users',
@@ -77,4 +77,4 @@ const SummerySchema = new Schema({
   ],
 });
 
-module.exports = Summery = mongoose.model('summery', SummerySchema);
+module.exports = Summary = mongoose.model('summary', SummarySchema);

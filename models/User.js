@@ -44,7 +44,7 @@ const UserSchema = new mongoose.Schema({
     {
       summary: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'summery',
+        ref: 'summary',
       },
     },
   ],
@@ -52,7 +52,7 @@ const UserSchema = new mongoose.Schema({
     {
       summary: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'summery',
+        ref: 'summary',
       },
     },
   ],
@@ -60,7 +60,7 @@ const UserSchema = new mongoose.Schema({
     {
       summary: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'summery',
+        ref: 'summary',
       },
     },
   ],
