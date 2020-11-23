@@ -148,4 +148,30 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
   }
 });
 
+// @route   PUT api/profile/bio
+// @desc    Update profile bio
+// @access  Private
+router.put(
+  '/bio',
+  [auth, [check('bio', 'bio is required').not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.arrays });
+    }
+    const { bio } = req.body;
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+      console.error(profile.bio);
+      console.log(profile.bio);
+      profile.bio = bio;
+      await profile.save();
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
 module.exports = router;
