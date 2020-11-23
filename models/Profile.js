@@ -8,7 +8,6 @@ const ProfileSchema = new mongoose.Schema({
   bio: {
     type: String,
   },
-
   education: [
     {
       school: {
@@ -18,20 +17,6 @@ const ProfileSchema = new mongoose.Schema({
       degree: {
         type: String,
         required: true,
-      },
-      from: {
-        type: Date,
-        required: true,
-      },
-      to: {
-        type: Date,
-      },
-      current: {
-        type: Boolean,
-        default: false,
-      },
-      description: {
-        type: String,
       },
     },
   ],

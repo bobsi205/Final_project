@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  coins: {
+  balance: {
     type: Number,
     default: 0,
   },
