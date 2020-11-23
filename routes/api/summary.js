@@ -83,31 +83,30 @@ router.get('/:id', checkObjectId('id'), async (req, res) => {
   }
 });
 
-// // @route    DELETE api/posts/:id
-// // @desc     Delete a post
-// // @access   Private
-// router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
-//   try {
-//     const post = await Post.findById(req.params.id);
+// @route    DELETE api/summary/:id
+// @desc     Delete a summary
+// @access   Admin
+router.delete(
+  '/:id',
+  [auth, checkAdmin, checkObjectId('id')],
+  async (req, res) => {
+    try {
+      const summary = await Summary.findById(req.params.id);
 
-//     if (!post) {
-//       return res.status(404).json({ msg: 'Post not found' });
-//     }
+      if (!summary) {
+        return res.status(404).json({ msg: 'Summary not found' });
+      }
 
-//     // Check user
-//     if (post.user.toString() !== req.user.id) {
-//       return res.status(401).json({ msg: 'User not authorized' });
-//     }
+      await summary.remove();
 
-//     await post.remove();
+      res.json({ msg: 'Summary removed' });
+    } catch (err) {
+      console.error(err.message);
 
-//     res.json({ msg: 'Post removed' });
-//   } catch (err) {
-//     console.error(err.message);
-
-//     res.status(500).send('Server Error');
-//   }
-// });
+      res.status(500).send('Server Error');
+    }
+  }
+);
 
 // // @route    PUT api/posts/like/:id
 // // @desc     Like a post
