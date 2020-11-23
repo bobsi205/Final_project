@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
+const checkAdmin = require('../../middleware/checkAdmin');
+const checkObjectId = require('../../middleware/checkObjectId');
 
 const Summary = require('../../models/Summary');
 const User = require('../../models/User');
-const checkObjectId = require('../../middleware/checkObjectId');
 
 // @route    POST api/summary
 // @desc     Create a summary
@@ -50,18 +51,18 @@ router.post(
   }
 );
 
-// // @route    GET api/summary
-// // @desc     Get all summary
-// // @access   Private
-// router.get('/', async (req, res) => {
-//   try {
-//     const summaries = await Summary.find().sort({ date: -1 });
-//     res.json(summaries);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send('Server Error');
-//   }
-// });
+// @route    GET api/summary
+// @desc     Get all summary
+// @access   Admin
+router.get('/', [auth, checkAdmin], async (req, res) => {
+  try {
+    const summaries = await Summary.find().sort({ date: -1 });
+    res.json(summaries);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 // @route    GET api/summary/:id
 // @desc     Get summary by ID

@@ -29,6 +29,10 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  type: {
+    type: Boolean,
+    default: false,
+  },
   balance: {
     type: Number,
     default: 0,
