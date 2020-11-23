@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Navbar,
   NavDropdown,
@@ -6,11 +6,11 @@ import {
   Form,
   FormControl,
   Nav,
-} from "react-bootstrap";
-import { FaRegPlusSquare,FaCoins, FaSearch } from "react-icons/fa";
-import { GrUserManager } from "react-icons/gr";
+} from 'react-bootstrap';
+import { FaRegPlusSquare, FaCoins, FaSearch } from 'react-icons/fa';
+import { GrUserManager } from 'react-icons/gr';
 
-export default function Navigate() {
+export default function Navigation() {
   return (
     <Navbar bg="light" expand="lg" className="m-auto">
       {/* right side */}
