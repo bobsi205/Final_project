@@ -1,20 +1,12 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 
 export const Home = () => {
-    return (
-        <div>
-            this is home 
-        </div>
-    )
-}
+  return <div>this is home</div>;
+};
 
-const mapStateToProps = (state) => ({
-    
-})
+const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = {
-    
-}
+const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
