@@ -55,6 +55,7 @@ router.post(
 // @desc     Get all summary
 // @access   Admin
 router.get('/', [auth, checkAdmin], async (req, res) => {
+  console.error('here');
   try {
     const summaries = await Summary.find().sort({ date: -1 });
     res.json(summaries);
@@ -108,23 +109,24 @@ router.delete(
   }
 );
 
-// // @route    PUT api/posts/like/:id
-// // @desc     Like a post
+// // @route    PUT api/summary/rate/:id
+// // @desc     Rate a summary
 // // @access   Private
-// router.put('/like/:id', [auth, checkObjectId('id')], async (req, res) => {
+// router.put('/rate/:id', [auth, checkObjectId('id')], async (req, res) => {
 //   try {
-//     const post = await Post.findById(req.params.id);
+//     const summary = await Summary.findById(req.params.id);
+//     const rateIndex = summary.rating.filter(
+//       (rate) => rate.user.toString() === req.user.id
+//     );
 
-//     // Check if the post has already been liked
-//     if (post.likes.some((like) => like.user.toString() === req.user.id)) {
-//       return res.status(400).json({ msg: 'Post already liked' });
-//     }
+//     summary.rating.unshift({
+//       user: req.user.id,
+//       rate: req.body.rate,
+//     });
 
-//     post.likes.unshift({ user: req.user.id });
+//     await summary.save();
 
-//     await post.save();
-
-//     return res.json(post.likes);
+//     return res.json(summary.rating);
 //   } catch (err) {
 //     console.error(err.message);
 //     res.status(500).send('Server Error');
