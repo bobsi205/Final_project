@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardDeck, Container } from 'react-bootstrap';
-import { SummaryCard } from '../summary/SummaryCard';
+import { SummaryCard } from './SummaryCard';
 
 export const ProfileDeck = (props) => {
   return (
