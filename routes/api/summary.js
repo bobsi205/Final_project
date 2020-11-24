@@ -52,7 +52,7 @@ router.post(
 );
 
 // @route    GET api/summary
-// @desc     Get all summary
+// @desc     Get all summaries
 // @access   Admin
 router.get('/', [auth, checkAdmin], async (req, res) => {
   console.error('here');

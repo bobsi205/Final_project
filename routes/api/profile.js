@@ -162,8 +162,6 @@ router.put(
     const { bio } = req.body;
     try {
       const profile = await Profile.findOne({ user: req.user.id });
-      console.error(profile.bio);
-      console.log(profile.bio);
       profile.bio = bio;
       await profile.save();
       res.json(profile);
