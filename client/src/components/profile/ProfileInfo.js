@@ -14,21 +14,18 @@ export const ProfileInfo = () => {
           />
           <h2>Lilak Katzabi</h2>
           <p className="lead mb-0">Computer Science</p>
-          <p className="text-muted">Bar ilan university</p>
+          <p className="text-muted">Bar Ilan University</p>
         </Col>
       </Row>
+
       <hr></hr>
+
       <Row className="my-3">
         <Col className="text-center text-secondary">
           <p className="text-muted mb-0">Uploads</p>
           <p className="lead ">7 Summaries</p>
         </Col>
-        <Col className="text-center text-secondary">
-          <p className="text-muted mb-0">Bio</p>
-          <p className="lead ">
-            I’m a computer science student at bar ilan university
-          </p>
-        </Col>
+
         <Col className="text-center text-secondary">
           <Row className="d-flex justify-content-center">
             <Image
@@ -48,6 +45,13 @@ export const ProfileInfo = () => {
             />
             <p>102</p>
           </Row>
+        </Col>
+
+        <Col sm className="text-center text-secondary">
+          <p className="text-muted mb-0">Bio</p>
+          <p className="lead ">
+            I’m a computer science student at bar ilan university
+          </p>
         </Col>
       </Row>
     </>
