@@ -1,72 +1,59 @@
-// import React, { useState } from 'react';
-// import { Link, Redirect } from 'react-router-dom';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import { login } from '../../actions/auth';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
+import { Form, Button } from 'react-bootstrap';
 
-// const Login = ({ login, isAuthenticated }) => {
-//   const [formData, setFormData] = useState({
-//     email: '',
-//     password: '',
-//   });
+const Login = ({ login, isAuthenticated }) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
 
-//   const { email, password } = formData;
+  const { email, password } = formData;
 
-//   const onChange = (e) =>
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-//   const onSubmit = (e) => {
-//     e.preventDefault();
-//     login(email, password);
-//   };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    login(email, password);
+  };
 
-//   if (isAuthenticated) {
-//     return <Redirect to="/dashboard" />;
-//   }
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
-//   return (
-//     <>
-//       <h1 className="large text-primary">Sign In</h1>
-//       <p className="lead">
-//         <i className="fas fa-user" /> Sign Into Your Account
-//       </p>
-//       <form className="form" onSubmit={onSubmit}>
-//         <div className="form-group">
-//           <input
-//             type="email"
-//             placeholder="Email Address"
-//             name="email"
-//             value={email}
-//             onChange={onChange}
-//             required
-//           />
-//         </div>
-//         <div className="form-group">
-//           <input
-//             type="password"
-//             placeholder="Password"
-//             name="password"
-//             value={password}
-//             onChange={onChange}
-//             minLength="6"
-//           />
-//         </div>
-//         <input type="submit" className="btn btn-primary" value="Login" />
-//       </form>
-//       <p className="my-1">
-//         Don't have an account? <Link to="/register">Sign Up</Link>
-//       </p>
-//     </>
-//   );
-// };
+  return (
+    <Form className="container text-center">
+      <Form.Group controlId="formBasicEmail">
+        <Form.Control type="email" size="lg" placeholder="Enter email" />
+      </Form.Group>
 
-// Login.propTypes = {
-//   login: PropTypes.func.isRequired,
-//   isAuthenticated: PropTypes.bool,
-// };
+      <Form.Group controlId="formBasicPassword">
+        <Form.Control type="password" size="lg" placeholder="Password" />
+      </Form.Group>
+      <Button variant="primary" type="submit" block>
+        Log In
+      </Button>
+      <br />
+      <Form.Label>Forgot Password?</Form.Label>
+      <hr />
+      <Button variant="outline-primary" type="submit" block>
+        Sign Up
+      </Button>
+    </Form>
+  );
+};
 
-// const mapStateToProps = (state) => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-// });
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
 
-// export default connect(mapStateToProps, { login })(Login);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);
