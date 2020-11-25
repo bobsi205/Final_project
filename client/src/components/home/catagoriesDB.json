@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Administration",
+    "img": "white"
+  },
+  {
+    "name": "Social work",
+    "img": "pink"
+  },
+  {
+    "name": "Accounting",
+    "img": "gray"
+  },
+  {
+    "name": "Humanities",
+    "img": "blue"
+  },
+  {
+    "name": "Engineering",
+    "img": "lightblue"
+  },
+  {
+    "name": "Medical Studies",
+    "img": "red"
+  },
+  {
+    "name": "Education",
+    "img": "white"
+  },
+  {
+    "name": "Architecture",
+    "img": "white"
+  },
+  {
+    "name": "Computer Science",
+    "img": "white"
+  },
+  {
+    "name": "Psychology",
+    "img": "white"
+  },
+  {
+    "name": "Social Sciences",
+    "img": "white"
+  },
+  {
+    "name": "Communication",
+    "img": "white"
+  }
+]
