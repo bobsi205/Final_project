@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Container, Tab, Tabs } from 'react-bootstrap';
-import { ProfileDeck } from '../summary/SummaryDeck';
+import { ProfileDeck } from './ProfileDeck';
 import { ProfileInfo } from './ProfileInfo';
 
 export const Profile = () => {
