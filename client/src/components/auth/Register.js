@@ -11,9 +11,9 @@ function Register() {
       <br />
 
       <Form className="container">
-        <Form.Group className="text-center">
+        {/* <Form.Group className="text-center">
           <Alert variant="info">Sign Up </Alert>
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group>
           <Form.File
             id="custom-file-translate-html"
@@ -82,7 +82,9 @@ function Register() {
           <Form.Check className="m-2" type="checkbox" label="communication" />
           <Form.Check className="m-2" type="checkbox" label="sociology" />
         </Form.Group>
-        <Button>Sign Up</Button>
+        <Button d-block style={{ width: '100%' }} className="mb-4">
+          Sign Up
+        </Button>
       </Form>
     </div>
   );
