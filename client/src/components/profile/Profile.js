@@ -64,6 +64,9 @@ export const Profile = () => {
         <Tab eventKey="Recent" title="Recent" block>
           <ProfileDeck cards={data} />
         </Tab>
+        <Tab className="" eventKey="Owned" title="Owned">
+          <ProfileDeck cards={data} />
+        </Tab>
         <Tab className="" eventKey="Bookmarked" title="Bookmarked">
           <ProfileDeck cards={data} />
         </Tab>
