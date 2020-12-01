@@ -1,0 +1,9 @@
+.zoom {
+  transition: transform 0.2s; /* Animation */
+  filter: grayscale(60%);
+}
+
+.zoom:hover {
+  transform: scale(1.08);
+  filter: grayscale(0%);
+}
