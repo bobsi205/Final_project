@@ -1,19 +1,56 @@
-import React from 'react';
-import { Col, Row, Button, Alert, Form } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Col, Row, Button, Alert, Form, Container } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
-function Register() {
-  var profileImg = <img src="icons/upload" />;
+const Register = ({ setAlert, register, isAuthenticated }) => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    password: '',
+    password2: '',
+    email: '',
+    dateOfBirth: null,
+    institution: '',
+    fieldOfStudy: '',
+    profileImg: '',
+    interests: '',
+  });
+
+  const {
+    firstName,
+    lastName,
+    password,
+    password2,
+    email,
+    dateOfBirth,
+    institution,
+    fieldOfStudy,
+    profileImg,
+    interests,
+  } = formData;
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    register(formData);
+  };
+
   return (
-    <div className="App">
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <Form className="container">
-        {/* <Form.Group className="text-center">
+    <Container className="App">
+      <Form className="container" onSubmit={(e) => onSubmit(e)}>
+        <Form.Group className="text-center">
           <Alert variant="info">Sign Up </Alert>
-        </Form.Group> */}
+        </Form.Group>
         <Form.Group>
           <Form.File
             id="custom-file-translate-html"
@@ -21,46 +58,90 @@ function Register() {
             custom
           />
         </Form.Group>
-
         <Form.Row>
           <Form.Group as={Col}>
-            <Form.Control required type="text" placeholder="First Name" />
+            <Form.Control
+              required
+              type="text"
+              placeholder="First Name"
+              name="firstName"
+              value={firstName}
+              onChange={(e) => onChange(e)}
+            />
           </Form.Group>
           <Form.Group as={Col}>
-            <Form.Control required type="text" placeholder="Last Name" />
+            <Form.Control
+              required
+              type="text"
+              placeholder="Last Name"
+              name="lastName"
+              value={lastName}
+              onChange={(e) => onChange(e)}
+            />
           </Form.Group>
         </Form.Row>
-
         <Form.Row>
           <Form.Group as={Col}>
-            <Form.Control required type="password" placeholder="Password" />
+            <Form.Control
+              required
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={(e) => onChange(e)}
+            />
           </Form.Group>
 
           <Form.Group as={Col}>
             <Form.Control
               required
-              type="confirmPassword"
+              type="Password"
               placeholder="Confirm Password"
+              name="password2"
+              value={password2}
+              onChange={(e) => onChange(e)}
             />
           </Form.Group>
         </Form.Row>
-
         <Form.Group>
           <Form.Control
             required
             type="email"
             placeholder="Enter Email"
+            name="email"
+            value={email}
+            onChange={(e) => onChange(e)}
           ></Form.Control>
         </Form.Group>
-
         <Form.Group>
-          <Form.Control required type="date"></Form.Control>
+          <Form.Control
+            required
+            type="date"
+            name="dateOfBirth"
+            value={dateOfBirth}
+            onChange={(e) => onChange(e)}
+          ></Form.Control>
         </Form.Group>
         <Form.Group>
-          <Form.Control required type="text" placeholder="Education" />
+          <Form.Control
+            type="text"
+            placeholder="institution"
+            name="institution"
+            value={institution}
+            onChange={(e) => onChange(e)}
+          />
         </Form.Group>
-
+        <Form.Group>
+          <Form.Control
+            type="text"
+            placeholder="field Of Study"
+            name="fieldOfStudy"
+            value={fieldOfStudy}
+            onChange={(e) => onChange(e)}
+          />
+        </Form.Group>
         <hr />
+        {/* need to add logic for interest */}
         <Form.Label className="text-center">What are your interest?</Form.Label>
         <hr />
         <Form.Group className="d-flex flex-wrap justify-content-around">
@@ -86,8 +167,18 @@ function Register() {
           Sign Up
         </Button>
       </Form>
-    </div>
+    </Container>
   );
-}
+};
 
-export default Register;
+Register.protoType = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);
