@@ -22,17 +22,31 @@ const Login = ({ login, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/" />;
   }
 
   return (
-    <Form className="container text-center">
+    <Form className="container text-center" onSubmit={(e) => onSubmit(e)}>
       <Form.Group controlId="formBasicEmail">
-        <Form.Control type="email" size="lg" placeholder="Enter email" />
+        <Form.Control
+          type="email"
+          name="email"
+          size="lg"
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => onChange(e)}
+        />
       </Form.Group>
 
       <Form.Group controlId="formBasicPassword">
-        <Form.Control type="password" size="lg" placeholder="Password" />
+        <Form.Control
+          type="password"
+          name="password"
+          size="lg"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => onChange(e)}
+        />
       </Form.Group>
       <Button variant="primary" type="submit" block>
         Log In
