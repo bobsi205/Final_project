@@ -4,15 +4,15 @@ import { Card } from 'react-bootstrap';
 export const HomeCard = (props) => {
   return (
     <Card
-      className="mx-2 my-2"
+      className="col-3 mr-2"
       style={{
         minWidth: '18rem',
         minHeight: '200px',
       }}
     >
       <Card.Body>
-        <Card.Title>{props.title}</Card.Title>
-        <Card.Text className="text-muted">{props.text}</Card.Text>
+        <Card.Title className="unSelectable">{props.title}</Card.Title>
+        <Card.Text className="text-muted unSelectable">{props.text}</Card.Text>
       </Card.Body>
     </Card>
   );

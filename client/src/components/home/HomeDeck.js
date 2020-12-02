@@ -4,7 +4,7 @@ import { HomeCard } from './HomeCard';
 
 export const HomeDeck = (props) => {
   return (
-    <div className="d-flex justify-content-between ">
+    <div className="row flex-row flex-nowrap">
       {props.cards.map((card) => {
         return <HomeCard title={card.title} text={card.text} />;
       })}
