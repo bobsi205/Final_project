@@ -99,8 +99,9 @@ export const Home = () => {
         <Row className="my-3">
           <h2 className="ml-4 mt-2 text-primary">Recent</h2>
           <Container
+            className="scrollbarClean"
             fluid
-            style={{ overflow: 'hidden' }}
+            style={{ overflow: 'auto' }}
             id="Recent"
             onMouseDown={(e) => mouseDown(e, 'Recent')}
             onMouseMove={(e) => mouseMove(e, 'Recent')}
@@ -125,8 +126,9 @@ export const Home = () => {
         <Row className="my-3">
           <h2 className="ml-4 mt-2 text-primary">Recommended</h2>
           <Container
+            className="scrollbarClean"
             fluid
-            style={{ overflow: 'hidden' }}
+            style={{ overflow: 'auto' }}
             id="Recommended"
             onMouseDown={(e) => mouseDown(e, 'Recommended')}
             onMouseMove={(e) => mouseMove(e, 'Recommended')}
@@ -140,8 +142,9 @@ export const Home = () => {
         <Row className="my-3">
           <h2 className="ml-4 mt-2 text-primary">Popular</h2>
           <Container
+            className="scrollbarClean"
             fluid
-            style={{ overflow: 'hidden' }}
+            style={{ overflow: 'auto' }}
             id="Popular"
             onMouseDown={(e) => mouseDown(e, 'Popular')}
             onMouseMove={(e) => mouseMove(e, 'Popular')}
@@ -155,8 +158,9 @@ export const Home = () => {
         <Row className="my-3">
           <h2 className="ml-4 mt-2 text-primary">New</h2>
           <Container
+            className="scrollbarClean"
             fluid
-            style={{ overflow: 'hidden' }}
+            style={{ overflow: 'auto' }}
             id="New"
             onMouseDown={(e) => mouseDown(e, 'New')}
             onMouseMove={(e) => mouseMove(e, 'New')}

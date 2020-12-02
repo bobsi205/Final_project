@@ -15,3 +15,12 @@
   -ms-user-select: none;
   user-select: none;
 }
+.scrollbarClean::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbarClean::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #bcbcbc;
+}
