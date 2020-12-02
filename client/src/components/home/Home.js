@@ -80,7 +80,21 @@ export const Home = () => {
 
   return (
     <>
-      <Image src="banner.jpg" className="img-fluid mb-3" />
+      <>
+        <header
+          className="d-flex flex-row"
+          style={{
+            backgroundImage: `url(banner.jpg)`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: '50% 50%',
+            margin: 0,
+            padding: 0,
+            minHeight: '300px',
+          }}
+        ></header>
+        <div className="bg-light p-2 mb-4"></div>
+      </>
       <Container>
         <Row className="my-3">
           <h2 className="ml-4 mt-2 text-primary">Recent</h2>
