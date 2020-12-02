@@ -1,23 +1,23 @@
 import React from 'react';
-import { Button, Image } from 'react-bootstrap';
 import '../../style/style.css';
 
 export const CategoryBox = (props) => {
   return (
-    <div
-      style={{
-        overflow: 'hidden',
-      }}
-    >
-      <Image
-        className="zoom zoom:hover img-responsive center-block"
-        size="lg"
+    <div style={{ overflow: 'hidden' }}>
+      <div
+        className="imgZoom d-flex"
         style={{
           height: '180px',
           width: '100%',
+          backgroundImage: `url(${props.image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: '50% 50%',
+          color: 'white',
+          textAlign: 'center',
         }}
-        src={props.image}
-      />
+      >
+        <h3 className="m-auto ">{props.name}</h3>
+      </div>
     </div>
   );
 };

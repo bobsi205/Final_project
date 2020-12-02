@@ -115,7 +115,7 @@ export const Home = () => {
           {categoriesDB.map((cat) => {
             return (
               <Col xs={6} md={3} className="p-0 m-auto">
-                <CategoryBox cat={cat.name} image={cat.img} />
+                <CategoryBox name={cat.name} image={cat.img} />
               </Col>
             );
           })}
