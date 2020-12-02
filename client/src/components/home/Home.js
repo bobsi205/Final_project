@@ -51,27 +51,25 @@ export const Home = () => {
 
   const [scroll, setScroll] = useState({
     isDown: false,
-    startX: null,
-    scrollLeft: null,
+    mousePosition: null,
   });
 
   const mouseDown = (e, id) => {
     setScroll({
       isDown: true,
-      startX: e.pageX - e.target.offsetLeft,
-      scrollLeft: document.getElementById(id).scrollLeft,
+      mousePosition: e.screenX,
     });
   };
 
   const mouseMove = (e, id) => {
     const slider = document.getElementById(id);
-    // console.log(slider.scrollLeft);
+    const oldPos = scroll.mousePosition;
     if (!scroll.isDown) return;
     e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
-    const walk = x - scroll.startX;
-    if (slider.scrollWidth > slider.scrollLeft && slider.scrollLeft >= 0)
-      slider.scrollLeft = scroll.scrollLeft - walk;
+    setScroll(
+      { ...scroll, mousePosition: e.screenX },
+      (slider.scrollLeft -= e.screenX - oldPos)
+    );
   };
 
   const mouseUp = (e) => {
