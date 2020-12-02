@@ -15,7 +15,7 @@ export default function Navigation() {
     <Navbar bg="light" expand="lg" className="m-auto">
       {/* right side */}
       <Nav className="mr-auto">
-        <Navbar.Brand href="#home">Summary</Navbar.Brand>
+        <Navbar.Brand href="/">Summary</Navbar.Brand>
         <Button variant="outline-dark">
           <FaRegPlusSquare />
         </Button>
