@@ -3,7 +3,7 @@ import { Container, Image, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { HomeDeck } from './HomeDeck';
 import { CategoryBox } from './CategoryBox';
-import catagoriesDB from './catagoriesDB.json';
+import categoriesDB from './categoriesDB.json';
 
 export const Home = () => {
   const [data] = useState([
@@ -112,7 +112,7 @@ export const Home = () => {
         <hr />
 
         <Row>
-          {catagoriesDB.map((cat) => {
+          {categoriesDB.map((cat) => {
             return (
               <Col xs={6} md={3} className="p-0">
                 <CategoryBox cat={cat.name} image={cat.img} />

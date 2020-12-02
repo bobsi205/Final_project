@@ -5,7 +5,7 @@
   },
   {
     "name": "Social work",
-    "img": "pink"
+    "img": "cat/socialWork.jpg"
   },
   {
     "name": "Accounting",
@@ -41,10 +41,10 @@
   },
   {
     "name": "Social Sciences",
-    "img": "white"
+    "img": "cat/socialSciences.jpg"
   },
   {
     "name": "Communication",
-    "img": "white"
+    "img": "cat/communication.jpg"
   }
 ]
