@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../style/s';
+import '../../../style/style.css';
 
 export const CategoryBox = (props) => {
   return (
