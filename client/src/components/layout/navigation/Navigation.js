@@ -21,7 +21,7 @@ const Navigation = ({ isAuthenticated }) => {
   const [modalShow, setModalShow] = useState(false);
 
   return (
-    <Navbar bg="light" expand="lg" sticky="top">
+    <Navbar className="p-0" bg="light" expand="lg" sticky="top">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse
         className="justify-content-between"
