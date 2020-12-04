@@ -1,9 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Row, Col, Image } from 'react-bootstrap';
 
 export const ProfileInfo = () => {
   return (
     <>
+      <Link className="ml-3" to="/profile/edit">
+        <Image
+          src="icons/edit-g.svg"
+          style={{
+            width: '20px',
+            height: '20px',
+            position: 'absolute',
+          }}
+        />
+      </Link>
       <Row>
         <Col className="text-center">
           <Image
