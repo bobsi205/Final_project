@@ -111,7 +111,10 @@ const ProfileEdit = ({ setAlert }) => {
           <Form.Check className="m-2" type="checkbox" label="sociology" />
         </Form.Group>
         <div className="d-flex justify-content-center">
-          <Button>Update</Button>
+          <Button variant="secondary" className="mr-2">
+            Cancel
+          </Button>
+          <Button variant="primary">Update</Button>
         </div>
       </Form>
     </Container>
