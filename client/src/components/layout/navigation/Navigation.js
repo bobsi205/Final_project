@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import LoginModal from '../../auth/LoginModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import categoriesDB from '../../../utils/categoriesDB.json';
+import categoriesData from '../../../utils/categoriesData.json';
 import { CategoryBox } from './CategoryBox';
 
 const Navigation = ({ isAuthenticated }) => {
@@ -56,13 +56,13 @@ const Navigation = ({ isAuthenticated }) => {
         {isAuthenticated ? (
           <Nav className="d-flex align-items-center">
             <NavDropdown title="Categories" id="basic-nav-dropdown">
-              {categoriesDB.map((cat) => (
+              {categoriesData.map((cat) => (
                 <NavDropdown.Item href="#action/1">{cat.name}</NavDropdown.Item>
               ))}
             </NavDropdown>
             <NavDropdown title="Categories" id="basic-nav-dropdown">
               <Row>
-                {categoriesDB.map((cat) => {
+                {categoriesData.map((cat) => {
                   return (
                     <Col xs={6} md={3} className="p-0 m-auto">
                       <CategoryBox name={cat.name} image={cat.img} />
@@ -108,7 +108,7 @@ const Navigation = ({ isAuthenticated }) => {
           <Nav className="d-flex align-items-center">
             <NavDropdown title="Categories" id="basic-nav-dropdown">
               <Row style={{ width: '100%' }}>
-                {categoriesDB.map((cat) => {
+                {categoriesData.map((cat) => {
                   return (
                     <Col
                       xs={6}

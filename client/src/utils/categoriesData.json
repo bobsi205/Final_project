@@ -1,50 +1,62 @@
 [
   {
     "name": "Administration",
+    "objName": "administration",
     "img": "cat/administration.png"
   },
   {
     "name": "Social work",
+    "objName": "socialWork",
     "img": "cat/socialWork.png"
   },
   {
     "name": "Accounting",
+    "objName": "accounting",
     "img": "cat/accounting.png"
   },
   {
     "name": "Humanities",
+    "objName": "humanities",
     "img": "cat/humanities.png"
   },
   {
     "name": "Engineering",
+    "objName": "engineering",
     "img": "cat/engineering.png"
   },
   {
     "name": "Medical Studies",
+    "objName": "medicalStudies",
     "img": "cat/medical.png"
   },
   {
     "name": "Education",
+    "objName": "education",
     "img": "cat/education.png"
   },
   {
     "name": "Architecture",
+    "objName": "architecture",
     "img": "cat/architecture.png"
   },
   {
     "name": "Computer Science",
+    "objName": "computerScience",
     "img": "cat/computerScience.png"
   },
   {
     "name": "Psychology",
+    "objName": "psychology",
     "img": "cat/psychology.png"
   },
   {
     "name": "Social Sciences",
+    "objName": "socialSciences",
     "img": "cat/socialSciences.png"
   },
   {
     "name": "Communication",
+    "objName": "communication",
     "img": "cat/communication.png"
   }
 ]
