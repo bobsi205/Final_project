@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
@@ -12,6 +12,7 @@ import {
   Container,
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import categoriesData from '../../utils/categoriesData.json';
 
 const ProfileEdit = ({ setAlert }) => {
   const [profile, setProfile] = useState({
@@ -19,17 +20,89 @@ const ProfileEdit = ({ setAlert }) => {
     institution: 'bar ilan',
     fieldOfStudy: 'computer science',
     profileImg: 'img',
-    interests: 'interests',
   });
-  const { bio, institution, fieldOfStudy, profileImg, interests } = profile;
+
+  const [interests, setInterests] = useState([
+    {
+      name: 'Administration',
+      objName: 'administration',
+      checked: false,
+    },
+    {
+      name: 'Social work',
+      objName: 'socialWork',
+      checked: false,
+    },
+    {
+      name: 'Accounting',
+      objName: 'accounting',
+      checked: false,
+    },
+    {
+      name: 'Humanities',
+      objName: 'humanities',
+      checked: false,
+    },
+    {
+      name: 'Engineering',
+      objName: 'engineering',
+      checked: false,
+    },
+    {
+      name: 'Medical Studies',
+      objName: 'medicalStudies',
+      checked: false,
+    },
+    {
+      name: 'Education',
+      objName: 'education',
+      checked: false,
+    },
+    {
+      name: 'Architecture',
+      objName: 'architecture',
+      checked: false,
+    },
+    {
+      name: 'Computer Science',
+      objName: 'computerScience',
+      checked: false,
+    },
+    {
+      name: 'Psychology',
+      objName: 'psychology',
+      checked: false,
+    },
+    {
+      name: 'Social Sciences',
+      objName: 'socialSciences',
+      checked: false,
+    },
+    {
+      name: 'Communication',
+      objName: 'communication',
+      checked: false,
+    },
+  ]);
+
+  const { bio, institution, fieldOfStudy, profileImg } = profile;
 
   const onChange = (e) =>
     setProfile({ ...profile, [e.target.name]: e.target.value });
+
+  const onCheck = (e) => {
+    let tempState = [...interests];
+    tempState[e.target.dataset.index].checked = !tempState[
+      e.target.dataset.index
+    ].checked;
+    setInterests(tempState);
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
     //add logic
   };
+
   return (
     <Container className="bg-light my-4 py-4 ">
       <Form onSubmit={(e) => onSubmit(e)}>
@@ -91,27 +164,24 @@ const ProfileEdit = ({ setAlert }) => {
         <hr />
 
         <Form.Label className="text-center">What are your interest?</Form.Label>
+
         <Form.Group className="d-flex flex-wrap justify-content-around">
-          <Form.Check className="m-2" type="checkbox" label="Administration" />
-          <Form.Check className="m-2" type="checkbox" label="Social work" />
-          <Form.Check className="m-2" type="checkbox" label="Accounting" />
-          <Form.Check className="m-2" type="checkbox" label="Humanities" />
-          <Form.Check className="m-2" type="checkbox" label="Engineering " />
-          <Form.Check className="m-2" type="checkbox" label="Medical Studies" />
-          <Form.Check className="m-2" type="checkbox" label="Education" />
-          <Form.Check className="m-2" type="checkbox" label="Architecture" />
-          <Form.Check
-            className="m-2"
-            type="checkbox"
-            label="Computer Science"
-          />
-          <Form.Check className="m-2" type="checkbox" label="psychology" />
-          <Form.Check className="m-2" type="checkbox" label="Social Sciences" />
-          <Form.Check className="m-2" type="checkbox" label="communication" />
-          <Form.Check className="m-2" type="checkbox" label="sociology" />
+          {interests.map((cat, index) => {
+            return (
+              <Form.Check
+                className="m-2"
+                type="checkbox"
+                data-index={index}
+                label={cat.name}
+                name={cat.objName}
+                checked={cat.checked}
+                onChange={(e) => onCheck(e)}
+              />
+            );
+          })}
         </Form.Group>
         <div className="d-flex justify-content-center">
-          <Button variant="secondary" className="mr-2">
+          <Button variant="secondary" type="submit" className="mr-2">
             Cancel
           </Button>
           <Button variant="primary">Update</Button>
