@@ -172,4 +172,42 @@ router.put(
   }
 );
 
+// @route   PUT api/profile/update
+// @desc    Update profile
+// @access  Private
+router.put(
+  '/update',
+  [
+    auth,
+    [
+      check('bio', 'bio is required').not().isEmpty(),
+      check('school', 'school is required').not().isEmpty(),
+      check('degree', 'degree is required').not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.arrays });
+    }
+    try {
+      const { bio, school, degree, interests } = req.body;
+
+      const profile = await Profile.findOne({ user: req.user.id });
+      const user = await User.findById(req.user.id).select('-password');
+      profile.bio = bio;
+      profile.education[0] = {
+        school: school,
+        degree: degree,
+      };
+      user.educationsOfInterest = interests;
+      await profile.save();
+      await user.save();
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
 module.exports = router;
