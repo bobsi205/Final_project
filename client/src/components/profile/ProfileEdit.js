@@ -100,7 +100,28 @@ const ProfileEdit = ({ setAlert }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //add logic
+    //taking interests and converting to db structure
+    let educations;
+    let arr = [
+      ...interests.map((cat) => {
+        if (cat.checked) return cat.objName;
+      }),
+    ];
+    arr = arr.filter((cat) => cat !== undefined);
+    for (let index = 0; index < arr.length; index++) {
+      if (index === 0) educations = arr[index];
+      else educations = educations.concat(',', arr[index]);
+    }
+
+    //new profile
+    const newProfile = {
+      bio: profile.bio,
+      school: profile.institution,
+      degree: profile.fieldOfStudy,
+      interests: { education: educations },
+    };
+
+    console.log(newProfile);
   };
 
   return (
@@ -181,10 +202,12 @@ const ProfileEdit = ({ setAlert }) => {
           })}
         </Form.Group>
         <div className="d-flex justify-content-center">
-          <Button variant="secondary" type="submit" className="mr-2">
+          <Button variant="secondary" className="mr-2">
             Cancel
           </Button>
-          <Button variant="primary">Update</Button>
+          <Button variant="primary" type="submit">
+            Update
+          </Button>
         </div>
       </Form>
     </Container>
