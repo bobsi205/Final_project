@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
+import { updateProfile } from '../../actions/profile';
 import {
   Image,
   Col,
@@ -14,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 import categoriesData from '../../utils/categoriesData.json';
 
-const ProfileEdit = ({ setAlert }) => {
+const ProfileEdit = ({ setAlert, updateProfile }) => {
   const [profile, setProfile] = useState({
     bio: 'current bio',
     institution: 'bar ilan',
@@ -120,6 +121,7 @@ const ProfileEdit = ({ setAlert }) => {
       degree: profile.fieldOfStudy,
       interests: { education: educations },
     };
+    updateProfile(newProfile);
 
     console.log(newProfile);
   };
@@ -216,10 +218,7 @@ const ProfileEdit = ({ setAlert }) => {
 
 ProfileEdit.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  updateProfile: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit);
+export default connect(null, { setAlert, updateProfile })(ProfileEdit);
