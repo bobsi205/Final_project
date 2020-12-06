@@ -46,11 +46,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   };
 
   return (
-    <Container className="App">
+    <Container className="App pt-5">
+      <p className="display-4">Join the community</p><hr/>
       <Form className="container" onSubmit={(e) => onSubmit(e)}>
-        <Form.Group className="text-center">
-          <Alert variant="info">Sign Up </Alert>
-        </Form.Group>
         <Form.Group>
           <Form.File
             id="custom-file-translate-html"
