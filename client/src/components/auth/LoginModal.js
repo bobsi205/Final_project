@@ -21,9 +21,9 @@ const LoginModal = (props) => {
     props.login(email, password);
   };
 
-  const Login = () => {
+  const Login = (props) => {
     return (
-      <Modal size="md" centered>
+      <Modal {...props} size="md" centered>
         <Modal.Body>
           <Form className="container text-center">
             <Form.Group controlId="formBasicEmail">
