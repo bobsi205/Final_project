@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { updateProfile } from '../../actions/profile';
+import { getProfile } from '../../actions/profile';
+
 import {
   Image,
   Col,
@@ -13,15 +15,29 @@ import {
   Container,
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import categoriesData from '../../utils/categoriesData.json';
 
-const ProfileEdit = ({ setAlert, updateProfile }) => {
-  const [profile, setProfile] = useState({
-    bio: 'current bio',
-    institution: 'bar ilan',
-    fieldOfStudy: 'computer science',
+const ProfileEdit = ({
+  setAlert,
+  updateProfile,
+  getProfile,
+  auth: { user },
+  profile: { profile },
+}) => {
+  const [localProfile, setLocalProfile] = useState({
+    bio: 'bio',
+    institution: 'institution',
+    fieldOfStudy: 'degree',
     profileImg: 'img',
   });
+
+  useEffect(() => {
+    getProfile();
+    setLocalProfile({
+      bio: profile.profile.bio,
+      institution: profile.profile.education[0].school,
+      fieldOfStudy: profile.profile.education[0].degree,
+    });
+  }, [getProfile]);
 
   const [interests, setInterests] = useState([
     {
@@ -86,10 +102,11 @@ const ProfileEdit = ({ setAlert, updateProfile }) => {
     },
   ]);
 
-  const { bio, institution, fieldOfStudy, profileImg } = profile;
+  const { institution, fieldOfStudy, profileImg } = localProfile;
 
-  const onChange = (e) =>
-    setProfile({ ...profile, [e.target.name]: e.target.value });
+  const onChange = (e) => {
+    setLocalProfile({ ...localProfile, [e.target.name]: e.target.value });
+  };
 
   const onCheck = (e) => {
     let tempState = [...interests];
@@ -116,102 +133,106 @@ const ProfileEdit = ({ setAlert, updateProfile }) => {
 
     //new profile
     const newProfile = {
-      bio: profile.bio,
-      school: profile.institution,
-      degree: profile.fieldOfStudy,
+      bio: localProfile.bio,
+      school: localProfile.institution,
+      degree: localProfile.fieldOfStudy,
       interests: { education: educations },
     };
     updateProfile(newProfile);
-
-    console.log(newProfile);
   };
 
   return (
     <Container className="bg-light my-4 py-4 ">
-      <Form onSubmit={(e) => onSubmit(e)}>
-        <Row>
-          <Col className="text-center">
-            <div className="d-flex justify-content-center align-items-center">
-              <Image
-                src="/lilach-katzabi.jpg"
-                style={{ height: '125px', width: '125px' }}
-                roundedCircle
-                className="mb-1"
-              />
-              <Image
-                src="/icons/upload-g.svg"
-                style={{
-                  width: '60px',
-                  height: '60px',
-                  position: 'absolute',
-                }}
-              />
-            </div>
-            <h2>Lilak Katzabi</h2>
-          </Col>
-        </Row>
-        <hr />
-        <Container className="my-4">
-          <Form.Row>
-            <Form.Group as={Col}>
-              <Form.Control
+      {profile !== null ? (
+        <Form onSubmit={(e) => onSubmit(e)}>
+          <Row>
+            <Col className="text-center">
+              <div className="d-flex justify-content-center align-items-center">
+                <Image
+                  src="/lilach-katzabi.jpg"
+                  style={{ height: '125px', width: '125px' }}
+                  roundedCircle
+                  className="mb-1"
+                />
+                <Image
+                  src="/icons/upload-g.svg"
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    position: 'absolute',
+                  }}
+                />
+              </div>
+              <h2>Lilak Katzabi</h2>
+            </Col>
+          </Row>
+          <hr />
+          <Container className="my-4">
+            <Form.Row>
+              <Form.Group as={Col}>
+                <Form.Control
+                  type="text"
+                  placeholder="institution"
+                  name="institution"
+                  value={localProfile.institution}
+                  onChange={(e) => onChange(e)}
+                />
+              </Form.Group>
+              <Form.Group as={Col}>
+                <Form.Control
+                  type="text"
+                  placeholder="field Of Study"
+                  name="fieldOfStudy"
+                  value={localProfile.fieldOfStudy}
+                  onChange={(e) => onChange(e)}
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Group>
+              <textarea
                 type="text"
-                placeholder="institution"
-                name="institution"
-                value={institution}
+                placeholder="bio"
+                className="form-control"
+                style={{ width: '100%' }}
+                name="bio"
+                value={localProfile.bio}
                 onChange={(e) => onChange(e)}
               />
             </Form.Group>
-            <Form.Group as={Col}>
-              <Form.Control
-                type="text"
-                placeholder="field Of Study"
-                name="fieldOfStudy"
-                value={fieldOfStudy}
-                onChange={(e) => onChange(e)}
-              />
-            </Form.Group>
-          </Form.Row>
-          <Form.Group>
-            <textarea
-              type="text"
-              placeholder="bio"
-              className="form-control"
-              style={{ width: '100%' }}
-              name="bio"
-              value={bio}
-              onChange={(e) => onChange(e)}
-            />
+          </Container>
+          <hr />
+
+          <Form.Label className="text-center">
+            What are your interest?
+          </Form.Label>
+
+          <Form.Group className="d-flex flex-wrap justify-content-around">
+            {interests.map((cat, index) => {
+              return (
+                <Form.Check
+                  className="m-2"
+                  type="checkbox"
+                  data-index={index}
+                  label={cat.name}
+                  name={cat.objName}
+                  checked={cat.checked}
+                  onChange={(e) => onCheck(e)}
+                />
+              );
+            })}
           </Form.Group>
-        </Container>
-        <hr />
-
-        <Form.Label className="text-center">What are your interest?</Form.Label>
-
-        <Form.Group className="d-flex flex-wrap justify-content-around">
-          {interests.map((cat, index) => {
-            return (
-              <Form.Check
-                className="m-2"
-                type="checkbox"
-                data-index={index}
-                label={cat.name}
-                name={cat.objName}
-                checked={cat.checked}
-                onChange={(e) => onCheck(e)}
-              />
-            );
-          })}
-        </Form.Group>
-        <div className="d-flex justify-content-center">
-          <Button variant="secondary" className="mr-2">
-            Cancel
-          </Button>
-          <Button variant="primary" type="submit">
-            Update
-          </Button>
-        </div>
-      </Form>
+          <div className="d-flex justify-content-center">
+            <Button variant="secondary" className="mr-2">
+              Cancel
+            </Button>
+            <Button variant="primary" type="submit">
+              Update
+            </Button>
+          </div>
+        </Form>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };
@@ -219,6 +240,17 @@ const ProfileEdit = ({ setAlert, updateProfile }) => {
 ProfileEdit.propTypes = {
   setAlert: PropTypes.func.isRequired,
   updateProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
-export default connect(null, { setAlert, updateProfile })(ProfileEdit);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, {
+  setAlert,
+  updateProfile,
+  getProfile,
+})(ProfileEdit);

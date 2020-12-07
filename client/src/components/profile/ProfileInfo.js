@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col, Image } from 'react-bootstrap';
 
-export const ProfileInfo = () => {
+export const ProfileInfo = ({ profile, user }) => {
   return (
     <>
       <Link className="ml-3" to="/profile/edit">
@@ -23,9 +23,9 @@ export const ProfileInfo = () => {
             roundedCircle
             className="mb-1"
           />
-          <h2>Lilak Katzabi</h2>
-          <p className="lead mb-0">Computer Science</p>
-          <p className="text-muted">Bar Ilan University</p>
+          <h2>{user.firstName.concat(' ', user.lastName)}</h2>
+          <p className="lead mb-0">{profile.education[0].degree}</p>
+          <p className="text-muted">{profile.education[0].school}</p>
         </Col>
       </Row>
 
@@ -34,7 +34,7 @@ export const ProfileInfo = () => {
       <Row className="my-3">
         <Col className="text-center text-secondary">
           <p className="text-muted mb-0">Uploads</p>
-          <p className="lead ">7 Summaries</p>
+          <p className="lead ">{user.uploadedSummaries.length} Summaries</p>
         </Col>
 
         <Col className="text-center text-secondary">
@@ -60,9 +60,7 @@ export const ProfileInfo = () => {
 
         <Col sm className="text-center text-secondary">
           <p className="text-muted mb-0">Bio</p>
-          <p className="lead ">
-            I’m a computer science student at bar ilan university
-          </p>
+          <p className="lead ">{profile.bio}</p>
         </Col>
       </Row>
     </>

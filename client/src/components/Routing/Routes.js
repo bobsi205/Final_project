@@ -17,9 +17,9 @@ const Routes = (props) => {
         <Route exact path="/login" component={Login} />
         {/* <Route exact path="/profile/:id" component={Profile} /> */}
         {/*private */}
-        <Route exact path="/profile/edit" component={ProfileEdit} />
+        <PrivateRoute exact path="/profile/edit" component={ProfileEdit} />
         {/*private */}
-        <Route exact path="/profile" component={Profile} />
+        <PrivateRoute exact path="/profile" component={Profile} />
         <Route component={NotFound} />
       </Switch>
     </section>
