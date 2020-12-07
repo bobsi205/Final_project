@@ -15,7 +15,7 @@ router.get('/me', auth, async (req, res) => {
     const user = await User.findById(req.user.id).select('-password');
     //  need to add profile data
     const profile = await Profile.findOne({ user: req.user.id });
-    const data = { user: user, profile: profile };
+    const data = { profile: profile };
     if (!data) {
       return res
         .status(400)

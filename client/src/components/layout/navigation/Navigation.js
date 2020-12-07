@@ -94,9 +94,9 @@ const Navigation = ({ isAuthenticated }) => {
                 />
               </Button>
             </Nav.Link>
-            <Nav.Link href="#home">
+            <Nav.Link href="/profile">
               <Image
-                src="./navbar icons/usr.jpg"
+                src="/lilach-katzabi.jpg"
                 width="48"
                 height="48"
                 alt="user img"
