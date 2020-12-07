@@ -4,10 +4,6 @@ import Navbar from './components/layout/navigation/Navigation';
 import Footer from './components/layout/footer/Footer';
 import Home from './components/home/Home';
 import Routes from './components/routing/Routes';
-import About from './components/layout/footer/About';
-import FAQ from './components/layout/footer/Faq';
-import Summary from './components/summary/Summary';
-
 import { LOGOUT } from './actions/types';
 
 // Redux
@@ -37,10 +33,6 @@ const App = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/About" component={About} />
-            <Route exact path="/Faq" component={FAQ} />
-            <Route exact path="/Summary" component={Summary} />
-
             <Route component={Routes} />
           </Switch>
           <Footer />
