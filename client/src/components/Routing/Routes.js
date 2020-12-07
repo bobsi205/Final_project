@@ -6,7 +6,7 @@ import Alerts from '../layout/Alert';
 import Profile from '../profile/Profile';
 import NotFound from '../layout/NotFound';
 import ProfileEdit from '../profile/ProfileEdit';
-import PrivateRoute from "../Routing/PrivateRoute"
+import PrivateRoute from './PrivateRoute';
 
 const Routes = (props) => {
   return (
