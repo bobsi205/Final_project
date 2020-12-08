@@ -8,7 +8,7 @@ const NotFound = () => {
       <p className="text-muted">
         but this page you were looking for can't found
       </p>
-      <Image className="w-75" src="404-page.png" alt="404page" />
+      <Image className="w-75" src="/404-page.png" alt="404page" />
     </Container>
   );
 };
