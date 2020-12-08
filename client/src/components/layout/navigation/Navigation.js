@@ -30,15 +30,15 @@ const Navigation = ({ isAuthenticated }) => {
         {/* left side */}
 
         <Nav>
-          <Navbar.Brand>
+          <Navbar.Brand as={Link} to={'/'} eventKey="home">
             <Image src="logo.svg" width="160" height="40" className="m-0" />
           </Navbar.Brand>
-          <Nav.Link href="#home" eventKey="homePage">
+          <Nav.Link as={Link} to={'/summaryUpload'} eventKey="summaryUpload">
             <Image
               src="icons/plus-sign.svg"
               width="28"
               height="28"
-              alt="wallet img"
+              alt="plus"
               className="m-1"
             />
           </Nav.Link>
