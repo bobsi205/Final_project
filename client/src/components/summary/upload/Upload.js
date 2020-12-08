@@ -1,35 +1,111 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Editor } from '@tinymce/tinymce-react';
 import { Button, Container, Form } from 'react-bootstrap';
+import Select from 'react-select';
+import { addSummary } from '../../../actions/summary';
+import PropTypes from 'prop-types';
+import { setAlert } from '../../../actions/alert';
 
-export const Upload = () => {
+export const Upload = ({ addSummary, setAlert }) => {
   const handleEditorChange = (content, editor) => {
-    console.log('Content was updated:', content);
+    setSummary({ ...summary, text: content });
+  };
+  const [summary, setSummary] = useState({
+    title: '',
+    category: '',
+    text: '<p>Enter your summary here</p>',
+  });
+  const [categories, setCategories] = useState([
+    {
+      label: 'Administration',
+      value: 'administration',
+    },
+    {
+      label: 'Social Work',
+      value: 'socialWork',
+    },
+    {
+      label: 'Accounting',
+      value: 'accounting',
+    },
+    {
+      label: 'Humanities',
+      value: 'humanities',
+    },
+    {
+      label: 'Engineering',
+      value: 'engineering',
+    },
+    {
+      label: 'Medical Studies',
+      value: 'medicalStudies',
+    },
+    {
+      label: 'Education',
+      value: 'education',
+    },
+    {
+      label: 'Architecture',
+      value: 'architecture',
+    },
+    {
+      label: 'Computer Science',
+      value: 'computerScience',
+    },
+    {
+      label: 'Psychology',
+      value: 'psychology',
+    },
+    {
+      label: 'Social Sciences',
+      value: 'socialSciences',
+    },
+    {
+      label: 'Communication',
+      value: 'communication',
+    },
+  ]);
+
+  const onChange = (e) => {
+    console.log(e);
+    setSummary({ ...summary, [e.target.name]: e.target.value });
+  };
+  const categoryOnChange = (e) => {
+    setSummary({ ...summary, category: e.value });
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (summary.category === '') {
+      setAlert('Please select category', 'danger');
+    } else {
+      addSummary(summary);
+    }
+    console.log(summary);
+  };
   return (
     <Container className="bg-light my-4 py-4 d-flex flex-column justify-content-center ">
       <h1 className="mb-3" style={{ textAlign: 'center' }}>
         Summary upload
       </h1>
-      <Form>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
-
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+      <Form onSubmit={(e) => onSubmit(e)}>
+        <Form.Group controlId="formBasicTitle">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+            required
+            type="text"
+            name="title"
+            value={summary.title}
+            onChange={(e) => onChange(e)}
+            placeholder="Enter summary title"
+          />
         </Form.Group>
 
         <Editor
           apiKey="6a26puulunw6qsj3xvaxpt9hi12s2y5xhpo6phzako15hbbj"
           initialValue="<p>Enter your summary here</p>"
+          name="summary"
           init={{
             height: 500,
             menubar: false,
@@ -48,8 +124,18 @@ export const Upload = () => {
           }}
           onEditorChange={(content) => handleEditorChange(content)}
         />
+        <Form.Group className="mt-4" controlId="formBasicCategory">
+          <Form.Label>Select Category</Form.Label>
+          <Select
+            name="category"
+            options={categories}
+            onChange={(e) => {
+              categoryOnChange(e);
+            }}
+          />
+        </Form.Group>
 
-        <Button className="mt-4" variant="primary" type="submit">
+        <Button className="mt-4 w-100" variant="primary" type="submit">
           Upload
         </Button>
       </Form>
@@ -57,8 +143,8 @@ export const Upload = () => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+Upload.protoTypes = {
+  addSummary: PropTypes.func.isRequired,
+};
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Upload);
+export default connect(null, { addSummary, setAlert })(Upload);
