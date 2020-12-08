@@ -25,15 +25,15 @@ const LoginModal = (props) => {
     return (
       <Modal {...props} size="md" centered>
         <Modal.Body>
-          <Form className="container text-center">
+          <Form className="container text-center" onSubmit={(e) => onSubmit(e)}>
             <Form.Group controlId="formBasicEmail">
               <Form.Control
                 type="email"
                 name="email"
                 size="lg"
                 placeholder="Enter email"
-                // value={email}
-                // onChange={(e) => onChange(e)}
+                value={email}
+                onChange={(e) => onChange(e)}
               />
             </Form.Group>
 
@@ -43,8 +43,8 @@ const LoginModal = (props) => {
                 name="password"
                 size="lg"
                 placeholder="Password"
-                // value={password}
-                // onChange={(e) => onChange(e)}
+                value={password}
+                onChange={(e) => onChange(e)}
               />
             </Form.Group>
             <Button variant="primary" type="submit" block>
