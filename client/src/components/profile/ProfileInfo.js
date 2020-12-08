@@ -32,12 +32,16 @@ export const ProfileInfo = ({ profile, user }) => {
       <hr></hr>
 
       <Row className="my-3">
-        <Col className="text-center text-secondary">
+        <Col sm={4} xs={6} className="text-center text-secondary">
           <p className="text-muted mb-0">Uploads</p>
           <p className="lead ">{user.uploadedSummaries.length} Summaries</p>
         </Col>
 
-        <Col className="text-center text-secondary">
+        <Col
+          sm={{ order: 3, size: 4 }}
+          xs={6}
+          className="text-center text-secondary"
+        >
           <Row className="d-flex justify-content-center">
             <Image
               className="mr-2"
@@ -58,7 +62,7 @@ export const ProfileInfo = ({ profile, user }) => {
           </Row>
         </Col>
 
-        <Col sm className="text-center text-secondary">
+        <Col sm={{ order: 2, size: 4 }} className="text-center text-secondary">
           <p className="text-muted mb-0">Bio</p>
           <p className="lead ">{profile.bio}</p>
         </Col>
