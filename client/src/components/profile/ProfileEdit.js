@@ -29,16 +29,6 @@ const ProfileEdit = ({
     fieldOfStudy: 'degree',
     profileImg: 'img',
   });
-
-  useEffect(() => {
-    getProfile();
-    setLocalProfile({
-      bio: profile.profile.bio,
-      institution: profile.profile.education[0].school,
-      fieldOfStudy: profile.profile.education[0].degree,
-    });
-  }, [getProfile]);
-
   const [interests, setInterests] = useState([
     {
       name: 'Administration',
@@ -101,6 +91,23 @@ const ProfileEdit = ({
       checked: false,
     },
   ]);
+
+  useEffect(() => {
+    getProfile();
+    setLocalProfile({
+      bio: profile.profile.bio,
+      institution: profile.profile.education[0].school,
+      fieldOfStudy: profile.profile.education[0].degree,
+    });
+    let interestsArr = user.educationsOfInterest[0].education.split(',');
+    let tempInterests = interests;
+    interestsArr.map((interest) => {
+      tempInterests.map((cat) => {
+        if (cat.objName === interest) cat.checked = true;
+      });
+    });
+    setInterests(tempInterests);
+  }, []);
 
   const { institution, fieldOfStudy, profileImg } = localProfile;
 
