@@ -91,9 +91,8 @@ const ProfileEdit = ({
       checked: false,
     },
   ]);
-
-  useEffect(() => {
-    getProfile();
+  const loadProfile = async () => {
+    await getProfile();
     setLocalProfile({
       bio: profile.profile.bio,
       institution: profile.profile.education[0].school,
@@ -107,6 +106,10 @@ const ProfileEdit = ({
       });
     });
     setInterests(tempInterests);
+  };
+  
+  useEffect(() => {
+    loadProfile();
   }, []);
 
   const { institution, fieldOfStudy, profileImg } = localProfile;
