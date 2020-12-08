@@ -15,7 +15,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import categoriesData from '../../../utils/categoriesData.json';
 
-
 const Navigation = ({ isAuthenticated }) => {
   const [modalShow, setModalShow] = useState(false);
   const coin = 23;
@@ -23,6 +22,20 @@ const Navigation = ({ isAuthenticated }) => {
 
   return (
     <Navbar className="p-0" bg="light" expand="lg" sticky="top">
+
+        <Navbar.Brand className="m-0" as={Link} to={'/'} eventKey="home">
+          <Image src="logo.svg" width="160" height="40"/>
+        </Navbar.Brand>
+        <Nav.Link className="mr-auto" as={Link} to={'/summaryUpload'} eventKey="summaryUpload">
+          <Image
+            src="icons/plus-sign.svg"
+            width="28"
+            height="28"
+            alt="plus"
+            className="m-1"
+          />
+        </Nav.Link>
+
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse
         className="justify-content-between"
@@ -30,20 +43,7 @@ const Navigation = ({ isAuthenticated }) => {
       >
         {/* left side */}
 
-        <Nav>
-          <Navbar.Brand as={Link} to={'/'} eventKey="home">
-            <Image src="logo.svg" width="160" height="40" className="m-0" />
-          </Navbar.Brand>
-          <Nav.Link as={Link} to={'/summaryUpload'} eventKey="summaryUpload">
-            <Image
-              src="icons/plus-sign.svg"
-              width="28"
-              height="28"
-              alt="plus"
-              className="m-1"
-            />
-          </Nav.Link>
-        </Nav>
+        <Nav></Nav>
 
         {/* // center side */}
 
@@ -56,7 +56,7 @@ const Navigation = ({ isAuthenticated }) => {
         {/* //right side */}
         {isAuthenticated ? (
           <Nav className="d-flex align-items-center">
-            <NavDropdown title="Categories" >
+            <NavDropdown title="Categories">
               {categoriesData.map((cat) => (
                 <>
                   <NavDropdown.Item
@@ -76,7 +76,7 @@ const Navigation = ({ isAuthenticated }) => {
               ))}
             </NavDropdown>
 
-            <Nav.Link as={Link} to={'/bookmark'} eventKey="summaryUpload">
+            <Nav.Link as={Link} to={'/bookmark'} eventKey="bookmark">
               <Image
                 src="/Icons/bookmark-w.svg"
                 width="30"
@@ -84,7 +84,7 @@ const Navigation = ({ isAuthenticated }) => {
                 alt="bookmark"
               />
             </Nav.Link>
-            <Nav.Link>
+            <Nav.Link  as={Link} to={'/payment'} eventKey="payment">
               <Button
                 style={{ borderRadius: '1rem' }}
                 className="d-flex align-items-center"
@@ -99,7 +99,9 @@ const Navigation = ({ isAuthenticated }) => {
                 />
               </Button>
             </Nav.Link>
-            <Nav.Link as={Link} to={'/profile'} eventKey="summaryUpload">
+
+            {/* change to dropdown */}
+            <Nav.Link as={Link} to={'/profile'} eventKey="profile">
               <Image
                 src="/lilach-katzabi.jpg"
                 width="48"
