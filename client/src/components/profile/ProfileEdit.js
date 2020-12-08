@@ -36,7 +36,7 @@ const ProfileEdit = ({
       checked: false,
     },
     {
-      name: 'Social work',
+      name: 'Social Work',
       objName: 'socialWork',
       checked: false,
     },
