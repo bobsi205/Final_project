@@ -3,15 +3,18 @@ import { connect } from 'react-redux';
 import { Editor } from '@tinymce/tinymce-react';
 import { Button, Container, Form } from 'react-bootstrap';
 import Select from 'react-select';
+import { addSummary } from '../../../actions/summary';
+import PropTypes from 'prop-types';
+import { setAlert } from '../../../actions/alert';
 
-export const Upload = () => {
+export const Upload = ({ addSummary, setAlert }) => {
   const handleEditorChange = (content, editor) => {
-    setSummary({ ...summary, summaryText: content });
+    setSummary({ ...summary, text: content });
   };
   const [summary, setSummary] = useState({
     title: '',
     category: '',
-    summaryText: '<p>Enter your summary here</p>',
+    text: '<p>Enter your summary here</p>',
   });
   const [categories, setCategories] = useState([
     {
@@ -65,13 +68,19 @@ export const Upload = () => {
   ]);
 
   const onChange = (e) => {
+    console.log(e);
     setSummary({ ...summary, [e.target.name]: e.target.value });
+  };
+  const categoryOnChange = (e) => {
+    setSummary({ ...summary, category: e.value });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (summary.category === '' || summary.title === '') {
-      console.log('no cat||title');
+    if (summary.category === '') {
+      setAlert('Please select category', 'danger');
+    } else {
+      addSummary(summary);
     }
     console.log(summary);
   };
@@ -115,9 +124,15 @@ export const Upload = () => {
           }}
           onEditorChange={(content) => handleEditorChange(content)}
         />
-        <Form.Group className="mt-4" controlId="formBasicTitle">
+        <Form.Group className="mt-4" controlId="formBasicCategory">
           <Form.Label>Select Category</Form.Label>
-          <Select options={categories} />
+          <Select
+            name="category"
+            options={categories}
+            onChange={(e) => {
+              categoryOnChange(e);
+            }}
+          />
         </Form.Group>
 
         <Button className="mt-4 w-100" variant="primary" type="submit">
@@ -128,8 +143,8 @@ export const Upload = () => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+Upload.protoTypes = {
+  addSummary: PropTypes.func.isRequired,
+};
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Upload);
+export default connect(null, { addSummary, setAlert })(Upload);
