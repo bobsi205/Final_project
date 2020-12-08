@@ -10,9 +10,9 @@ export default function Rating(props) {
     i < props.rate ? star.push(StarFull) : star.push(StarEmpty);
   }
   return (
-    <div className="d-flex">
+    <div className="d-flex m-2">
       {star.map((s) => (
-        <Image src={s} height="28" width="28" />
+        <Image src={s} height="20"/>
       ))}
     </div>
   );
