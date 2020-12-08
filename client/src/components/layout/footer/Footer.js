@@ -9,7 +9,7 @@ import imgYoutube from './images/soc_youtube.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-light text-center" style={{ marginTop: '100px' }}>
+    <footer className="bg-light text-center pb-0" style={{ marginTop: '100px' }}>
       <Container className="py-2">
         <h2>For students, by students</h2>
         <p>Stay Connected With Our Social Media!</p>
@@ -48,7 +48,7 @@ const Footer = () => {
           style={{ maxWidth: '250px' }}
           className="d-flex justify-content-around mx-auto text-muted"
         >
-          <Link  to="/About">
+          <Link style={{textColor:"gray"}} to="/About">
             About
           </Link>
           <p>|</p>
