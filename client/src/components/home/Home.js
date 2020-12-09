@@ -114,7 +114,7 @@ export const Home = () => {
           {categoriesData.map((cat) => {
             return (
               <Col xs={6} md={3} className="p-0 m-auto">
-                <CategoryBox name={cat.name} image={cat.img} />
+                <CategoryBox id={cat.id} name={cat.name} image={cat.img} />
               </Col>
             );
           })}
