@@ -75,6 +75,7 @@ export const Home = ({ searchCategory }) => {
   };
 
   const mouseUp = (e) => {
+    console.log('mouse up');
     setScroll({ ...scroll, isDown: false });
   };
 
@@ -95,7 +96,7 @@ export const Home = ({ searchCategory }) => {
         ></header>
         <div className="bg-light p-2 mb-4"></div>
       </>
-      <Container>
+      <Container onMouseUp={(e) => mouseUp(e)}>
         <Row className="my-3">
           <h2 className="ml-4 mt-2 text-primary">Recent</h2>
           <Container
@@ -105,7 +106,6 @@ export const Home = ({ searchCategory }) => {
             id="Recent"
             onMouseDown={(e) => mouseDown(e, 'Recent')}
             onMouseMove={(e) => mouseMove(e, 'Recent')}
-            onMouseUp={(e) => mouseUp(e)}
           >
             <HomeDeck cards={data} />
           </Container>
@@ -132,7 +132,6 @@ export const Home = ({ searchCategory }) => {
             id="Recommended"
             onMouseDown={(e) => mouseDown(e, 'Recommended')}
             onMouseMove={(e) => mouseMove(e, 'Recommended')}
-            onMouseUp={(e) => mouseUp(e)}
           >
             <HomeDeck cards={data} />
           </Container>
@@ -148,7 +147,6 @@ export const Home = ({ searchCategory }) => {
             id="Popular"
             onMouseDown={(e) => mouseDown(e, 'Popular')}
             onMouseMove={(e) => mouseMove(e, 'Popular')}
-            onMouseUp={(e) => mouseUp(e)}
           >
             <HomeDeck cards={data} />
           </Container>
@@ -164,7 +162,6 @@ export const Home = ({ searchCategory }) => {
             id="New"
             onMouseDown={(e) => mouseDown(e, 'New')}
             onMouseMove={(e) => mouseMove(e, 'New')}
-            onMouseUp={(e) => mouseUp(e)}
           >
             <HomeDeck cards={data} />
           </Container>
