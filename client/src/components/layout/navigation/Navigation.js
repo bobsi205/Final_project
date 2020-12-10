@@ -14,8 +14,9 @@ import LoginModal from '../../auth/LoginModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import categoriesData from '../../../utils/categoriesData.json';
+import { getSearch } from '../../../actions/search';
 
-const Navigation = ({ isAuthenticated }) => {
+const Navigation = ({ isAuthenticated, getSearch }) => {
   const [modalShow, setModalShow] = useState(false);
   const [search, setSearch] = useState({ value: '', redirect: false });
   const coin = 23;
@@ -23,6 +24,7 @@ const Navigation = ({ isAuthenticated }) => {
 
   const searchOnPress = (e) => {
     e.preventDefault();
+    getSearch(search.value);
     setSearch({ ...search, redirect: true });
   };
   const onChange = (e) => {
@@ -147,10 +149,11 @@ const Navigation = ({ isAuthenticated }) => {
 
 LoginModal.propTypes = {
   isAuthenticated: PropTypes.bool,
+  getSearch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps, { getSearch })(Navigation);
