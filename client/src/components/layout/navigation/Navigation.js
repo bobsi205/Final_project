@@ -26,7 +26,6 @@ const Navigation = ({ isAuthenticated }) => {
     setSearch({ ...search, redirect: true });
   };
   const onChange = (e) => {
-    console.log(e.target.value);
     setSearch({ value: e.target.value, redirect: false });
   };
   return (
@@ -122,7 +121,7 @@ const Navigation = ({ isAuthenticated }) => {
                 />
               </Button>
             </Nav.Link>
-            
+
             <Nav.Link as={Link} to={'/profile'} eventKey="profile">
               <Image
                 src="/lilach-katzabi.jpg"

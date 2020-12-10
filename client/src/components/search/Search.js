@@ -10,8 +10,8 @@ export const Search = ({ getSearch, search, match }) => {
     getSearch(match.params.query);
   }, [getSearch, match.params.query]);
   return (
-    <Container className="bg-light my-4 py-4">
-      {1 !== null ? (
+    <Container className="bg-light my-4 py-4 d-flex justify-content-around flex-wrap">
+      {search.search.length > 0 ? (
         search.search.map((obj) => {
           console.log(obj);
           return <SearchCard summary={obj} />;
