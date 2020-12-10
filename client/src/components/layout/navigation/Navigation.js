@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import categoriesData from '../../../utils/categoriesData.json';
 import { getSearch } from '../../../actions/search';
 
+
 const Navigation = ({ isAuthenticated, getSearch }) => {
   const [modalShow, setModalShow] = useState(false);
   const [search, setSearch] = useState({ value: '', redirect: false });
@@ -108,7 +109,7 @@ const Navigation = ({ isAuthenticated, getSearch }) => {
                 alt="bookmark"
               />
             </Nav.Link>
-            <Nav.Link as={Link} to={'/payment'} eventKey="payment">
+            <Nav.Link as={Link} to={'/checkout'} eventKey="checkout">
               <Button
                 style={{ borderRadius: '1rem' }}
                 className="d-flex align-items-center"

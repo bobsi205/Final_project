@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
-import PayPal from './PayPalOption';
+import PayPal from './PayPal';
 
 export default function Checkout() {
   const [checkout, setCheckout] = useState(false);
@@ -12,7 +12,7 @@ export default function Checkout() {
   };
 
   return (
-    <Container className="text-center">
+    <Container className="text-center p-2">
       <p className="display-3">Add coins to your wallet</p>
       <input
         value={amount}
