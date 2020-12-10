@@ -9,13 +9,17 @@ export const SearchCard = ({ summary }) => {
       style={{
         minWidth: '18rem',
         minHeight: '200px',
+        maxHeight: '200px',
+        overflow: 'hidden',
       }}
     >
       <Card.Body>
         <Card.Title className="unSelectable">{summary.title}</Card.Title>
-        <Card.Text className="text-muted unSelectable">
-          {summary.text}
-        </Card.Text>
+        <Card.Text
+          className="text-muted unSelectable"
+          style={{ fontSize: '12px' }}
+          dangerouslySetInnerHTML={{ __html: summary.text }}
+        ></Card.Text>
       </Card.Body>
     </Card>
   );
