@@ -92,22 +92,26 @@ const ProfileEdit = ({
     },
   ]);
   const loadProfile = async () => {
-    await getProfile();
-    setLocalProfile({
-      bio: profile.profile.bio,
-      institution: profile.profile.education[0].school,
-      fieldOfStudy: profile.profile.education[0].degree,
-    });
-    let interestsArr = user.educationsOfInterest[0].education.split(',');
-    let tempInterests = interests;
-    interestsArr.map((interest) => {
-      tempInterests.map((cat) => {
-        if (cat.objName === interest) cat.checked = true;
+    try {
+      await getProfile();
+      setLocalProfile({
+        bio: profile.profile.bio,
+        institution: profile.profile.education[0].school,
+        fieldOfStudy: profile.profile.education[0].degree,
       });
-    });
-    setInterests(tempInterests);
+      let interestsArr = user.educationsOfInterest[0].education.split(',');
+      let tempInterests = interests;
+      interestsArr.map((interest) => {
+        tempInterests.map((cat) => {
+          if (cat.objName === interest) cat.checked = true;
+        });
+      });
+      setInterests(tempInterests);
+    } catch (err) {
+      console.log('were fucked');
+    }
   };
-  
+
   useEffect(() => {
     loadProfile();
   }, []);

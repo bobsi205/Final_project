@@ -9,32 +9,46 @@ import {
   Button,
   Image,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import LoginModal from '../../auth/LoginModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import categoriesData from '../../../utils/categoriesData.json';
+import { getSearch } from '../../../actions/search';
 
-const Navigation = ({ isAuthenticated }) => {
+const Navigation = ({ isAuthenticated, getSearch }) => {
   const [modalShow, setModalShow] = useState(false);
+  const [search, setSearch] = useState({ value: '', redirect: false });
   const coin = 23;
   const walletStyle = coin ? 'f' : 'w';
 
+  const searchOnPress = (e) => {
+    e.preventDefault();
+    getSearch(search.value);
+    setSearch({ ...search, redirect: true });
+  };
+  const onChange = (e) => {
+    setSearch({ value: e.target.value, redirect: false });
+  };
   return (
     <Navbar className="p-0" bg="light" expand="lg" sticky="top">
-
-        <Navbar.Brand className="m-0" as={Link} to={'/'} eventKey="home">
-          <Image src="logo.svg" width="160" height="40"/>
-        </Navbar.Brand>
-        <Nav.Link className="mr-auto" as={Link} to={'/summaryUpload'} eventKey="summaryUpload">
-          <Image
-            src="icons/plus-sign.svg"
-            width="28"
-            height="28"
-            alt="plus"
-            className="m-1"
-          />
-        </Nav.Link>
+      <Navbar.Brand className="m-0" as={Link} to={'/'} eventKey="home">
+        <Image src="logo.svg" width="160" height="40" />
+      </Navbar.Brand>
+      <Nav.Link
+        className="mr-auto"
+        as={Link}
+        to={'/summaryUpload'}
+        eventKey="summaryUpload"
+      >
+        <Image
+          src="icons/plus-sign.svg"
+          width="28"
+          height="28"
+          alt="plus"
+          className="m-1"
+        />
+      </Nav.Link>
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse
@@ -48,11 +62,21 @@ const Navigation = ({ isAuthenticated }) => {
         {/* // center side */}
 
         <Nav>
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+          <Form inline onSubmit={(e) => searchOnPress(e)}>
+            <FormControl
+              type="text"
+              placeholder="Search"
+              className="mr-sm-2"
+              onChange={(e) => onChange(e)}
+              value={search.value}
+            />
           </Form>
         </Nav>
-
+        {search.redirect ? (
+          <Redirect push to={`/search/${search.value}`} />
+        ) : (
+          <></>
+        )}
         {/* //right side */}
         {isAuthenticated ? (
           <Nav className="d-flex align-items-center">
@@ -84,7 +108,7 @@ const Navigation = ({ isAuthenticated }) => {
                 alt="bookmark"
               />
             </Nav.Link>
-            <Nav.Link  as={Link} to={'/payment'} eventKey="payment">
+            <Nav.Link as={Link} to={'/payment'} eventKey="payment">
               <Button
                 style={{ borderRadius: '1rem' }}
                 className="d-flex align-items-center"
@@ -99,7 +123,7 @@ const Navigation = ({ isAuthenticated }) => {
                 />
               </Button>
             </Nav.Link>
-            
+
             <Nav.Link as={Link} to={'/profile'} eventKey="profile">
               <Image
                 src="/lilach-katzabi.jpg"
@@ -125,10 +149,11 @@ const Navigation = ({ isAuthenticated }) => {
 
 LoginModal.propTypes = {
   isAuthenticated: PropTypes.bool,
+  getSearch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps, { getSearch })(Navigation);

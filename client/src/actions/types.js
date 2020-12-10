@@ -19,3 +19,5 @@ export const DELETE_SUMMARY = 'DELETE_SUMMARY';
 export const ADD_SUMMARY = 'ADD_SUMMARY';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
+export const GET_SEARCH = 'GET_SEARCH';
+export const SEARCH_ERROR = 'SEARCH_ERROR';

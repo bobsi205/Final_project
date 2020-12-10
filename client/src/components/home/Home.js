@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { HomeDeck } from './HomeDeck';
 import { CategoryBox } from './CategoryBox';
 import categoriesData from '../../utils/categoriesData.json';
+import { searchCategory } from '../../actions/search';
+import PropTypes from 'prop-types';
 
-export const Home = () => {
+export const Home = ({ searchCategory }) => {
   const [data] = useState([
     {
       title: 'Computer Science1',
@@ -73,6 +75,7 @@ export const Home = () => {
   };
 
   const mouseUp = (e) => {
+    console.log('mouse up');
     setScroll({ ...scroll, isDown: false });
   };
 
@@ -93,7 +96,7 @@ export const Home = () => {
         ></header>
         <div className="bg-light p-2 mb-4"></div>
       </>
-      <Container>
+      <Container onMouseUp={(e) => mouseUp(e)}>
         <Row className="my-3">
           <h2 className="ml-4 mt-2 text-primary">Recent</h2>
           <Container
@@ -103,7 +106,6 @@ export const Home = () => {
             id="Recent"
             onMouseDown={(e) => mouseDown(e, 'Recent')}
             onMouseMove={(e) => mouseMove(e, 'Recent')}
-            onMouseUp={(e) => mouseUp(e)}
           >
             <HomeDeck cards={data} />
           </Container>
@@ -114,7 +116,7 @@ export const Home = () => {
           {categoriesData.map((cat) => {
             return (
               <Col xs={6} md={3} className="p-0 m-auto">
-                <CategoryBox id={cat.id} name={cat.name} image={cat.img} />
+                <CategoryBox cat={cat} search={searchCategory} />
               </Col>
             );
           })}
@@ -130,7 +132,6 @@ export const Home = () => {
             id="Recommended"
             onMouseDown={(e) => mouseDown(e, 'Recommended')}
             onMouseMove={(e) => mouseMove(e, 'Recommended')}
-            onMouseUp={(e) => mouseUp(e)}
           >
             <HomeDeck cards={data} />
           </Container>
@@ -146,7 +147,6 @@ export const Home = () => {
             id="Popular"
             onMouseDown={(e) => mouseDown(e, 'Popular')}
             onMouseMove={(e) => mouseMove(e, 'Popular')}
-            onMouseUp={(e) => mouseUp(e)}
           >
             <HomeDeck cards={data} />
           </Container>
@@ -162,7 +162,6 @@ export const Home = () => {
             id="New"
             onMouseDown={(e) => mouseDown(e, 'New')}
             onMouseMove={(e) => mouseMove(e, 'New')}
-            onMouseUp={(e) => mouseUp(e)}
           >
             <HomeDeck cards={data} />
           </Container>
@@ -172,8 +171,10 @@ export const Home = () => {
   );
 };
 
+Home.protoType = {
+  searchCategory: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, { searchCategory })(Home);

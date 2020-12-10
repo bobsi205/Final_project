@@ -11,7 +11,11 @@ import About from '../layout/footer/About';
 import FAQ from '../layout/footer/Faq';
 import Summary from '../summary/Summary';
 import Upload from '../summary/upload/Upload';
+<<<<<<< HEAD
 import Checkout from "../payment/Checkout"
+=======
+import Search from '../search/Search';
+>>>>>>> eb97fe10823cb56c48dd4e579da5759eb0ad0685
 
 const Routes = (props) => {
   return (
@@ -23,8 +27,8 @@ const Routes = (props) => {
         <Route exact path="/about" component={About} />
         <Route exact path="/faq" component={FAQ} />
         <Route exact path="/summary" component={Summary} />
-        <Route exact path="/summaryUpload" component={Upload} />
-        <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/search/:query" component={Search} />
+        <PrivateRoute exact path="/summaryUpload" component={Upload} />
         {/* <Route exact path="/profile/:id" component={Profile} /> */}
         <PrivateRoute exact path="/profile/edit" component={ProfileEdit} />
         <PrivateRoute exact path="/profile" component={Profile} />
