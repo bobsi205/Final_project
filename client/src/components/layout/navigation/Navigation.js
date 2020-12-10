@@ -122,8 +122,7 @@ const Navigation = ({ isAuthenticated }) => {
                 />
               </Button>
             </Nav.Link>
-
-            {/* change to dropdown */}
+            
             <Nav.Link as={Link} to={'/profile'} eventKey="profile">
               <Image
                 src="/lilach-katzabi.jpg"
