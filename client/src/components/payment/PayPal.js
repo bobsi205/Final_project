@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 
 export default function paypal(props) {
-  console.log(this.props);
+  
+  const x = props.amount+".00"
+  console.log(x);
   return (
     <div>
       <PayPalButton
@@ -18,8 +20,8 @@ export default function paypal(props) {
             purchase_units: [
               {
                 amount: {
-                  currency_code: 'ILU',
-                  value: {'0.01'},
+                  currency_code: 'USD',
+                  value:x,
                 },
               },
             ],
@@ -47,20 +49,3 @@ export default function paypal(props) {
     </div>
   );
 }
-
-// amount="0.01"
-// // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-// onSuccess={(details, data) => {
-//     alert("Transaction completed by " + details.payer.name.given_name);
-
-//     // OPTIONAL: Call your server to save the transaction
-//     return fetch("/paypal-transaction-complete", {
-//         method: "post",
-//         body: JSON.stringify({
-//             orderId: data.orderID
-//         })
-//     });
-// }}
-// options={{
-//     clientId: "PRODUCTION_CLIENT_ID"
-// }}
