@@ -11,6 +11,7 @@ import About from '../layout/footer/About';
 import FAQ from '../layout/footer/Faq';
 import Summary from '../summary/Summary';
 import Upload from '../summary/upload/Upload';
+import Checkout from "../payment/Checkout"
 
 const Routes = (props) => {
   return (
@@ -23,6 +24,7 @@ const Routes = (props) => {
         <Route exact path="/faq" component={FAQ} />
         <Route exact path="/summary" component={Summary} />
         <Route exact path="/summaryUpload" component={Upload} />
+        <Route exact path="/checkout" component={Checkout} />
         {/* <Route exact path="/profile/:id" component={Profile} /> */}
         <PrivateRoute exact path="/profile/edit" component={ProfileEdit} />
         <PrivateRoute exact path="/profile" component={Profile} />

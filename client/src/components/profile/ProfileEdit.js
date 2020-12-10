@@ -173,7 +173,7 @@ const ProfileEdit = ({
                   }}
                 />
               </div>
-              <h2>Lilak Katzabi</h2>
+              <h2>Lilack Katzabi</h2>
             </Col>
           </Row>
           <hr />
