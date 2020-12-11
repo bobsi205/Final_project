@@ -1,19 +1,24 @@
-import React from "react";
-import StarFull from "./images/star_full.svg";
-import StarEmpty from "./images/star_empty.svg";
-import { Image } from "react-bootstrap";
+import React from 'react';
+import { Image } from 'react-bootstrap';
+import StarFull from './images/star_full.svg';
+import StarEmpty from './images/star_empty.svg';
+import starHalfEmpty from './images/star-half-empty.svg';
 
-export default function Rating(props) {
-  const star = [];
-
-  for (let i = 0; i < 5; i++) {
-    i < props.rate ? star.push(StarFull) : star.push(StarEmpty);
-  }
+import ReactStars from 'react-rating-stars-component';
+export default function Rating() {
+    const ratingChanged = (newRating) => {
+        console.log(newRating);
+      };
   return (
-    <div className="d-flex m-2">
-      {star.map((s) => (
-        <Image src={s} height="20"/>
-      ))}
-    </div>
+    <ReactStars
+      count={5}
+      onChange={ratingChanged}
+      size={24}
+      isHalf={true}
+      emptyIcon={<Image src={StarEmpty} height="20" />}
+      halfIcon={<Image src={starHalfEmpty} height="20" />}
+      fullIcon={<Image src={StarFull} height="20" />}
+      activeColor="#ffd700"
+    />
   );
 }

@@ -25,7 +25,6 @@ const Routes = (props) => {
         <Route exact path="/faq" component={FAQ} />
         <Route exact path="/summary/:id" component={Summary} />
         <Route exact path="/search/:field/:query" component={Search} />
-
         <PrivateRoute exact path="/summaryUpload" component={Upload} />
         {/* <Route exact path="/profile/:id" component={Profile} /> */}
         <PrivateRoute exact path="/profile/edit" component={ProfileEdit} />
