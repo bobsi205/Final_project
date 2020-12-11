@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 
-export default function paypal(props) {
-  
-  const x = props.amount+".00"
+export default function Paypal(props) {
+  const x = props.amount + '.00';
   console.log(x);
   return (
     <div>
@@ -12,16 +11,15 @@ export default function paypal(props) {
           layout: 'vertical',
           color: 'silver',
           shape: 'pill',
-          label: 'paypal'
+          label: 'paypal',
         }}
         createOrder={(data, actions) => {
           return actions.order.create({
-            
             purchase_units: [
               {
                 amount: {
                   currency_code: 'USD',
-                  value:x,
+                  value: x,
                 },
               },
             ],
@@ -35,6 +33,7 @@ export default function paypal(props) {
           return actions.order.capture().then(function (details) {
             // Show a success message to your buyer
             alert('Transaction completed by ' + details.payer.name.given_name);
+            console.log(details.purchase_units[0].amount.value);
 
             // OPTIONAL: Call your server to save the transaction
             return fetch('/paypal-transaction-complete', {
