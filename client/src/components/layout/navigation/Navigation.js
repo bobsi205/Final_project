@@ -15,8 +15,9 @@ import LoginModal from '../../auth/LoginModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import categoriesData from '../../../utils/categoriesData.json';
+import { logout } from '../../../actions/auth';
 
-const Navigation = ({ isAuthenticated }) => {
+const Navigation = ({ isAuthenticated, logout }) => {
   const [modalShow, setModalShow] = useState(false);
   const [search, setSearch] = useState({ value: '', redirect: false });
   const coin = 23;
@@ -174,7 +175,10 @@ const Navigation = ({ isAuthenticated }) => {
                 Favorite
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item className="d-flex align-items-center">
+              <Dropdown.Item
+                className="d-flex align-items-center"
+                onClick={() => logout()}
+              >
                 <Image
                   className="mr-1"
                   src="/navIconDrop/power-button.svg"
@@ -199,10 +203,11 @@ const Navigation = ({ isAuthenticated }) => {
 
 LoginModal.propTypes = {
   isAuthenticated: PropTypes.bool,
+  logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps, { logout })(Navigation);
