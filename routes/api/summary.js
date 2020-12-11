@@ -141,6 +141,31 @@ router.put('/rate/:id', [auth, checkObjectId('id')], async (req, res) => {
   }
 });
 
+// @route    PUT api/summary/view/:id
+// @desc     Add views to summary
+// @access   private
+router.put('/view/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    let summary = await Summary.findById(req.params.id);
+
+    let found = summary.views.filter(
+      (view) => view.user.toString() === req.user.id
+    );
+    console.log(found.length);
+    if (found.length !== 0) {
+      return res.status(200).end();
+    }
+    summary.views.unshift({
+      user: req.user.id,
+    });
+    await summary.save();
+
+    return res.json(summary.views);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 // // @route    PUT api/posts/unlike/:id
 // // @desc     Unlike a post
 // // @access   Private
