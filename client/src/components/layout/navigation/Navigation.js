@@ -33,7 +33,7 @@ const Navigation = ({ isAuthenticated }) => {
   return (
     <Navbar className="p-0" bg="light" expand="lg" sticky="top">
       <Navbar.Brand className="m-0" as={Link} to={'/'} eventKey="home">
-        <Image src="logo.svg" width="160" height="40" />
+        <Image src="/logo.svg" width="160" height="40" />
       </Navbar.Brand>
       <Nav.Link
         className="mr-auto"
@@ -42,7 +42,7 @@ const Navigation = ({ isAuthenticated }) => {
         eventKey="summaryUpload"
       >
         <Image
-          src="icons/plus-sign.svg"
+          src="/icons/plus-sign.svg"
           width="28"
           height="28"
           alt="plus"
