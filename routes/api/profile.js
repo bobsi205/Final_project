@@ -71,7 +71,7 @@ router.post('/', auth, async (req, res) => {
 // @access  public
 router.get('/user/:user_id', async (req, res) => {
   try {
-    const profile = await Profile.findOne({
+    const user = await User.findOne({
       user: req.params.user_id,
     }).populate('user', [
       'firstName',
@@ -79,8 +79,8 @@ router.get('/user/:user_id', async (req, res) => {
       'picture',
       'uploadedSummaries',
     ]);
-    if (!profile) return res.status(400).json({ msg: 'profile not found' });
-    res.json(profile);
+    if (!user) return res.status(400).json({ msg: 'user not found' });
+    res.json(user);
   } catch (err) {
     console.error(err.message);
     if (err.kind == 'ObjectId') {

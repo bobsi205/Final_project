@@ -26,6 +26,7 @@ export const addSummary = (summary) => async (dispatch) => {
 
 export const getSummary = (id) => async (dispatch) => {
   try {
+    // await api.get(`/summary/view/${id}`);
     const res = await api.get(`/summary/${id}`);
 
     dispatch({
@@ -44,3 +45,24 @@ export const getSummary = (id) => async (dispatch) => {
     });
   }
 };
+
+// export const addView = (id) => async (dispatch) => {
+//   try {
+//     const res = await api.get(`/summary/view/${id}`);
+
+//     dispatch({
+//       type: ADD_VIEW,
+//       payload: res.data,
+//     });
+//   } catch (err) {
+//     const errors = err.response.data.errors;
+
+//     if (errors) {
+//       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+//     }
+
+//     dispatch({
+//       type: SUMMARY_ERROR,
+//     });
+//   }
+// };

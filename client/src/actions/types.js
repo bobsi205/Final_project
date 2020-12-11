@@ -21,3 +21,4 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const GET_SEARCH = 'GET_SEARCH';
 export const SEARCH_ERROR = 'SEARCH_ERROR';
+export const GET_USER = 'GET_USER';
