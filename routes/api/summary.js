@@ -166,70 +166,43 @@ router.put('/view/:id', [auth, checkObjectId('id')], async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-// // @route    PUT api/posts/unlike/:id
-// // @desc     Unlike a post
-// // @access   Private
-// router.put('/unlike/:id', [auth, checkObjectId('id')], async (req, res) => {
-//   try {
-//     const post = await Post.findById(req.params.id);
 
-//     // Check if the post has not yet been liked
-//     if (!post.likes.some((like) => like.user.toString() === req.user.id)) {
-//       return res.status(400).json({ msg: 'Post has not yet been liked' });
-//     }
+// @route    POST api/summary/comment/:id
+// @desc     Comment on a summary
+// @access   Private
+router.post(
+  '/comment/:id',
+  [
+    auth,
+    checkObjectId('id'),
+    [check('text', 'Text is required').not().isEmpty()],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-//     // remove the like
-//     post.likes = post.likes.filter(
-//       ({ user }) => user.toString() !== req.user.id
-//     );
+    try {
+      const user = await User.findById(req.user.id).select('-password');
+      const summary = await Summary.findById(req.params.id);
 
-//     await post.save();
+      const newComment = {
+        text: req.body.text,
+        user: req.user.id,
+      };
 
-//     return res.json(post.likes);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send('Server Error');
-//   }
-// });
+      summary.comments.unshift(newComment);
 
-// // @route    POST api/posts/comment/:id
-// // @desc     Comment on a post
-// // @access   Private
-// router.post(
-//   '/comment/:id',
-//   [
-//     auth,
-//     checkObjectId('id'),
-//     [check('text', 'Text is required').not().isEmpty()],
-//   ],
-//   async (req, res) => {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       return res.status(400).json({ errors: errors.array() });
-//     }
+      await summary.save();
 
-//     try {
-//       const user = await User.findById(req.user.id).select('-password');
-//       const post = await Post.findById(req.params.id);
-
-//       const newComment = {
-//         text: req.body.text,
-//         name: user.name,
-//         avatar: user.avatar,
-//         user: req.user.id,
-//       };
-
-//       post.comments.unshift(newComment);
-
-//       await post.save();
-
-//       res.json(post.comments);
-//     } catch (err) {
-//       console.error(err.message);
-//       res.status(500).send('Server Error');
-//     }
-//   }
-// );
+      res.json(summary.comments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
 
 // // @route    DELETE api/posts/comment/:id/:comment_id
 // // @desc     Delete comment
