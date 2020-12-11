@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Card,
   Container,
@@ -18,6 +18,7 @@ import eye from './images/eye.svg';
 import dropArrow from './images/down-arrow.svg';
 import { getSummary } from '../../actions/summary';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
+import { Comments } from './Comments';
 
 export const Summary = ({
   auth,
@@ -25,7 +26,7 @@ export const Summary = ({
   getSummary,
   match,
 }) => {
-  React.useEffect(() => {
+  useEffect(() => {
     getSummary(match.params.id);
     console.log();
   }, []);
@@ -111,33 +112,15 @@ export const Summary = ({
             <Form>
               <Form.Group>
                 <Form.Control
-                  placeholder="What's are your thot?"
+                  placeholder="What's are your mind?"
                   as="textarea"
                   rows={1}
                 />
               </Form.Group>
             </Form>
-
-            <Media>
-              <Image
-                className="rounded-circle m-2"
-                src="lilach-katzabi.jpg"
-                height="58"
-              />
-              <Media.Body
-                className="py-2 px-4"
-                style={{ backgroundColor: '#F1F1F1', borderRadius: '1rem' }}
-              >
-                <h5>Media Heading</h5>
-                <p>
-                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                  scelerisque ante sollicitudin commodo. Cras purus odio,
-                  vestibulum in vulputate at, tempus viverra turpis. Fusce
-                  condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                  congue felis in faucibus.
-                </p>
-              </Media.Body>
-            </Media>
+            {summary.comments.map((comment) => {
+              return <Comments comment={comment} />;
+            })}
           </Card.Footer>
         </Card>
       )}

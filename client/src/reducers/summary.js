@@ -1,7 +1,13 @@
-import { ADD_SUMMARY, GET_SUMMARY, SUMMARY_ERROR } from '../actions/types';
+import {
+  ADD_SUMMARY,
+  GET_SUMMARY,
+  SUMMARY_ERROR,
+  GET_USER,
+} from '../actions/types';
 
 const initialState = {
   summary: null,
+  users: [],
   loading: true,
 };
 
@@ -14,6 +20,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         summary: payload,
+        users: [],
+        loading: false,
+      };
+    case GET_USER:
+      return {
+        ...state,
+        users: users.push(payload),
         loading: false,
       };
     case SUMMARY_ERROR:
