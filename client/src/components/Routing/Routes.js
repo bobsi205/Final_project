@@ -23,7 +23,7 @@ const Routes = (props) => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/about" component={About} />
         <Route exact path="/faq" component={FAQ} />
-        <Route exact path="/summary" component={Summary} />
+        <Route exact path="/summary/:id" component={Summary} />
         <Route exact path="/search/:field/:query" component={Search} />
 
         <PrivateRoute exact path="/summaryUpload" component={Upload} />

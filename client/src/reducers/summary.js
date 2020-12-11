@@ -1,8 +1,7 @@
-import { ADD_SUMMARY, SUMMARY_ERROR } from '../actions/types';
+import { ADD_SUMMARY, GET_SUMMARY, SUMMARY_ERROR } from '../actions/types';
 
 const initialState = {
   summary: null,
-  summaries: [],
   loading: true,
 };
 
@@ -10,6 +9,7 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case GET_SUMMARY:
     case ADD_SUMMARY:
       return {
         ...state,
@@ -22,7 +22,6 @@ export default function (state = initialState, action) {
         error: payload,
         loading: false,
         summary: null,
-        summaries: [],
       };
     default:
       return state;

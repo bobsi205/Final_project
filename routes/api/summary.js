@@ -75,8 +75,12 @@ router.get('/:id', checkObjectId('id'), async (req, res) => {
     if (!summary) {
       return res.status(404).json({ msg: 'summary not found' });
     }
-
-    res.json(summary);
+    const profile = await Profile.findOne({ user: summary.user }).select(
+      'education -_id'
+    );
+    console.log(profile);
+    const data = { ...summary._doc, education: profile.education };
+    res.json(data);
   } catch (err) {
     console.error(err.message);
 
