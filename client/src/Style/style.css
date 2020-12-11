@@ -24,3 +24,7 @@
   border-radius: 8px;
   background-color: #bcbcbc;
 }
+
+.nav-profile .dropdown-menu {
+  left: -100px;
+}

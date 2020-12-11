@@ -4,6 +4,7 @@ import {
   Nav,
   NavDropdown,
   Dropdown,
+  DropdownButton,
   Form,
   FormControl,
   Button,
@@ -15,7 +16,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import categoriesData from '../../../utils/categoriesData.json';
 import { getSearch } from '../../../actions/search';
-
 
 const Navigation = ({ isAuthenticated, getSearch }) => {
   const [modalShow, setModalShow] = useState(false);
@@ -125,15 +125,35 @@ const Navigation = ({ isAuthenticated, getSearch }) => {
               </Button>
             </Nav.Link>
 
-            <Nav.Link as={Link} to={'/profile'} eventKey="profile">
-              <Image
-                src="/lilach-katzabi.jpg"
-                width="48"
-                height="48"
-                alt="user img"
-                roundedCircle
-              />
-            </Nav.Link>
+            <NavDropdown
+              title={
+                <Image
+                  src="/lilach-katzabi.jpg"
+                  width="48"
+                  height="48"
+                  alt="user img"
+                  roundedCircle
+                />
+              }
+              className="nav-profile"
+            >
+              <Dropdown.Item as={Link} to={'/profile'} eventKey="profile"><Image
+                  src="/lilach-katzabi.jpg"
+                  width="68"
+                  height="68"
+                  alt="user img"
+                  roundedCircle
+                /></Dropdown.Item>
+              <Dropdown.Item as={Link} to={'/profile/edit'} >Edit profile</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item className="d-flex align-items-center"><Image className="mr-1" src="/navIconDrop/down-arrow.svg" width="16"/> Downloads</Dropdown.Item>
+              <Dropdown.Item className="d-flex align-items-center"><Image className="mr-1" src="/navIconDrop/upload.svg" width="16"/>Uploaded</Dropdown.Item>
+              <Dropdown.Item className="d-flex align-items-center"><Image className="mr-1" src="/navIconDrop/star.svg" width="16"/>Favorite</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item className="d-flex align-items-center"><Image  className="mr-1" src="/navIconDrop/power-button.svg" width="16"/>Log Out</Dropdown.Item>
+            </NavDropdown>
+
+            
           </Nav>
         ) : (
           <Nav className="d-flex align-items-center">
