@@ -32,7 +32,7 @@ export const Summary = ({
 
   const calculateRating = () => {
     if (summary.rating.length === 0) return 0;
-    let rating,
+    let rating = 0,
       count = 0;
     summary.rating.forEach((rate) => {
       rating += rate.rate;

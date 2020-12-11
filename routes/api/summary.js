@@ -113,29 +113,33 @@ router.delete(
   }
 );
 
-// // @route    PUT api/summary/rate/:id
-// // @desc     Rate a summary
-// // @access   Private
-// router.put('/rate/:id', [auth, checkObjectId('id')], async (req, res) => {
-//   try {
-//     const summary = await Summary.findById(req.params.id);
-//     const rateIndex = summary.rating.filter(
-//       (rate) => rate.user.toString() === req.user.id
-//     );
+// @route    PUT api/summary/rate/:id
+// @desc     Rate a summary
+// @access   Private
+router.put('/rate/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    if (req.body.rate < 1 || req.body.rate > 5) {
+      return res.status(400).json({ msg: 'Rating must be between 1-5' });
+    }
 
-//     summary.rating.unshift({
-//       user: req.user.id,
-//       rate: req.body.rate,
-//     });
+    const summary = await Summary.findById(req.params.id);
+    summary.rating = summary.rating.filter(
+      (rate) => rate.user.toString() !== req.user.id
+    );
 
-//     await summary.save();
+    summary.rating.unshift({
+      user: req.user.id,
+      rate: req.body.rate,
+    });
 
-//     return res.json(summary.rating);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send('Server Error');
-//   }
-// });
+    await summary.save();
+
+    return res.json(summary.rating);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 // // @route    PUT api/posts/unlike/:id
 // // @desc     Unlike a post
