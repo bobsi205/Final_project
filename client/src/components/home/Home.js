@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { HomeDeck } from './HomeDeck';
 import { CategoryBox } from './CategoryBox';
 import categoriesData from '../../utils/categoriesData.json';
-import { searchCategory } from '../../actions/search';
 import PropTypes from 'prop-types';
 
-export const Home = ({ searchCategory }) => {
+export const Home = () => {
   const [data] = useState([
     {
       title: 'Computer Science1',
@@ -116,7 +115,7 @@ export const Home = ({ searchCategory }) => {
           {categoriesData.map((cat) => {
             return (
               <Col xs={6} md={3} className="p-0 m-auto">
-                <CategoryBox cat={cat} search={searchCategory} />
+                <CategoryBox cat={cat} />
               </Col>
             );
           })}
@@ -171,10 +170,8 @@ export const Home = ({ searchCategory }) => {
   );
 };
 
-Home.protoType = {
-  searchCategory: PropTypes.func.isRequired,
-};
+Home.protoType = {};
 
 const mapStateToProps = (state) => ({});
 
-export default connect(mapStateToProps, { searchCategory })(Home);
+export default connect(mapStateToProps)(Home);

@@ -12,7 +12,7 @@ import FAQ from '../layout/footer/Faq';
 import Summary from '../summary/Summary';
 import Upload from '../summary/upload/Upload';
 import Search from '../search/Search';
-import Checkout from "../payment/Checkout"
+import Checkout from '../payment/Checkout';
 
 const Routes = (props) => {
   return (
@@ -24,7 +24,7 @@ const Routes = (props) => {
         <Route exact path="/about" component={About} />
         <Route exact path="/faq" component={FAQ} />
         <Route exact path="/summary" component={Summary} />
-        <Route exact path="/search/:query" component={Search} />
+        <Route exact path="/search/:field/:query" component={Search} />
 
         <PrivateRoute exact path="/summaryUpload" component={Upload} />
         {/* <Route exact path="/profile/:id" component={Profile} /> */}

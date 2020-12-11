@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
-export const CategoryBox = ({ cat, search }) => {
+export const CategoryBox = ({ cat }) => {
   const [redirect, setRedirect] = useState(false);
 
   return (
@@ -9,7 +9,6 @@ export const CategoryBox = ({ cat, search }) => {
       style={{ overflow: 'hidden' }}
       key={cat.id}
       onClick={() => {
-        search(cat.id);
         setRedirect(true);
       }}
     >
@@ -27,7 +26,7 @@ export const CategoryBox = ({ cat, search }) => {
       >
         <h3 className="m-auto ">{cat.name}</h3>
       </div>
-      {redirect ? <Redirect push to={`/search/${cat.id}`} /> : <></>}
+      {redirect ? <Redirect push to={`/search/category/${cat.id}`} /> : <></>}
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import { GET_SEARCH, SEARCH_ERROR } from './types';
 import api from '../utils/api';
 
-export const getSearch = (searchQuery) => async (dispatch) => {
+export const getSearch = (field, searchQuery) => async (dispatch) => {
   try {
-    const res = await api.get(`/search/${searchQuery}`);
+    const res = await api.get(`/search/${field}/${searchQuery}`);
     dispatch({
       type: GET_SEARCH,
       payload: res.data,

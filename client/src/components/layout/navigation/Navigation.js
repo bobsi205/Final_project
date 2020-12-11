@@ -15,9 +15,8 @@ import LoginModal from '../../auth/LoginModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import categoriesData from '../../../utils/categoriesData.json';
-import { getSearch } from '../../../actions/search';
 
-const Navigation = ({ isAuthenticated, getSearch }) => {
+const Navigation = ({ isAuthenticated }) => {
   const [modalShow, setModalShow] = useState(false);
   const [search, setSearch] = useState({ value: '', redirect: false });
   const coin = 23;
@@ -25,7 +24,7 @@ const Navigation = ({ isAuthenticated, getSearch }) => {
 
   const searchOnPress = (e) => {
     e.preventDefault();
-    getSearch(search.value);
+
     setSearch({ ...search, redirect: true });
   };
   const onChange = (e) => {
@@ -74,7 +73,7 @@ const Navigation = ({ isAuthenticated, getSearch }) => {
           </Form>
         </Nav>
         {search.redirect ? (
-          <Redirect push to={`/search/${search.value}`} />
+          <Redirect push to={`/search/title/${search.value}`} />
         ) : (
           <></>
         )}
@@ -137,23 +136,53 @@ const Navigation = ({ isAuthenticated, getSearch }) => {
               }
               className="nav-profile"
             >
-              <Dropdown.Item as={Link} to={'/profile'} eventKey="profile"><Image
+              <Dropdown.Item as={Link} to={'/profile'} eventKey="profile">
+                <Image
                   src="/lilach-katzabi.jpg"
                   width="68"
                   height="68"
                   alt="user img"
                   roundedCircle
-                /></Dropdown.Item>
-              <Dropdown.Item as={Link} to={'/profile/edit'} >Edit profile</Dropdown.Item>
+                />
+              </Dropdown.Item>
+              <Dropdown.Item as={Link} to={'/profile/edit'}>
+                Edit profile
+              </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item className="d-flex align-items-center"><Image className="mr-1" src="/navIconDrop/down-arrow.svg" width="16"/> Downloads</Dropdown.Item>
-              <Dropdown.Item className="d-flex align-items-center"><Image className="mr-1" src="/navIconDrop/upload.svg" width="16"/>Uploaded</Dropdown.Item>
-              <Dropdown.Item className="d-flex align-items-center"><Image className="mr-1" src="/navIconDrop/star.svg" width="16"/>Favorite</Dropdown.Item>
+              <Dropdown.Item className="d-flex align-items-center">
+                <Image
+                  className="mr-1"
+                  src="/navIconDrop/down-arrow.svg"
+                  width="16"
+                />{' '}
+                Downloads
+              </Dropdown.Item>
+              <Dropdown.Item className="d-flex align-items-center">
+                <Image
+                  className="mr-1"
+                  src="/navIconDrop/upload.svg"
+                  width="16"
+                />
+                Uploaded
+              </Dropdown.Item>
+              <Dropdown.Item className="d-flex align-items-center">
+                <Image
+                  className="mr-1"
+                  src="/navIconDrop/star.svg"
+                  width="16"
+                />
+                Favorite
+              </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item className="d-flex align-items-center"><Image  className="mr-1" src="/navIconDrop/power-button.svg" width="16"/>Log Out</Dropdown.Item>
+              <Dropdown.Item className="d-flex align-items-center">
+                <Image
+                  className="mr-1"
+                  src="/navIconDrop/power-button.svg"
+                  width="16"
+                />
+                Log Out
+              </Dropdown.Item>
             </NavDropdown>
-
-            
           </Nav>
         ) : (
           <Nav className="d-flex align-items-center">
@@ -170,11 +199,10 @@ const Navigation = ({ isAuthenticated, getSearch }) => {
 
 LoginModal.propTypes = {
   isAuthenticated: PropTypes.bool,
-  getSearch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { getSearch })(Navigation);
+export default connect(mapStateToProps)(Navigation);
