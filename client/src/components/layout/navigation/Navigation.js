@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import categoriesData from '../../../utils/categoriesData.json';
 import { logout } from '../../../actions/auth';
 
-const Navigation = ({ isAuthenticated, logout }) => {
+const Navigation = ({ auth, logout }) => {
   const [modalShow, setModalShow] = useState(false);
   const [search, setSearch] = useState({ value: '', redirect: false });
   const coin = 23;
@@ -79,7 +79,7 @@ const Navigation = ({ isAuthenticated, logout }) => {
           <></>
         )}
         {/* //right side */}
-        {isAuthenticated ? (
+        {auth.isAuthenticated ? (
           <Nav className="d-flex align-items-center">
             <NavDropdown title="Categories">
               {categoriesData.map((cat) => (
@@ -128,7 +128,7 @@ const Navigation = ({ isAuthenticated, logout }) => {
             <NavDropdown
               title={
                 <Image
-                  src="/lilach-katzabi.jpg"
+                  src={auth.user.picture}
                   width="48"
                   height="48"
                   alt="user img"
@@ -202,12 +202,12 @@ const Navigation = ({ isAuthenticated, logout }) => {
 };
 
 LoginModal.propTypes = {
-  isAuthenticated: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { logout })(Navigation);
