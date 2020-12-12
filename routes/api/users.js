@@ -109,4 +109,29 @@ router.put(
   }
 );
 
+// @route   PUT api/users/picture
+// @desc    Update user picture
+// @access  Private
+router.put(
+  '/picture',
+  [auth, [check('picture', 'picture is required').not().isEmpty()]],
+  async (req, res) => {
+    console.log(req.body.picture);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.arrays });
+    }
+    const { picture } = req.body;
+    try {
+      const user = await User.findById(req.user.id);
+      user.picture = picture;
+      await user.save();
+      res.json(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
 module.exports = router;
