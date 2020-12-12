@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
-import Paypal from './Paypal';
+import PayPal from './PayPal';
 
 export default function Checkout() {
   const [checkout, setCheckout] = useState(false);
@@ -35,7 +35,7 @@ export default function Checkout() {
       </Button>
       {checkout ? (
         <div className="invisible">
-          <Paypal amount={amount} />
+          <PayPal amount={amount} />
         </div>
       ) : (
         ''
