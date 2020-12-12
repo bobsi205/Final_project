@@ -20,6 +20,8 @@ const UserSchema = new mongoose.Schema({
   },
   picture: {
     type: String,
+    default:
+      'https://summary-project.s3.eu-central-1.amazonaws.com/profileImages/defaultProfilePicture.jpg',
   },
   dateOfBirth: {
     type: Date,
