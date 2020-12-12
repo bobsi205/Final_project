@@ -10,7 +10,7 @@ import {
   Button,
   Image,
 } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import LoginModal from '../../auth/LoginModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -22,11 +22,13 @@ const Navigation = ({ auth, logout }) => {
   const [search, setSearch] = useState({ value: '', redirect: false });
   const coin = 23;
   const walletStyle = coin ? 'f' : 'w';
+  const history = useHistory();
 
   const searchOnPress = (e) => {
     e.preventDefault();
 
-    setSearch({ ...search, redirect: true });
+    let path = `/search/title/${search.value}`;
+    history.push(path);
   };
   const onChange = (e) => {
     setSearch({ value: e.target.value, redirect: false });
@@ -73,11 +75,7 @@ const Navigation = ({ auth, logout }) => {
             />
           </Form>
         </Nav>
-        {search.redirect ? (
-          <Redirect push to={`/search/title/${search.value}`} />
-        ) : (
-          <></>
-        )}
+
         {/* //right side */}
         {auth.isAuthenticated ? (
           <Nav className="d-flex align-items-center">
