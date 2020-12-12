@@ -158,7 +158,9 @@ const ProfileEdit = ({
   return (
     <Container className="bg-light my-4 py-4 ">
       {profile.loading ? (
-        <LoadingSpinner />
+        <div className="d-flex justify-content-center">
+          <LoadingSpinner />
+        </div>
       ) : (
         <Form onSubmit={(e) => onSubmit(e)}>
           <Row>
