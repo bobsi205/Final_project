@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
+const auth = require('../../middleware/auth');
 
 const User = require('../../models/User');
 
@@ -80,6 +81,30 @@ router.post(
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
+    }
+  }
+);
+
+// @route   PUT api/users/balance
+// @desc    Add coins to account balance
+// @access  Private
+router.put(
+  '/balance',
+  [auth, [check('coins', 'coins is required').not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.arrays });
+    }
+    const { coins } = req.body;
+    try {
+      const user = await User.findById(req.user.id);
+      user.balance += coins;
+      await user.save();
+      res.json(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
     }
   }
 );
