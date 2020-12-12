@@ -20,8 +20,6 @@ import { logout } from '../../../actions/auth';
 const Navigation = ({ auth, logout }) => {
   const [modalShow, setModalShow] = useState(false);
   const [search, setSearch] = useState({ value: '', redirect: false });
-  const coin = 23;
-  const walletStyle = coin ? 'f' : 'w';
   const history = useHistory();
 
   const searchOnPress = (e) => {
@@ -85,7 +83,7 @@ const Navigation = ({ auth, logout }) => {
                   <NavDropdown.Item
                     className="d-flex align-items-center px-4 py-2"
                     as={Link}
-                    to={`/action/${cat.id}`}
+                    to={`/search/category/${cat.id}`}
                   >
                     <Image
                       className="mr-1"
@@ -99,7 +97,7 @@ const Navigation = ({ auth, logout }) => {
               ))}
             </NavDropdown>
 
-            <Nav.Link as={Link} to={'/bookmark'} eventKey="bookmark">
+            <Nav.Link as={Link} to={'/profile'} eventKey="bookmark">
               <Image
                 src="/Icons/bookmark-w.svg"
                 width="30"
@@ -113,9 +111,9 @@ const Navigation = ({ auth, logout }) => {
                 className="d-flex align-items-center"
                 variant="outline"
               >
-                <span className="mr-2">{coin}</span>
+                <span className="mr-2">{auth.user.balance}</span>
                 <Image
-                  src={`/Icons/wallet-${walletStyle}.svg`}
+                  src={`/Icons/wallet-${auth.user.balance ? 'f' : 'w'}.svg`}
                   width="28"
                   height="28"
                   alt="wallet img"
@@ -137,7 +135,7 @@ const Navigation = ({ auth, logout }) => {
             >
               <Dropdown.Item as={Link} to={'/profile'} eventKey="profile">
                 <Image
-                  src="/lilach-katzabi.jpg"
+                  src={auth.user.picture}
                   width="68"
                   height="68"
                   alt="user img"
@@ -147,31 +145,7 @@ const Navigation = ({ auth, logout }) => {
               <Dropdown.Item as={Link} to={'/profile/edit'}>
                 Edit profile
               </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item className="d-flex align-items-center">
-                <Image
-                  className="mr-1"
-                  src="/navIconDrop/down-arrow.svg"
-                  width="16"
-                />{' '}
-                Downloads
-              </Dropdown.Item>
-              <Dropdown.Item className="d-flex align-items-center">
-                <Image
-                  className="mr-1"
-                  src="/navIconDrop/upload.svg"
-                  width="16"
-                />
-                Uploaded
-              </Dropdown.Item>
-              <Dropdown.Item className="d-flex align-items-center">
-                <Image
-                  className="mr-1"
-                  src="/navIconDrop/star.svg"
-                  width="16"
-                />
-                Favorite
-              </Dropdown.Item>
+
               <Dropdown.Divider />
               <Dropdown.Item
                 className="d-flex align-items-center"
