@@ -12,18 +12,20 @@ export default function Checkout() {
   };
 
   return (
-    <Container className="text-center p-2">
+    <Container className="text-center p-2 bg-light">
       <p className="display-3">Add coins to your wallet</p>
-
-      <input
-        value={amount}
-        placeholder="How many coins would you like to purchase"
-        onChange={(e) => onHandleChange(e)}
-        type="range"
-        className="form-control-range"
-        min="5"
-        max="100"
-      ></input>
+      <div className="d-flex justify-content-center" style={{ width: '50%' }}>
+        <input
+          value={amount}
+          placeholder="How many coins would you like to purchase"
+          onChange={(e) => onHandleChange(e)}
+          type="range"
+          className="form-control-range"
+          min="5"
+          max="100"
+        ></input>
+        <Button className="m-2 rounded-circle">{amount}$</Button>
+      </div>
 
       <Button
         className="m-2"
@@ -31,8 +33,9 @@ export default function Checkout() {
           setCheckout(true);
         }}
       >
-        Checkout-{amount}$
+        Checkout
       </Button>
+
       {checkout ? (
         <div className="invisible">
           <PayPal amount={amount} />
