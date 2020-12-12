@@ -5,7 +5,7 @@ import StarEmpty from './images/star_empty.svg';
 import starHalfEmpty from './images/star-half-empty.svg';
 
 import ReactStars from 'react-rating-stars-component';
-export default function Rating() {
+export default function Rate() {
     const ratingChanged = (newRating) => {
         console.log(newRating);
       };
@@ -14,9 +14,9 @@ export default function Rating() {
       count={5}
       onChange={ratingChanged}
       size={24}
-      isHalf={true}
+      isHalf={false}
       emptyIcon={<Image src={StarEmpty} height="20" />}
-      halfIcon={<Image src={starHalfEmpty} height="20" />}
+      // halfIcon={<Image src={starHalfEmpty} height="20" />}
       fullIcon={<Image src={StarFull} height="20" />}
       activeColor="#ffd700"
     />

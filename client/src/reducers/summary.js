@@ -23,12 +23,12 @@ export default function (state = initialState, action) {
         users: [],
         loading: false,
       };
-    case GET_USER:
-      return {
-        ...state,
-        users: users.push(payload),
-        loading: false,
-      };
+    // case GET_USER:
+    //   return {
+    //     ...state,
+    //     users: users.push(payload),
+    //     loading: false,
+    //   };
     case SUMMARY_ERROR:
       return {
         ...state,
