@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Col, Row, Button, Alert, Form, Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -16,10 +16,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     dateOfBirth: null,
     institution: '',
     fieldOfStudy: '',
-    profileImg: '',
     interests: '',
   });
-
+  const fileInput = useRef();
   const {
     firstName,
     lastName,
@@ -29,7 +28,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     dateOfBirth,
     institution,
     fieldOfStudy,
-    profileImg,
     interests,
   } = formData;
 
@@ -42,18 +40,23 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    register(formData);
+    register(formData, fileInput.current.files[0]);
   };
 
   return (
     <Container className="App pt-5">
-      <p className="display-4">Join the community</p><hr/>
+      <p className="display-4">Join the community</p>
+      <hr />
       <Form className="container" onSubmit={(e) => onSubmit(e)}>
         <Form.Group>
           <Form.File
+            onChange={() => {
+              console.log(fileInput.current.files);
+            }}
             id="custom-file-translate-html"
             label="Upload profile image"
             custom
+            ref={fileInput}
           />
         </Form.Group>
         <Form.Row>
@@ -161,7 +164,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           <Form.Check className="m-2" type="checkbox" label="communication" />
           <Form.Check className="m-2" type="checkbox" label="sociology" />
         </Form.Group>
-        <Button d-block style={{ width: '100%' }} className="mb-4">
+        <Button
+          d-block
+          style={{ width: '100%' }}
+          type="submit"
+          className="mb-4"
+        >
           Sign Up
         </Button>
       </Form>

@@ -9,6 +9,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
 } from './types';
+import S3 from 'react-aws-s3';
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -27,15 +28,33 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Register User
-export const register = (formData) => async (dispatch) => {
+export const register = (formData, profileImage) => async (dispatch) => {
   try {
-    const res = await api.post('/users', formData);
+    const config = {
+      bucketName: 'summary-project',
+      dirName: 'profileImages',
+      region: 'eu-central-1',
+      accessKeyId: 'AKIAIPQFO32532YL6AEA',
+      secretAccessKey: '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',
+    };
+    const ReactS3Client = new S3(config);
 
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: res.data,
-    });
-    dispatch(loadUser());
+    ReactS3Client.uploadFile(
+      profileImage,
+      formData.firstName.concat(formData.lastName)
+    )
+      .then(async (data) => {
+        console.log(data);
+        let newFormData = { ...formData, picture: data.location };
+        const res = await api.post('/users', newFormData);
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: res.data,
+        });
+        dispatch(loadUser());
+      })
+      .catch((err) => console.error(err));
+    // const res = await api.post('/users', formData);
   } catch (err) {
     const errors = err.response.data.errors;
 
