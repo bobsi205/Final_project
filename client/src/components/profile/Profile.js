@@ -5,12 +5,9 @@ import { ProfileDeck } from './ProfileDeck';
 import { ProfileInfo } from './ProfileInfo';
 import { getProfile } from '../../actions/profile';
 import PropTypes from 'prop-types';
+import { LoadingSpinner } from '../layout/LoadingSpinner';
 
-export const Profile = ({
-  getProfile,
-  auth: { user },
-  profile: { profile },
-}) => {
+export const Profile = ({ getProfile, auth: { user }, profile }) => {
   useEffect(() => {
     getProfile();
   }, [getProfile]);
@@ -64,9 +61,9 @@ export const Profile = ({
   ]);
   return (
     <Container className="bg-light my-4 py-4">
-      {profile !== null ? (
+      {!profile.loading ? (
         <>
-          <ProfileInfo profile={profile.profile} user={user} />
+          <ProfileInfo profile={profile.profile.profile} user={user} />
 
           <Tabs
             fill
@@ -88,7 +85,7 @@ export const Profile = ({
           </Tabs>
         </>
       ) : (
-        <></>
+        <LoadingSpinner />
       )}
     </Container>
   );

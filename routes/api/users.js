@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
-
+const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
 // @route    POST api/users
@@ -30,14 +30,20 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {
+    let {
       firstName,
       lastName,
       email,
       password,
       dateOfBirth,
       picture,
+      bio,
+      interests,
+      fieldOfStudy,
+      institution,
     } = req.body;
+    firstName = firstName.replace(/^./, firstName[0].toUpperCase());
+    lastName = lastName.replace(/^./, lastName[0].toUpperCase());
 
     try {
       let user = await User.findOne({ email });
@@ -55,6 +61,15 @@ router.post(
         dateOfBirth,
         password,
         picture,
+        educationsOfInterest: interests,
+      });
+      let profile = new Profile({
+        user: user._id,
+        bio,
+        education: {
+          degree: fieldOfStudy,
+          school: institution,
+        },
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -62,6 +77,7 @@ router.post(
       user.password = await bcrypt.hash(password, salt);
 
       await user.save();
+      await profile.save();
 
       const payload = {
         user: {

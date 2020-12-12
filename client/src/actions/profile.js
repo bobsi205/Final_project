@@ -17,7 +17,6 @@ export const updateProfile = (profile) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(setAlert('Profile Updated', 'success'));
-    
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -39,9 +38,10 @@ export const getProfile = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    if (err.response)
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.data, status: err.response.status },
+      });
   }
 };

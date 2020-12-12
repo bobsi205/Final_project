@@ -4,7 +4,7 @@ import { Media, Image } from 'react-bootstrap';
 export const Comments = ({ comment }) => {
   console.log(comment);
   return (
-    <Media>
+    <Media className="my-2">
       <Image
         className="rounded-circle m-2"
         src="lilach-katzabi.jpg"

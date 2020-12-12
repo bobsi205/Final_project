@@ -16,7 +16,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     dateOfBirth: null,
     institution: '',
     fieldOfStudy: '',
-    interests: '',
+    bio: '',
   });
   const fileInput = useRef();
   const {
@@ -28,19 +28,108 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     dateOfBirth,
     institution,
     fieldOfStudy,
-    interests,
+    bio,
   } = formData;
+  const [interests, setInterests] = useState([
+    {
+      name: 'Administration',
+      objName: 'administration',
+      checked: false,
+    },
+    {
+      name: 'Social Work',
+      objName: 'socialWork',
+      checked: false,
+    },
+    {
+      name: 'Accounting',
+      objName: 'accounting',
+      checked: false,
+    },
+    {
+      name: 'Humanities',
+      objName: 'humanities',
+      checked: false,
+    },
+    {
+      name: 'Engineering',
+      objName: 'engineering',
+      checked: false,
+    },
+    {
+      name: 'Medical Studies',
+      objName: 'medicalStudies',
+      checked: false,
+    },
+    {
+      name: 'Education',
+      objName: 'education',
+      checked: false,
+    },
+    {
+      name: 'Architecture',
+      objName: 'architecture',
+      checked: false,
+    },
+    {
+      name: 'Computer Science',
+      objName: 'computerScience',
+      checked: false,
+    },
+    {
+      name: 'Psychology',
+      objName: 'psychology',
+      checked: false,
+    },
+    {
+      name: 'Social Sciences',
+      objName: 'socialSciences',
+      checked: false,
+    },
+    {
+      name: 'Communication',
+      objName: 'communication',
+      checked: false,
+    },
+  ]);
 
   if (isAuthenticated) {
     return <Redirect to="/" />;
   }
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onCheck = (e) => {
+    let tempState = [...interests];
+    tempState[e.target.dataset.index].checked = !tempState[
+      e.target.dataset.index
+    ].checked;
+    setInterests(tempState);
+  };
 
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const interestsToString = () => {
+    let educations = '';
+    let arr = [
+      ...interests.map((cat) => {
+        if (cat.checked) return cat.objName;
+      }),
+    ];
+
+    arr = arr.filter((cat) => cat !== undefined);
+    for (let index = 0; index < arr.length; index++) {
+      educations = educations.concat(',', arr[index]);
+    }
+    return educations;
+  };
   const onSubmit = (e) => {
     e.preventDefault();
-    register(formData, fileInput.current.files[0]);
+    let user = {
+      ...formData,
+      interests: { education: interestsToString() },
+    };
+    console.log(user);
+    register(user, fileInput.current.files[0]);
   };
 
   return (
@@ -141,28 +230,32 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             onChange={(e) => onChange(e)}
           />
         </Form.Group>
+        <Form.Group>
+          <Form.Control
+            type="text"
+            placeholder="bio"
+            name="bio"
+            value={bio}
+            onChange={(e) => onChange(e)}
+          />
+        </Form.Group>
         <hr />
-        {/* need to add logic for interest */}
         <Form.Label className="text-center">What are your interest?</Form.Label>
         <hr />
         <Form.Group className="d-flex flex-wrap justify-content-around">
-          <Form.Check className="m-2" type="checkbox" label="Administration" />
-          <Form.Check className="m-2" type="checkbox" label="Social work" />
-          <Form.Check className="m-2" type="checkbox" label="Accounting" />
-          <Form.Check className="m-2" type="checkbox" label="Humanities" />
-          <Form.Check className="m-2" type="checkbox" label="Engineering " />
-          <Form.Check className="m-2" type="checkbox" label="Medical Studies" />
-          <Form.Check className="m-2" type="checkbox" label="Education" />
-          <Form.Check className="m-2" type="checkbox" label="Architecture" />
-          <Form.Check
-            className="m-2"
-            type="checkbox"
-            label="Computer Science"
-          />
-          <Form.Check className="m-2" type="checkbox" label="psychology" />
-          <Form.Check className="m-2" type="checkbox" label="Social Sciences" />
-          <Form.Check className="m-2" type="checkbox" label="communication" />
-          <Form.Check className="m-2" type="checkbox" label="sociology" />
+          {interests.map((cat, index) => {
+            return (
+              <Form.Check
+                className="m-2"
+                type="checkbox"
+                data-index={index}
+                label={cat.name}
+                name={cat.objName}
+                checked={cat.checked}
+                onChange={(e) => onCheck(e)}
+              />
+            );
+          })}
         </Form.Group>
         <Button
           d-block
