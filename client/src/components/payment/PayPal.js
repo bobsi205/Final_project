@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
+import { setAlert } from '../../actions/alert';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default function Paypal(props) {
+export const Paypal = ({ props }) => {
   const x = props.amount + '.00';
   console.log(x);
   return (
@@ -32,8 +36,13 @@ export default function Paypal(props) {
           // Capture the funds from the transaction
           return actions.order.capture().then(function (details) {
             // Show a success message to your buyer
-            alert('Transaction completed by ' + details.payer.name.given_name);
+            // alert('Transaction completed by ' + details.payer.name.given_name);
+            props.setAlert(
+              'Transaction completed by' + details.payer.name.given_name,
+              'success'
+            );
             console.log(details.purchase_units[0].amount.value);
+            <Redirect push to="/" />;
 
             // OPTIONAL: Call your server to save the transaction
             return fetch('/paypal-transaction-complete', {
@@ -44,7 +53,16 @@ export default function Paypal(props) {
             });
           });
         }}
+        onError={(err) => {
+          console.log(err);
+        }}
       />
     </div>
   );
-}
+};
+
+Paypal.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert })(Paypal);

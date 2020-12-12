@@ -92,7 +92,7 @@ const Navigation = ({ isAuthenticated, logout }) => {
                     <Image
                       className="mr-1"
                       width="16"
-                      src="/cat/catIcon/group.svg"
+                      src={`/cat/catIcon/${cat.id}.svg`}
                     />
                     {cat.name}
                   </NavDropdown.Item>

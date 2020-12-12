@@ -10,7 +10,8 @@ import {
   InputGroup,
   Form,
 } from 'react-bootstrap';
-import Rating from './Rating';
+import Rating from '../rating/Rating';
+import Rate from '../rating/Rate';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SummaryText from './text.json';
@@ -56,7 +57,7 @@ export const Summary = ({
                 <Row>
                   <Col xs="auto">
                     <Row>
-                      <Rating className="mx-4" rate={calculateRating()} />
+                      <Rating />
                     </Row>
                     <Row className="ml-2">
                       <span>{summary.rating.length}</span>
@@ -110,6 +111,7 @@ export const Summary = ({
           ></Card.Body>
           <Card.Footer>
             <Form>
+              <Rate className="mx-4" rate={calculateRating()} />
               <Form.Group>
                 <Form.Control
                   placeholder="What's are your mind?"

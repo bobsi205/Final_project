@@ -1,7 +1,7 @@
-import React from "react";
-import StarFull from "./images/star_full.svg";
-import StarEmpty from "./images/star_empty.svg";
-import { Image } from "react-bootstrap";
+import React from 'react';
+import StarFull from './images/star_full.svg';
+import StarEmpty from './images/star_empty.svg';
+import { Image } from 'react-bootstrap';
 
 export default function Rating(props) {
   const star = [];
@@ -12,7 +12,7 @@ export default function Rating(props) {
   return (
     <div className="d-flex m-2">
       {star.map((s) => (
-        <Image src={s} height="20"/>
+        <Image src={s} height="20" />
       ))}
     </div>
   );
