@@ -16,7 +16,7 @@ export const Search = ({ search, getSearch, match }) => {
           return <SearchCard summary={obj} />;
         })
       ) : (
-        <h1>uff no summary</h1>
+        <h1>No summaries found</h1>
       )}
     </Container>
   );
