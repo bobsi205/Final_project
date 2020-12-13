@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
+const checkObjectId = require('../../middleware/checkObjectId');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
@@ -149,5 +150,51 @@ router.put(
     }
   }
 );
+
+// @route    GET api/users/me
+// @desc     Get user summaries data
+// @access   private
+router.get('/me', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    let uploaded, bookmarked, recent, bought;
+    uploaded = user.uploadedSummaries.map((sm) => {
+      return sm._id;
+    });
+    bookmarked = user.bookmarkedSummaries.map((sm) => {
+      return sm._id;
+    });
+    recent = user.recentSummaries.map((sm) => {
+      return sm._id;
+    });
+    bought = user.boughtSummaries.map((sm) => {
+      return sm._id;
+    });
+    console.log(
+      await Summary.find({
+        _id: { $in: bought },
+      })
+    );
+    let summaries = {
+      uploaded: await Summary.find({
+        _id: { $in: uploaded },
+      }),
+      bookmarked: await Summary.find({
+        _id: { $in: bookmarked },
+      }),
+      recent: await Summary.find({
+        _id: { $in: recent },
+      }),
+      bought: await Summary.find({
+        _id: { $in: bought },
+      }),
+    };
+
+    res.json(summaries);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;

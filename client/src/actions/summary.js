@@ -1,4 +1,9 @@
-import { ADD_SUMMARY, SUMMARY_ERROR, GET_SUMMARY } from './types';
+import {
+  ADD_SUMMARY,
+  SUMMARY_ERROR,
+  GET_SUMMARY,
+  GET_USER_SUMMARIES,
+} from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
 
@@ -31,6 +36,26 @@ export const getSummary = (id) => async (dispatch) => {
 
     dispatch({
       type: GET_SUMMARY,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: SUMMARY_ERROR,
+    });
+  }
+};
+
+export const getUserSummaries = () => async (dispatch) => {
+  try {
+    const res = await api.get('users/me');
+    dispatch({
+      type: GET_USER_SUMMARIES,
       payload: res.data,
     });
   } catch (err) {
