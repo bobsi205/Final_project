@@ -2,7 +2,7 @@ import React from 'react';
 
 export const CategoryBox = (props) => {
   return (
-    <div style={{ overflow: 'hidden' }}>
+    <div key={props.name} style={{ overflow: 'hidden' }}>
       <div
         className="imgZoom d-flex"
         style={{
