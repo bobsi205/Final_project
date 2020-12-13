@@ -6,54 +6,22 @@ import { CategoryBox } from './CategoryBox';
 import { getUserSummaries } from '../../actions/summary';
 import categoriesData from '../../utils/categoriesData.json';
 import PropTypes from 'prop-types';
+import api from '../../utils/api';
 
 export const Home = ({ auth, getUserSummaries, summary }) => {
-  const [data] = useState([
-    {
-      title: 'Computer Science1',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science2',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science3',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science4',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science5',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science6',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science7',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science8',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-  ]);
-
+  const [data, setData] = useState({ new: [], popular: [], loaded: false });
+  const getNewAndPopular = async () => {
+    let newAndPopular = await api.get(`/search/newandpopular`);
+    setData({
+      popular: newAndPopular.data.popular,
+      new: newAndPopular.data.new,
+      loaded: true,
+    });
+  };
   useEffect(() => {
     if (auth.isAuthenticated) getUserSummaries();
-  }, [getUserSummaries, auth.isAuthenticated]);
+    getNewAndPopular();
+  }, [getUserSummaries, auth.isAuthenticated, getNewAndPopular]);
 
   const [scroll, setScroll] = useState({
     isDown: false,
@@ -104,20 +72,24 @@ export const Home = ({ auth, getUserSummaries, summary }) => {
       <Container onMouseUp={(e) => mouseUp(e)}>
         {auth.isAuthenticated && !summary.loadingSummaries ? (
           <>
-            {console.log(summary)}
-            <Row className="my-3">
-              <h2 className="ml-4 mt-2 text-primary">Recent</h2>
-              <Container
-                className="scrollbarClean"
-                fluid
-                style={{ overflow: 'auto' }}
-                id="Recent"
-                onMouseDown={(e) => mouseDown(e, 'Recent')}
-                onMouseMove={(e) => mouseMove(e, 'Recent')}
-              >
-                <HomeDeck cards={summary.summaries.recent} />
-              </Container>
-            </Row>
+            {summary.summaries.recent.length > 0 ? (
+              <Row className="my-3">
+                <h2 className="ml-4 mt-2 text-primary">Recent</h2>
+                <Container
+                  className="scrollbarClean"
+                  fluid
+                  style={{ overflow: 'auto' }}
+                  id="Recent"
+                  onMouseDown={(e) => mouseDown(e, 'Recent')}
+                  onMouseMove={(e) => mouseMove(e, 'Recent')}
+                >
+                  <HomeDeck cards={summary.summaries.recent} />
+                </Container>
+              </Row>
+            ) : (
+              <></>
+            )}
+
             <hr />
             <Row>
               {categoriesData.map((cat) => {
@@ -129,21 +101,26 @@ export const Home = ({ auth, getUserSummaries, summary }) => {
               })}
             </Row>
             <hr />
-
-            <Row className="my-3">
-              <h2 className="ml-4 mt-2 text-primary">Recommended</h2>
-              <Container
-                className="scrollbarClean"
-                fluid
-                style={{ overflow: 'auto' }}
-                id="Recommended"
-                onMouseDown={(e) => mouseDown(e, 'Recommended')}
-                onMouseMove={(e) => mouseMove(e, 'Recommended')}
-              >
-                <HomeDeck cards={data} />
-              </Container>
-            </Row>
-            <hr />
+            {summary.summaries.recommended.length > 0 ? (
+              <>
+                <Row className="my-3">
+                  <h2 className="ml-4 mt-2 text-primary">Recommended</h2>
+                  <Container
+                    className="scrollbarClean"
+                    fluid
+                    style={{ overflow: 'auto' }}
+                    id="Recommended"
+                    onMouseDown={(e) => mouseDown(e, 'Recommended')}
+                    onMouseMove={(e) => mouseMove(e, 'Recommended')}
+                  >
+                    <HomeDeck cards={summary.summaries.recommended} />
+                  </Container>
+                </Row>
+                <hr />
+              </>
+            ) : (
+              <></>
+            )}
           </>
         ) : (
           <>
@@ -159,35 +136,40 @@ export const Home = ({ auth, getUserSummaries, summary }) => {
             <hr />
           </>
         )}
+        {data.loaded ? (
+          <>
+            <Row className="my-3">
+              <h2 className="ml-4 mt-2 text-primary">Popular</h2>
+              <Container
+                className="scrollbarClean"
+                fluid
+                style={{ overflow: 'auto' }}
+                id="Popular"
+                onMouseDown={(e) => mouseDown(e, 'Popular')}
+                onMouseMove={(e) => mouseMove(e, 'Popular')}
+              >
+                <HomeDeck cards={data.popular} />
+              </Container>
+            </Row>
+            <hr />
 
-        <Row className="my-3">
-          <h2 className="ml-4 mt-2 text-primary">Popular</h2>
-          <Container
-            className="scrollbarClean"
-            fluid
-            style={{ overflow: 'auto' }}
-            id="Popular"
-            onMouseDown={(e) => mouseDown(e, 'Popular')}
-            onMouseMove={(e) => mouseMove(e, 'Popular')}
-          >
-            <HomeDeck cards={data} />
-          </Container>
-        </Row>
-        <hr />
-
-        <Row className="my-3">
-          <h2 className="ml-4 mt-2 text-primary">New</h2>
-          <Container
-            className="scrollbarClean"
-            fluid
-            style={{ overflow: 'auto' }}
-            id="New"
-            onMouseDown={(e) => mouseDown(e, 'New')}
-            onMouseMove={(e) => mouseMove(e, 'New')}
-          >
-            <HomeDeck cards={data} />
-          </Container>
-        </Row>
+            <Row className="my-3">
+              <h2 className="ml-4 mt-2 text-primary">New</h2>
+              <Container
+                className="scrollbarClean"
+                fluid
+                style={{ overflow: 'auto' }}
+                id="New"
+                onMouseDown={(e) => mouseDown(e, 'New')}
+                onMouseMove={(e) => mouseMove(e, 'New')}
+              >
+                <HomeDeck cards={data.new} />
+              </Container>
+            </Row>
+          </>
+        ) : (
+          <></>
+        )}
       </Container>
     </>
   );
