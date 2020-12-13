@@ -13,7 +13,6 @@ const Footer = () => {
       className="footer bg-light text-center"
       style={{
         marginTop: '100px',
-        position: 'fixed',
         bottom: '0',
         width: '100%',
       }}
