@@ -49,14 +49,14 @@ export default function Faq() {
             <Accordion.Toggle
               className="d-flex"
               as={Card.Header}
-              eventkey={item.id}
+              eventKey={item.id}
             >
               {item.Q}
 
               <Image className="ml-auto" src={arrow} width="28" height="28" />
             </Accordion.Toggle>
 
-            <Accordion.Collapse eventkey={item.id}>
+            <Accordion.Collapse eventKey={item.id}>
               <Card.Body>{item.A}</Card.Body>
             </Accordion.Collapse>
           </div>
