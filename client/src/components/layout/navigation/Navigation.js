@@ -29,8 +29,8 @@ const Navigation = ({ auth, logout }) => {
     setSearch({ value: e.target.value, redirect: false });
   };
   return (
-    <Navbar className="m-0" bg="light" expand="lg" sticky="top">
-      <Nav>
+    <Navbar className="p-0" bg="light" expand="lg" sticky="top">
+      <Nav className="d-flex flex-direction-row">
         <Navbar.Brand
           className="d-flex p-0 m-0"
           as={Link}
@@ -57,7 +57,7 @@ const Navigation = ({ auth, logout }) => {
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse
-        className="d-flex justify-content-between"
+        className="pt-0 justify-content-between"
         id="basic-navbar-nav"
       >
         {/* left side */}
@@ -69,11 +69,6 @@ const Navigation = ({ auth, logout }) => {
         <Nav>
           <Form inline onSubmit={(e) => searchOnPress(e)}>
             <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text className="bg-white">
-                  <Image src="/search.svg" width="18" />
-                </InputGroup.Text>
-              </InputGroup.Prepend>
               <FormControl
                 style={{ borderLeft: 'white' }}
                 type="text"
@@ -82,14 +77,19 @@ const Navigation = ({ auth, logout }) => {
                 value={search.value}
                 placeholder="Search"
               />
+              <InputGroup.Prepend>
+                <InputGroup.Text className="bg-white">
+                  <Image src="/search.svg" width="18" />
+                </InputGroup.Text>
+              </InputGroup.Prepend>
             </InputGroup>
           </Form>
         </Nav>
 
         {/* //right side */}
         {auth.isAuthenticated ? (
-          <Nav className="d-flex px-auto sm-mr-auto">
-            <NavDropdown className="pt-2 mr-sm-0" title="Categories">
+          <Nav className="d-flex px-auto sm-mr-auto align-items-center">
+            <NavDropdown className="p-0 mr-sm-0" title="Categories">
               {categoriesData.map((cat) => (
                 <div key={cat.id}>
                   <NavDropdown.Item
@@ -111,24 +111,22 @@ const Navigation = ({ auth, logout }) => {
 
             <Nav.Link as={Link} to={'/profile'} eventKey="bookmark">
               <Image
-                className="pt-2"
+                className="mx-1 p-0"
                 src="/Icons/bookmark-w.svg"
-                width="30"
-                height="30"
+                width="28"
                 alt="bookmark"
               />
             </Nav.Link>
             <Nav.Link as={Link} to={'/checkout'} eventKey="checkout">
               <Button
                 style={{ borderRadius: '1rem' }}
-                className="d-flex align-items-center"
+                className="p-0 d-flex align-items-center"
                 variant="outline"
               >
                 <span className="mr-2">{auth.user.balance}</span>
                 <Image
                   src={`/Icons/wallet-${auth.user.balance ? 'f' : 'w'}.svg`}
                   width="28"
-                  height="28"
                   alt="wallet img"
                 />
               </Button>
@@ -138,8 +136,7 @@ const Navigation = ({ auth, logout }) => {
               title={
                 <Image
                   src={auth.user.picture}
-                  width="48"
-                  height="48"
+                  width="30"
                   alt="user img"
                   roundedCircle
                 />
