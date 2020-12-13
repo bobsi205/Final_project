@@ -15,18 +15,3 @@ export const getSearch = (field, searchQuery) => async (dispatch) => {
     });
   }
 };
-
-export const searchCategory = (category) => async (dispatch) => {
-  try {
-    const res = await api.get(`/search/category/${category}`);
-    dispatch({
-      type: GET_SEARCH,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: SEARCH_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
-};

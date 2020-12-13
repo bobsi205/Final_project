@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Row, Col, Image } from 'react-bootstrap';
 
 export const ProfileInfo = ({ profile, user }) => {
+  console.log(profile);
   return (
     <>
       <Link className="ml-3" to="/profile/edit">
@@ -18,12 +19,14 @@ export const ProfileInfo = ({ profile, user }) => {
       <Row>
         <Col className="text-center">
           <Image
-            src="/lilach-katzabi.jpg"
+            src={user.picture}
             style={{ height: '125px', width: '125px' }}
             roundedCircle
             className="mb-1"
           />
-          <h2>{user.firstName.concat(' ', user.lastName)}</h2>
+          <h2>
+            {user.firstName} {user.lastName}
+          </h2>
           <p className="lead mb-0">{profile.education[0].degree}</p>
           <p className="text-muted">{profile.education[0].school}</p>
         </Col>

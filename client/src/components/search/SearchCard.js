@@ -1,7 +1,13 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
-export const SearchCard = ({ summary }) => {
+export const SearchCard = ({ summary, clickHandler }) => {
+  const history = useHistory();
+  const routeChange = () => {
+    let path = `/summary/${summary._id}`;
+    history.push(path);
+  };
   return (
     <Card
       key={summary._id}
@@ -12,6 +18,7 @@ export const SearchCard = ({ summary }) => {
         maxHeight: '200px',
         overflow: 'hidden',
       }}
+      onClick={() => routeChange()}
     >
       <Card.Body>
         <Card.Title className="unSelectable">{summary.title}</Card.Title>

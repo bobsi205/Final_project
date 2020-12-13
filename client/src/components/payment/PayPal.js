@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-export const Paypal = ({ props }) => {
+export const PayPal = ({ props }) => {
   const x = props.amount + '.00';
   console.log(x);
   return (
@@ -61,8 +61,8 @@ export const Paypal = ({ props }) => {
   );
 };
 
-Paypal.propTypes = {
+PayPal.propTypes = {
   setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert })(Paypal);
+export default connect(null, { setAlert })(PayPal);

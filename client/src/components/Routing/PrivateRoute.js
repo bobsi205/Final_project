@@ -13,7 +13,9 @@ const PrivateRoute = ({
     {...rest}
     render={(props) =>
       loading ? (
-        <LoadingSpinner />
+        <div className="d-flex justify-content-center">
+          <LoadingSpinner />
+        </div>
       ) : isAuthenticated ? (
         <Component {...props} />
       ) : (

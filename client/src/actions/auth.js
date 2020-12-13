@@ -30,6 +30,8 @@ export const loadUser = () => async (dispatch) => {
 // Register User
 export const register = (formData, profileImage) => async (dispatch) => {
   try {
+    let res = await api.post('/users', formData);
+
     const config = {
       bucketName: 'summary-project',
       dirName: 'profileImages',
@@ -38,23 +40,17 @@ export const register = (formData, profileImage) => async (dispatch) => {
       secretAccessKey: 'TmviC0QnPtqf97z3JjyuLBSMz1fllIG7+eOZyt3y',
     };
     const ReactS3Client = new S3(config);
-
-    ReactS3Client.uploadFile(
-      profileImage,
-      formData.firstName.concat(formData.lastName)
-    )
-      .then(async (data) => {
-        console.log(data);
-        let newFormData = { ...formData, picture: data.location };
-        const res = await api.post('/users', newFormData);
-        dispatch({
-          type: REGISTER_SUCCESS,
-          payload: res.data,
-        });
-        dispatch(loadUser());
-      })
-      .catch((err) => console.error(err));
-    // const res = await api.post('/users', formData);
+    ReactS3Client.uploadFile(profileImage, res.data._id).then(async (data) => {
+      let obj = { picture: data.location };
+      res = await api.put('/users/picture', obj);
+    });
+    await Promise.all([
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data,
+      }),
+      dispatch(loadUser()),
+    ]);
   } catch (err) {
     const errors = err.response.data.errors;
 

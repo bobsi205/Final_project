@@ -8,7 +8,7 @@ import { getSearch } from '../../actions/search';
 export const Search = ({ search, getSearch, match }) => {
   useEffect(() => {
     getSearch(match.params.field, match.params.query);
-  }, [getSearch]);
+  }, [getSearch, match.params.field, match.params.query]);
   return (
     <Container className="bg-light my-4 py-4 d-flex justify-content-around flex-wrap">
       {search.search !== null && search.search.length > 0 ? (
@@ -16,7 +16,7 @@ export const Search = ({ search, getSearch, match }) => {
           return <SearchCard summary={obj} />;
         })
       ) : (
-        <h1>uff no summary</h1>
+        <h1>No summaries found</h1>
       )}
     </Container>
   );

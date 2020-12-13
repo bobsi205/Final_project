@@ -10,23 +10,23 @@ import {
   Button,
   Image,
 } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import LoginModal from '../../auth/LoginModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import categoriesData from '../../../utils/categoriesData.json';
 import { logout } from '../../../actions/auth';
 
-const Navigation = ({ isAuthenticated, logout }) => {
+const Navigation = ({ auth, logout }) => {
   const [modalShow, setModalShow] = useState(false);
   const [search, setSearch] = useState({ value: '', redirect: false });
-  const coin = 23;
-  const walletStyle = coin ? 'f' : 'w';
+  const history = useHistory();
 
   const searchOnPress = (e) => {
     e.preventDefault();
 
-    setSearch({ ...search, redirect: true });
+    let path = `/search/title/${search.value}`;
+    history.push(path);
   };
   const onChange = (e) => {
     setSearch({ value: e.target.value, redirect: false });
@@ -73,23 +73,17 @@ const Navigation = ({ isAuthenticated, logout }) => {
             />
           </Form>
         </Nav>
-        {search.redirect ? (
-          <Redirect push to={`/search/title/${search.value}`} />
-        ) : (
-          <></>
-        )}
+
         {/* //right side */}
-        {isAuthenticated ? (
-          <Nav
-            className="d-flex px-auto sm-mr-auto"
-          >
-            <NavDropdown className="pt-2 mr-sm-0" title="Categories">
+        {auth.isAuthenticated ? (
+          <Nav className="d-flex align-items-center">
+            <NavDropdown title="Categories">
               {categoriesData.map((cat) => (
                 <>
                   <NavDropdown.Item
                     className="d-flex align-items-center px-4 py-2"
                     as={Link}
-                    to={`/action/${cat.id}`}
+                    to={`/search/category/${cat.id}`}
                   >
                     <Image
                       className="mr-1"
@@ -103,7 +97,7 @@ const Navigation = ({ isAuthenticated, logout }) => {
               ))}
             </NavDropdown>
 
-            <Nav.Link as={Link} to={'/bookmark'} eventKey="bookmark">
+            <Nav.Link as={Link} to={'/profile'} eventKey="bookmark">
               <Image
               className="pt-2"
                 src="/Icons/bookmark-w.svg"
@@ -118,9 +112,9 @@ const Navigation = ({ isAuthenticated, logout }) => {
                 className="d-flex align-items-center"
                 variant="outline"
               >
-                <span className="mr-2">{coin}</span>
+                <span className="mr-2">{auth.user.balance}</span>
                 <Image
-                  src={`/Icons/wallet-${walletStyle}.svg`}
+                  src={`/Icons/wallet-${auth.user.balance ? 'f' : 'w'}.svg`}
                   width="28"
                   height="28"
                   alt="wallet img"
@@ -131,7 +125,7 @@ const Navigation = ({ isAuthenticated, logout }) => {
             <NavDropdown
               title={
                 <Image
-                  src="/lilach-katzabi.jpg"
+                  src={auth.user.picture}
                   width="48"
                   height="48"
                   alt="user img"
@@ -142,8 +136,7 @@ const Navigation = ({ isAuthenticated, logout }) => {
             >
               <Dropdown.Item as={Link} to={'/profile'} eventKey="profile">
                 <Image
-                className="px-auto"
-                  src="/lilach-katzabi.jpg"
+                  src={auth.user.picture}
                   width="68"
                   height="68"
                   alt="user img"
@@ -152,31 +145,6 @@ const Navigation = ({ isAuthenticated, logout }) => {
               </Dropdown.Item>
               <Dropdown.Item as={Link} to={'/profile/edit'}>
                 Edit profile
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item className="d-flex align-items-center">
-                <Image
-                  className="mr-1"
-                  src="/navIconDrop/down-arrow.svg"
-                  width="16"
-                />
-                Downloads
-              </Dropdown.Item>
-              <Dropdown.Item className="d-flex align-items-center">
-                <Image
-                  className="mr-1"
-                  src="/navIconDrop/upload.svg"
-                  width="16"
-                />
-                Uploaded
-              </Dropdown.Item>
-              <Dropdown.Item className="d-flex align-items-center">
-                <Image
-                  className="mr-1"
-                  src="/navIconDrop/star.svg"
-                  width="16"
-                />
-                Favorite
               </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item
@@ -206,12 +174,12 @@ const Navigation = ({ isAuthenticated, logout }) => {
 };
 
 LoginModal.propTypes = {
-  isAuthenticated: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { logout })(Navigation);

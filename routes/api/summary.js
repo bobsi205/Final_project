@@ -192,6 +192,7 @@ router.post(
         lastName: user.lastName,
         text: req.body.text,
         user: req.user.id,
+        picture: req.user.picture,
       };
 
       summary.comments.unshift(newComment);

@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { updateProfile } from '../../actions/profile';
 import { getProfile } from '../../actions/profile';
+import { LoadingSpinner } from '../layout/LoadingSpinner';
 
 import {
   Image,
@@ -21,7 +22,7 @@ const ProfileEdit = ({
   updateProfile,
   getProfile,
   auth: { user },
-  profile: { profile },
+  profile,
 }) => {
   const [localProfile, setLocalProfile] = useState({
     bio: 'bio',
@@ -91,32 +92,31 @@ const ProfileEdit = ({
       checked: false,
     },
   ]);
-  const loadProfile = async () => {
+
+  useEffect(async () => {
     try {
-      await getProfile();
-      setLocalProfile({
-        bio: profile.profile.bio,
-        institution: profile.profile.education[0].school,
-        fieldOfStudy: profile.profile.education[0].degree,
-      });
-      let interestsArr = user.educationsOfInterest[0].education.split(',');
-      let tempInterests = interests;
-      interestsArr.map((interest) => {
-        tempInterests.map((cat) => {
-          if (cat.objName === interest) cat.checked = true;
+      await getProfile().then(() => {
+        console.log(profile);
+        setLocalProfile({
+          bio: profile.profile.profile.bio,
+          institution: profile.profile.profile.education[0].school,
+          fieldOfStudy: profile.profile.profile.education[0].degree,
         });
+        let interestsArr = user.educationsOfInterest[0].education.split(',');
+        interestsArr.splice(0, 1);
+        console.log(interestsArr);
+        let tempInterests = interests;
+        interestsArr.map((interest) => {
+          tempInterests.map((cat) => {
+            if (cat.objName === interest) cat.checked = true;
+          });
+        });
+        setInterests(tempInterests);
       });
-      setInterests(tempInterests);
     } catch (err) {
-      console.log('were fucked');
+      console.log(err);
     }
-  };
-
-  useEffect(() => {
-    loadProfile();
-  }, []);
-
-  const { institution, fieldOfStudy, profileImg } = localProfile;
+  }, [getProfile]);
 
   const onChange = (e) => {
     setLocalProfile({ ...localProfile, [e.target.name]: e.target.value });
@@ -157,27 +157,25 @@ const ProfileEdit = ({
 
   return (
     <Container className="bg-light my-4 py-4 ">
-      {profile !== null ? (
+      {profile.loading ? (
+        <div className="d-flex justify-content-center">
+          <LoadingSpinner />
+        </div>
+      ) : (
         <Form onSubmit={(e) => onSubmit(e)}>
           <Row>
             <Col className="text-center">
               <div className="d-flex justify-content-center align-items-center">
                 <Image
-                  src="/lilach-katzabi.jpg"
+                  src={user.picture}
                   style={{ height: '125px', width: '125px' }}
                   roundedCircle
                   className="mb-1"
                 />
-                <Image
-                  src="/icons/upload-g.svg"
-                  style={{
-                    width: '60px',
-                    height: '60px',
-                    position: 'absolute',
-                  }}
-                />
               </div>
-              <h2>Lilack Katzabi</h2>
+              <h2>
+                {user.firstName} {user.lastName}
+              </h2>
             </Col>
           </Row>
           <hr />
@@ -244,8 +242,6 @@ const ProfileEdit = ({
             </Button>
           </div>
         </Form>
-      ) : (
-        <></>
       )}
     </Container>
   );

@@ -6,7 +6,7 @@ import { CategoryBox } from './CategoryBox';
 import categoriesData from '../../utils/categoriesData.json';
 import PropTypes from 'prop-types';
 
-export const Home = () => {
+export const Home = ({ auth }) => {
   const [data] = useState([
     {
       title: 'Computer Science1',
@@ -95,22 +95,28 @@ export const Home = () => {
         ></header>
         <div className="bg-light p-2 mb-4"></div>
       </>
-      <Container onMouseUp={(e) => mouseUp(e)}>
-        <Row className="my-3">
-          <h2 className="ml-4 mt-2 text-primary">Recent</h2>
-          <Container
-            className="scrollbarClean"
-            fluid
-            style={{ overflow: 'auto' }}
-            id="Recent"
-            onMouseDown={(e) => mouseDown(e, 'Recent')}
-            onMouseMove={(e) => mouseMove(e, 'Recent')}
-          >
-            <HomeDeck cards={data} />
-          </Container>
-        </Row>
-        <hr />
 
+      <Container onMouseUp={(e) => mouseUp(e)}>
+        {auth.isAuthenticated ? (
+          <>
+            <Row className="my-3">
+              <h2 className="ml-4 mt-2 text-primary">Recent</h2>
+              <Container
+                className="scrollbarClean"
+                fluid
+                style={{ overflow: 'auto' }}
+                id="Recent"
+                onMouseDown={(e) => mouseDown(e, 'Recent')}
+                onMouseMove={(e) => mouseMove(e, 'Recent')}
+              >
+                <HomeDeck cards={data} />
+              </Container>
+            </Row>
+            <hr />
+          </>
+        ) : (
+          <></>
+        )}
         <Row>
           {categoriesData.map((cat) => {
             return (
@@ -170,8 +176,12 @@ export const Home = () => {
   );
 };
 
-Home.protoType = {};
+Home.protoType = {
+  auth: PropTypes.object.isRequired,
+};
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
 export default connect(mapStateToProps)(Home);
