@@ -56,22 +56,6 @@ export default function Checkout() {
           )}
         </Card.Footer>
       </Card>
-      <Button
-        className="m-2"
-        onClick={() => {
-          setCheckout(true);
-        }}
-      >
-        Checkout
-      </Button>
-
-      {checkout ? (
-        <div className="invisible">
-          <PayPal amount={amount} />
-        </div>
-      ) : (
-        ''
-      )}
     </Container>
   );
 }
