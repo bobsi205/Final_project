@@ -78,7 +78,6 @@ router.get('/:id', checkObjectId('id'), async (req, res) => {
     const profile = await Profile.findOne({ user: summary.user }).select(
       'education -_id'
     );
-    console.log(profile);
     const data = { ...summary._doc, education: profile.education };
     res.json(data);
   } catch (err) {
@@ -151,7 +150,6 @@ router.put('/view/:id', [auth, checkObjectId('id')], async (req, res) => {
     let found = summary.views.filter(
       (view) => view.user.toString() === req.user.id
     );
-    console.log(found.length);
     if (found.length !== 0) {
       return res.status(200).end();
     }
@@ -199,13 +197,83 @@ router.post(
 
       await summary.save();
 
-      res.json(summary.comments);
+      res.json(summary);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
   }
 );
+
+// @route    PUT api/summary/bookmark/:id
+// @desc     Add / remove summary from user bookmarked
+// @access   private
+router.put('/bookmark/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    const summary = await Summary.findById(req.params.id);
+    var user = await User.findById(req.user.id);
+    let found = false;
+    user.bookmarkedSummaries.forEach((element) =>
+      element._id.toString() === req.params.id ? (found = true) : null
+    );
+    if (found) {
+      user.bookmarkedSummaries = user.bookmarkedSummaries.filter(
+        (sm) => sm._id.toString() !== req.params.id
+      );
+    } else {
+      user.bookmarkedSummaries.push(req.params.id);
+    }
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route    PUT api/summary/recent/:id
+// @desc     Add summary to user recent
+// @access   private
+router.put('/recent/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    const summary = await Summary.findById(req.params.id);
+    var user = await User.findById(req.user.id);
+    user.recentSummaries = user.recentSummaries.filter(
+      (sm) => sm._id.toString() !== req.params.id
+    );
+    user.recentSummaries.unshift(req.params.id);
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route    PUT api/summary/buy/:id
+// @desc     Add summary to user bought summaries
+// @access   private
+router.put('/buy/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    const summary = await Summary.findById(req.params.id);
+    var user = await User.findById(req.user.id);
+    if (user.balance < 5)
+      return res.status(403).json({ msg: 'Not enough coins' });
+
+    if (
+      user.boughtSummaries.filter((sm) => sm._id.toString() === req.params.id)
+        .length > 0
+    )
+      return res.status(403).json({ msg: 'Summary already owned' });
+    user.boughtSummaries.unshift(req.params.id);
+    user.balance -= 5;
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 // // @route    DELETE api/posts/comment/:id/:comment_id
 // // @desc     Delete comment

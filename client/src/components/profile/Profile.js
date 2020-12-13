@@ -6,81 +6,42 @@ import { ProfileInfo } from './ProfileInfo';
 import { getProfile } from '../../actions/profile';
 import PropTypes from 'prop-types';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
+import { getUserSummaries } from '../../actions/summary';
 
-export const Profile = ({ getProfile, auth: { user }, profile }) => {
+export const Profile = ({
+  getProfile,
+  auth: { user },
+  profile,
+  getUserSummaries,
+  summary,
+}) => {
   useEffect(() => {
     getProfile();
-  }, [getProfile]);
+    getUserSummaries();
+  }, [getProfile, getUserSummaries]);
 
-  const [data, setData] = useState([
-    {
-      title: 'Computer Science',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-    {
-      title: 'Computer Science',
-      text:
-        'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
-    },
-  ]);
   return (
     <Container className="bg-light my-4 py-4">
-      {!profile.loading ? (
+      {!profile.loading && !summary.loading ? (
         <>
           <ProfileInfo profile={profile.profile.profile} user={user} />
-
+          {console.log(summary)}
           <Tabs
             fill
             className="d-flex justify-content-around mb-4"
             defaultActiveKey="Recent"
           >
             <Tab eventKey="Recent" title="Recent" block>
-              <ProfileDeck cards={data} />
+              <ProfileDeck cards={summary.summaries.recent} />
             </Tab>
             <Tab className="" eventKey="Owned" title="Owned">
-              <ProfileDeck cards={data} />
+              <ProfileDeck cards={summary.summaries.bought} />
             </Tab>
             <Tab className="" eventKey="Bookmarked" title="Bookmarked">
-              <ProfileDeck cards={data} />
+              <ProfileDeck cards={summary.summaries.bookmarked} />
             </Tab>
             <Tab className="" eventKey="Uploaded" title="Uploaded">
-              <ProfileDeck cards={data} />
+              <ProfileDeck cards={summary.summaries.uploaded} />
             </Tab>
           </Tabs>
         </>
@@ -95,11 +56,16 @@ Profile.propTypes = {
   getProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  getUserSummaries: PropTypes.func.isRequired,
+  summary: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
+  summary: state.summary,
 });
 
-export default connect(mapStateToProps, { getProfile })(Profile);
+export default connect(mapStateToProps, { getProfile, getUserSummaries })(
+  Profile
+);

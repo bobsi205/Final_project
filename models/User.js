@@ -54,7 +54,7 @@ const UserSchema = new mongoose.Schema({
       },
     },
   ],
-  BoughtSummaries: [
+  boughtSummaries: [
     {
       summary: {
         type: mongoose.Schema.Types.ObjectId,
@@ -62,7 +62,15 @@ const UserSchema = new mongoose.Schema({
       },
     },
   ],
-  RecentSummaries: [
+  recentSummaries: [
+    {
+      summary: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'summary',
+      },
+    },
+  ],
+  bookmarkedSummaries: [
     {
       summary: {
         type: mongoose.Schema.Types.ObjectId,

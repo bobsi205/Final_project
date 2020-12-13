@@ -2,12 +2,14 @@ import {
   ADD_SUMMARY,
   GET_SUMMARY,
   SUMMARY_ERROR,
-  GET_USER,
+  GET_USER_SUMMARIES,
+  ADD_COMMENT,
 } from '../actions/types';
 
 const initialState = {
   summary: null,
   users: [],
+  summaries: [],
   loading: true,
 };
 
@@ -17,18 +19,19 @@ export default function (state = initialState, action) {
   switch (type) {
     case GET_SUMMARY:
     case ADD_SUMMARY:
+    case ADD_COMMENT:
       return {
         ...state,
         summary: payload,
         users: [],
         loading: false,
       };
-    // case GET_USER:
-    //   return {
-    //     ...state,
-    //     users: users.push(payload),
-    //     loading: false,
-    //   };
+    case GET_USER_SUMMARIES:
+      return {
+        ...state,
+        summaries: payload,
+        loading: false,
+      };
     case SUMMARY_ERROR:
       return {
         ...state,

@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
-export const SearchCard = ({ summary, clickHandler }) => {
+export const SearchCard = ({ summary }) => {
   const history = useHistory();
   const routeChange = () => {
     let path = `/summary/${summary._id}`;
