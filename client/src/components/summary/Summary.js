@@ -6,8 +6,6 @@ import {
   Image,
   Row,
   Col,
-  Media,
-  InputGroup,
   Form,
 } from 'react-bootstrap';
 import Rating from '../rating/Rating';
@@ -15,8 +13,12 @@ import Rate from '../rating/Rate';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import eye from './images/eye.svg';
-import dropArrow from './images/down-arrow.svg';
-import { getSummary, addComment, addRating } from '../../actions/summary';
+import {
+  getSummary,
+  addComment,
+  addRating,
+  updateBookmark,
+} from '../../actions/summary';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
 import { Comments } from './Comments';
 
@@ -27,14 +29,24 @@ export const Summary = ({
   match,
   addComment,
   addRating,
+  updateBookmark,
 }) => {
   useEffect(() => {
     getSummary(match.params.id);
-  }, []);
+  }, [getSummary]);
 
   const [comment, setComment] = useState('');
   const onChange = (e) => {
     setComment(e.target.value);
+  };
+
+  const isBookmarked = () => {
+    for (let index = 0; index < auth.user.bookmarkedSummaries.length; index++) {
+      const sm = auth.user.bookmarkedSummaries[index];
+      if (sm._id.toString() === summary._id) return true;
+    }
+    console.log('here');
+    return false;
   };
 
   const onSubmit = (e) => {
@@ -55,6 +67,10 @@ export const Summary = ({
 
   const rateSummary = (rating) => {
     addRating(summary._id, rating);
+  };
+
+  const bookmarkHandler = () => {
+    updateBookmark(summary._id);
   };
 
   return (
@@ -87,7 +103,11 @@ export const Summary = ({
                     </Row>
                   </Col>
                   <Col xs="auto">
-                    <Image src={dropArrow} height="28" />
+                    <Image
+                      src={`/icons/bookmark-${isBookmarked() ? 'b' : 'w'}.svg`}
+                      height="28"
+                      onClick={(e) => bookmarkHandler(e)}
+                    />
                   </Col>
                 </Row>
               </Col>
@@ -158,6 +178,7 @@ Summary.propTypes = {
   getSummary: PropTypes.func.isRequired,
   addComment: PropTypes.func.isRequired,
   addRating: PropTypes.func.isRequired,
+  updateBookmark: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -165,6 +186,9 @@ const mapStateToProps = (state) => ({
   summary: state.summary,
 });
 
-export default connect(mapStateToProps, { getSummary, addComment, addRating })(
-  Summary
-);
+export default connect(mapStateToProps, {
+  getSummary,
+  addComment,
+  addRating,
+  updateBookmark,
+})(Summary);

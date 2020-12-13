@@ -5,6 +5,7 @@ import {
   GET_USER_SUMMARIES,
   ADD_COMMENT,
   UPDATE_RATING,
+  UPDATE_BOOKMARK,
 } from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
@@ -101,6 +102,27 @@ export const addRating = (id, rating) => async (dispatch) => {
 
     dispatch({
       type: UPDATE_RATING,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: SUMMARY_ERROR,
+    });
+  }
+};
+
+export const updateBookmark = (id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/summary/bookmark/${id}`);
+
+    dispatch({
+      type: UPDATE_BOOKMARK,
       payload: res.data,
     });
   } catch (err) {

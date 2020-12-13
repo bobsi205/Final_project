@@ -5,6 +5,7 @@ import {
   GET_USER_SUMMARIES,
   ADD_COMMENT,
   UPDATE_RATING,
+  UPDATE_BOOKMARK,
 } from '../actions/types';
 
 const initialState = {
@@ -22,6 +23,7 @@ export default function (state = initialState, action) {
     case ADD_SUMMARY:
     case ADD_COMMENT:
     case UPDATE_RATING:
+    case UPDATE_BOOKMARK:
       return {
         ...state,
         summary: payload,
