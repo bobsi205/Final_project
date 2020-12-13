@@ -164,7 +164,9 @@ const Navigation = ({ auth, logout }) => {
           </Nav>
         ) : (
           <Nav className="d-flex sm-mr-auto">
-            <LoginModal />
+            <Link to="/login" className="nav-link">
+              Sign-in
+            </Link>
             <Link to="/register" className="nav-link">
               Sign-Up
             </Link>
