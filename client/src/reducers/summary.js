@@ -3,6 +3,7 @@ import {
   GET_SUMMARY,
   SUMMARY_ERROR,
   GET_USER_SUMMARIES,
+  ADD_COMMENT,
 } from '../actions/types';
 
 const initialState = {
@@ -18,6 +19,7 @@ export default function (state = initialState, action) {
   switch (type) {
     case GET_SUMMARY:
     case ADD_SUMMARY:
+    case ADD_COMMENT:
       return {
         ...state,
         summary: payload,

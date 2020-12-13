@@ -133,7 +133,6 @@ router.put(
   '/picture',
   [auth, [check('picture', 'picture is required').not().isEmpty()]],
   async (req, res) => {
-    console.log(req.body.picture);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.arrays });
@@ -170,11 +169,7 @@ router.get('/me', auth, async (req, res) => {
     bought = user.boughtSummaries.map((sm) => {
       return sm._id;
     });
-    console.log(
-      await Summary.find({
-        _id: { $in: bought },
-      })
-    );
+
     let summaries = {
       uploaded: await Summary.find({
         _id: { $in: uploaded },

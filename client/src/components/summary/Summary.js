@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   Container,
@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 import SummaryText from './text.json';
 import eye from './images/eye.svg';
 import dropArrow from './images/down-arrow.svg';
-import { getSummary } from '../../actions/summary';
+import { getSummary, addComment } from '../../actions/summary';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
 import { Comments } from './Comments';
 
@@ -26,12 +26,20 @@ export const Summary = ({
   summary: { summary, loading },
   getSummary,
   match,
+  addComment,
 }) => {
   useEffect(() => {
     getSummary(match.params.id);
-    console.log();
   }, []);
 
+  const [comment, setComment] = useState('');
+  const onChange = (e) => {
+    setComment(e.target.value);
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addComment(summary._id, comment);
+  };
   const calculateRating = () => {
     if (summary.rating.length === 0) return 0;
     let rating = 0,
@@ -45,7 +53,7 @@ export const Summary = ({
 
   return (
     <Container className="my-5">
-      {loading === true ? (
+      {loading ? (
         <div className="d-flex justify-content-center">
           <LoadingSpinner />
         </div>
@@ -110,15 +118,23 @@ export const Summary = ({
             dangerouslySetInnerHTML={{ __html: summary.text }}
           ></Card.Body>
           <Card.Footer>
-            <Form>
+            <Form onSubmit={(e) => onSubmit(e)}>
               <Rate className="mx-4" rate={calculateRating()} />
-              <Form.Group>
-                <Form.Control
-                  placeholder="What's are your mind?"
-                  as="textarea"
-                  rows={1}
-                />
-              </Form.Group>
+              <Row>
+                <Col className="p-0 h-100">
+                  <Form.Group>
+                    <Form.Control
+                      placeholder="What's are your mind?"
+                      as="textarea"
+                      rows={1}
+                      value={comment}
+                      onChange={(e) => onChange(e)}
+                    />
+                  </Form.Group>
+                </Col>
+
+                <Button type="submit">Post</Button>
+              </Row>
             </Form>
             {summary.comments.map((comment) => {
               return <Comments comment={comment} />;
@@ -134,6 +150,7 @@ Summary.propTypes = {
   auth: PropTypes.object.isRequired,
   summary: PropTypes.object.isRequired,
   getSummary: PropTypes.func.isRequired,
+  addComment: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -141,4 +158,4 @@ const mapStateToProps = (state) => ({
   summary: state.summary,
 });
 
-export default connect(mapStateToProps, { getSummary })(Summary);
+export default connect(mapStateToProps, { getSummary, addComment })(Summary);

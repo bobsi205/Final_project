@@ -78,7 +78,6 @@ router.get('/:id', checkObjectId('id'), async (req, res) => {
     const profile = await Profile.findOne({ user: summary.user }).select(
       'education -_id'
     );
-    console.log(profile);
     const data = { ...summary._doc, education: profile.education };
     res.json(data);
   } catch (err) {
@@ -151,7 +150,6 @@ router.put('/view/:id', [auth, checkObjectId('id')], async (req, res) => {
     let found = summary.views.filter(
       (view) => view.user.toString() === req.user.id
     );
-    console.log(found.length);
     if (found.length !== 0) {
       return res.status(200).end();
     }
@@ -199,7 +197,7 @@ router.post(
 
       await summary.save();
 
-      res.json(summary.comments);
+      res.json(summary);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
