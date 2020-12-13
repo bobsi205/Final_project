@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 import SummaryText from './text.json';
 import eye from './images/eye.svg';
 import dropArrow from './images/down-arrow.svg';
-import { getSummary, addComment } from '../../actions/summary';
+import { getSummary, addComment, addRating } from '../../actions/summary';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
 import { Comments } from './Comments';
 
@@ -27,6 +27,7 @@ export const Summary = ({
   getSummary,
   match,
   addComment,
+  addRating,
 }) => {
   useEffect(() => {
     getSummary(match.params.id);
@@ -36,10 +37,12 @@ export const Summary = ({
   const onChange = (e) => {
     setComment(e.target.value);
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     addComment(summary._id, comment);
   };
+
   const calculateRating = () => {
     if (summary.rating.length === 0) return 0;
     let rating = 0,
@@ -49,6 +52,10 @@ export const Summary = ({
       count++;
     });
     return rating / count;
+  };
+
+  const rateSummary = (rating) => {
+    addRating(summary._id, rating);
   };
 
   return (
@@ -65,7 +72,7 @@ export const Summary = ({
                 <Row>
                   <Col xs="auto">
                     <Row>
-                      <Rating />
+                      <Rating rate={calculateRating()} />
                     </Row>
                     <Row className="ml-2">
                       <span>{summary.rating.length}</span>
@@ -119,7 +126,7 @@ export const Summary = ({
           ></Card.Body>
           <Card.Footer>
             <Form onSubmit={(e) => onSubmit(e)}>
-              <Rate className="mx-4" rate={calculateRating()} />
+              <Rate className="mx-4" rate={rateSummary} />
               <Row>
                 <Col className="p-0 h-100">
                   <Form.Group>
@@ -151,6 +158,7 @@ Summary.propTypes = {
   summary: PropTypes.object.isRequired,
   getSummary: PropTypes.func.isRequired,
   addComment: PropTypes.func.isRequired,
+  addRating: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -158,4 +166,6 @@ const mapStateToProps = (state) => ({
   summary: state.summary,
 });
 
-export default connect(mapStateToProps, { getSummary, addComment })(Summary);
+export default connect(mapStateToProps, { getSummary, addComment, addRating })(
+  Summary
+);
