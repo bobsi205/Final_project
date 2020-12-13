@@ -16,7 +16,6 @@ import categoriesData from '../../../utils/categoriesData.json';
 import { logout } from '../../../actions/auth';
 
 const Navigation = ({ auth, logout }) => {
-  const [modalShow, setModalShow] = useState(false);
   const [search, setSearch] = useState({ value: '', redirect: false });
   const history = useHistory();
   console.log(auth.user.firstName +" "+auth.user.lastName);
