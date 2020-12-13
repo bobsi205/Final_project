@@ -29,14 +29,16 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <>
+        <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
           <Navbar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route component={Routes} />
-          </Switch>
+          <div className="flex-fill">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route component={Routes} />
+            </Switch>
+          </div>
           <Footer />
-        </>
+        </div>
       </Router>
     </Provider>
   );
