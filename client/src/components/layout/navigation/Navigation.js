@@ -34,22 +34,21 @@ const Navigation = ({ auth, logout }) => {
       <Nav className="pt-0">
         <Navbar.Brand className="d-flex m-0" as={Link} to={'/'} eventKey="home">
           <Image className="m-2" src="/logo.svg" width="160" height="40" />
-
-          <Nav.Link
-            className="mr-auto"
-            as={Link}
-            to={'/summaryUpload'}
-            eventKey="summaryUpload"
-          >
-            <Image
-              src="/icons/plus-sign.svg"
-              width="28"
-              height="28"
-              alt="plus"
-              className="m-1"
-            />
-          </Nav.Link>
         </Navbar.Brand>
+        <Nav.Link
+          className="mr-auto"
+          as={Link}
+          to={'/summaryUpload'}
+          eventKey="summaryUpload"
+        >
+          <Image
+            src="/icons/plus-sign.svg"
+            width="28"
+            height="28"
+            alt="plus"
+            className="m-1"
+          />
+        </Nav.Link>
       </Nav>
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
