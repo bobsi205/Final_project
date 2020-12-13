@@ -132,8 +132,11 @@ router.put('/rate/:id', [auth, checkObjectId('id')], async (req, res) => {
     });
 
     await summary.save();
-
-    return res.json(summary);
+    const profile = await Profile.findOne({ user: summary.user }).select(
+      'education -_id'
+    );
+    const data = { ...summary._doc, education: profile.education };
+    res.json(data);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -157,8 +160,11 @@ router.put('/view/:id', [auth, checkObjectId('id')], async (req, res) => {
       user: req.user.id,
     });
     await summary.save();
-
-    return res.json(summary.views);
+    const profile = await Profile.findOne({ user: summary.user }).select(
+      'education -_id'
+    );
+    const data = { ...summary._doc, education: profile.education };
+    res.json(data);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -196,8 +202,11 @@ router.post(
       summary.comments.unshift(newComment);
 
       await summary.save();
-
-      res.json(summary);
+      const profile = await Profile.findOne({ user: summary.user }).select(
+        'education -_id'
+      );
+      const data = { ...summary._doc, education: profile.education };
+      res.json(data);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -211,7 +220,7 @@ router.post(
 router.put('/bookmark/:id', [auth, checkObjectId('id')], async (req, res) => {
   try {
     const summary = await Summary.findById(req.params.id);
-    var user = await User.findById(req.user.id);
+    var user = await User.findById(req.user.id).select('-password');
     let found = false;
     user.bookmarkedSummaries.forEach((element) =>
       element._id.toString() === req.params.id ? (found = true) : null

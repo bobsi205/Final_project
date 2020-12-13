@@ -18,10 +18,8 @@ import { logout } from '../../../actions/auth';
 const Navigation = ({ auth, logout }) => {
   const [search, setSearch] = useState({ value: '', redirect: false });
   const history = useHistory();
-  console.log(auth.user.firstName +" "+auth.user.lastName);
   const searchOnPress = (e) => {
     e.preventDefault();
-
     let path = `/search/title/${search.value}`;
     history.push(path);
   };
@@ -33,7 +31,7 @@ const Navigation = ({ auth, logout }) => {
       <Nav className="pt-0">
         <Navbar.Brand className="d-flex m-0" as={Link} to={'/'} eventKey="home">
           <Image className="m-2" src="/logo.svg" width="160" height="40" />
-        </Navbar.Brand> 
+        </Navbar.Brand>
         <Nav.Link
           className="mr-auto m-2"
           as={Link}
@@ -133,16 +131,22 @@ const Navigation = ({ auth, logout }) => {
               }
               className="nav-profile "
             >
-              <Dropdown.Item className="d-flex m-2 p-2" as={Link} to={'/profile'} eventKey="profile">
+              <Dropdown.Item
+                className="d-flex m-2 p-2"
+                as={Link}
+                to={'/profile'}
+                eventKey="profile"
+              >
                 <Image
                   src={auth.user.picture}
                   width="68"
                   height="68"
                   alt="user img"
                   roundedCircle
-                  
                 />
-                <h5 className="p-4">{auth.user.firstName +" "+auth.user.lastName}</h5>
+                <h5 className="p-4">
+                  {auth.user.firstName + ' ' + auth.user.lastName}
+                </h5>
               </Dropdown.Item>
               <Dropdown.Item as={Link} to={'/profile/edit'}>
                 Edit profile

@@ -21,11 +21,8 @@ export const addSummary = (summary) => async (dispatch) => {
     });
     dispatch(setAlert('Summary Uploaded', 'success'));
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
+    console.log(err);
+    dispatch(setAlert('There was an error', 'danger'));
 
     dispatch({
       type: SUMMARY_ERROR,
@@ -43,12 +40,8 @@ export const getSummary = (id) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-
+    console.log(err);
+    dispatch(setAlert('There was an error', 'danger'));
     dispatch({
       type: SUMMARY_ERROR,
     });
@@ -63,11 +56,8 @@ export const getUserSummaries = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
+    console.log(err);
+    dispatch(setAlert('There was an error', 'danger'));
 
     dispatch({
       type: SUMMARY_ERROR,
@@ -84,11 +74,8 @@ export const addComment = (id, comment) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
+    console.log(err);
+    dispatch(setAlert('There was an error', 'danger'));
 
     dispatch({
       type: SUMMARY_ERROR,
@@ -106,11 +93,8 @@ export const addRating = (id, rating) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
+    console.log(err);
+    dispatch(setAlert('There was an error', 'danger'));
 
     dispatch({
       type: SUMMARY_ERROR,
@@ -118,43 +102,19 @@ export const addRating = (id, rating) => async (dispatch) => {
   }
 };
 
-export const updateBookmark = (id) => async (dispatch) => {
-  try {
-    const res = await api.put(`/summary/bookmark/${id}`);
 
-    dispatch({
-      type: UPDATE_BOOKMARK,
-      payload: res.data,
-    });
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-
-    dispatch({
-      type: SUMMARY_ERROR,
-    });
-  }
-};
 
 export const updateView = (id) => async (dispatch) => {
   try {
     const res = await api.get(`/summary/view/${id}`);
-    
 
     dispatch({
       type: UPDATE_VIEW,
       payload: res.data,
     });
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-
+    console.log(err);
+    dispatch(setAlert('There was an error', 'danger'));
     dispatch({
       type: SUMMARY_ERROR,
     });

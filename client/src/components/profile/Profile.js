@@ -22,7 +22,7 @@ export const Profile = ({
 
   return (
     <Container className="bg-light my-4 py-4">
-      {!profile.loading && !summary.loading ? (
+      {!profile.loading && !summary.loadingSummaries ? (
         <>
           <ProfileInfo profile={profile.profile.profile} user={user} />
           {console.log(summary)}
