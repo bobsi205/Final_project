@@ -14,7 +14,6 @@ import Rating from '../rating/Rating';
 import Rate from '../rating/Rate';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SummaryText from './text.json';
 import eye from './images/eye.svg';
 import dropArrow from './images/down-arrow.svg';
 import { getSummary, addComment, addRating } from '../../actions/summary';
@@ -113,7 +112,7 @@ export const Summary = ({
                   <Col xs="auto" className="user image">
                     <Image
                       className="rounded-circle"
-                      src="lilach-katzabi.jpg"
+                      src={summary.picture}
                       height="58"
                     />
                   </Col>
