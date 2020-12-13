@@ -28,4 +28,25 @@ router.get('/:field/:query', async (req, res) => {
   }
 });
 
+// @route   GET api/search/newandpopular
+// @desc    Get new and popular summaries
+// @access  public
+router.get('/newandpopular', async (req, res) => {
+  try {
+    const newSummaries = await Summary.find().sort({ date: -1 }).limit(10);
+    let popularSummaries = await Summary.find();
+    for (let i = 0; i < popularSummaries.length; i++) {
+      popularSummaries = popularSummaries.sort((a, b) => {
+        return b.views.length - a.views.length;
+      });
+    }
+    popularSummaries = popularSummaries.slice(0, 10);
+    data = { popular: popularSummaries, new: newSummaries };
+    res.json(data);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
