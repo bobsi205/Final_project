@@ -242,7 +242,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <hr />
         <Form.Label className="text-center">What are your interest?</Form.Label>
         <hr />
-        <Form.Group className="d-flex flex-wrap justify-content-around">
+        <Form.Group className="d-flex flex-wrap justify-content-between">
           {interests.map((cat, index) => {
             return (
               <Form.Check

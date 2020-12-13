@@ -12,7 +12,8 @@ const Footer = () => {
     <footer
       className="footer bg-light text-center"
       style={{
-        marginTop: '100px',
+        position: 'relative',
+        marginTop: '250px',
         bottom: '0',
         width: '100%',
       }}
