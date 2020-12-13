@@ -8,6 +8,7 @@ import {
   FormControl,
   Button,
   Image,
+  InputGroup,
 } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -18,8 +19,10 @@ import { logout } from '../../../actions/auth';
 const Navigation = ({ auth, logout }) => {
   const [search, setSearch] = useState({ value: '', redirect: false });
   const history = useHistory();
+  // console.log(auth.user.firstName +" "+auth.user.lastName);
   const searchOnPress = (e) => {
     e.preventDefault();
+
     let path = `/search/title/${search.value}`;
     history.push(path);
   };
@@ -27,13 +30,18 @@ const Navigation = ({ auth, logout }) => {
     setSearch({ value: e.target.value, redirect: false });
   };
   return (
-    <Navbar className=" p-0" bg="light" expand="lg" sticky="top">
-      <Nav className="pt-0">
-        <Navbar.Brand className="d-flex m-0" as={Link} to={'/'} eventKey="home">
+    <Navbar className="m-0" bg="light" expand="lg" sticky="top">
+      <Nav>
+        <Navbar.Brand
+          className="d-flex p-0 m-0"
+          as={Link}
+          to={'/'}
+          eventKey="home"
+        >
           <Image className="m-2" src="/logo.svg" width="160" height="40" />
         </Navbar.Brand>
         <Nav.Link
-          className="mr-auto m-2"
+          className="mr-auto m-0"
           as={Link}
           to={'/summaryUpload'}
           eventKey="summaryUpload"
@@ -50,7 +58,7 @@ const Navigation = ({ auth, logout }) => {
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse
-        className="justify-content-between"
+        className="d-flex justify-content-between"
         id="basic-navbar-nav"
       >
         {/* left side */}
@@ -61,13 +69,21 @@ const Navigation = ({ auth, logout }) => {
 
         <Nav>
           <Form inline onSubmit={(e) => searchOnPress(e)}>
-            <FormControl
-              type="text"
-              placeholder="Search"
-              className="mr-sm-2"
-              onChange={(e) => onChange(e)}
-              value={search.value}
-            />
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text className="bg-white">
+                  <Image src="/search.svg" width="18" />
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <FormControl
+              style={{ borderLeft: "white"}}
+                type="text"
+                className="mr-sm-2"
+                onChange={(e) => onChange(e)}
+                value={search.value}
+                placeholder="Search"
+              />
+            </InputGroup>
           </Form>
         </Nav>
 
@@ -144,9 +160,7 @@ const Navigation = ({ auth, logout }) => {
                   alt="user img"
                   roundedCircle
                 />
-                <h5 className="p-4">
-                  {auth.user.firstName + ' ' + auth.user.lastName}
-                </h5>
+                {/* <h5 className="p-4">{auth.user.firstName +" "+auth.user.lastName}</h5> */}
               </Dropdown.Item>
               <Dropdown.Item as={Link} to={'/profile/edit'}>
                 Edit profile
