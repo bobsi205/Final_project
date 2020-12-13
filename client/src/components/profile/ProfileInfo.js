@@ -2,8 +2,32 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col, Image } from 'react-bootstrap';
 
-export const ProfileInfo = ({ profile, user }) => {
-  console.log(profile);
+export const ProfileInfo = ({ profile, user, summary }) => {
+  const countSummariesViews = () => {
+    let count = 0;
+    summary.summaries.uploaded.map((summary, key) => {
+      key = summary._id;
+      count += summary.views.length;
+    });
+    return count;
+  };
+  const countRating = () => {
+    let sumRating = 0;
+    let sumUsersRate = 0;
+    summary.summaries.uploaded.map((summary, key) => {
+      key = summary._id;
+      if (summary.rating.length) {
+        summary.rating.map((rate) => {
+          key = summary._id;
+          sumRating += rate.rate;
+          sumUsersRate++;
+        });
+      }
+    });
+
+    return (sumRating / sumUsersRate).toFixed(1);
+  };
+
   return (
     <>
       <Link className="ml-3" to="/profile/edit">
@@ -52,7 +76,7 @@ export const ProfileInfo = ({ profile, user }) => {
               height="18px"
               src="icons/star-b.svg"
             />
-            <p>4.3</p>
+            <p>{countRating()}</p>
           </Row>
           <Row className="d-flex justify-content-center">
             <Image
@@ -61,7 +85,7 @@ export const ProfileInfo = ({ profile, user }) => {
               height="18px"
               src="icons/eye.svg"
             />
-            <p>102</p>
+            <p>{countSummariesViews()}</p>
           </Row>
         </Col>
 

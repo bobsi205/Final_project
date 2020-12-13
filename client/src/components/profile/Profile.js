@@ -24,7 +24,7 @@ export const Profile = ({
     <Container className="bg-light my-4 py-4">
       {!profile.loading && !summary.loadingSummaries ? (
         <>
-          <ProfileInfo profile={profile.profile.profile} user={user} />
+          <ProfileInfo profile={profile.profile.profile} user={user} summary={summary} />
           {console.log(summary)}
           <Tabs
             fill
