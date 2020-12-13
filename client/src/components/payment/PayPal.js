@@ -5,9 +5,9 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-export const PayPal = ({ props }) => {
-  const x = props.amount + '.00';
-  console.log(x);
+export const PayPal = ( props ) => {
+  const payment_value = props.amount + '.00';
+  console.log(payment_value);
   return (
     <div>
       <PayPalButton
@@ -23,7 +23,7 @@ export const PayPal = ({ props }) => {
               {
                 amount: {
                   currency_code: 'USD',
-                  value: x,
+                  value: payment_value,
                 },
               },
             ],
