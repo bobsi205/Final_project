@@ -214,6 +214,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         </Form.Group>
         <Form.Group>
           <Form.Control
+            required
             type="text"
             placeholder="institution"
             name="institution"
@@ -223,6 +224,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         </Form.Group>
         <Form.Group>
           <Form.Control
+            required
             type="text"
             placeholder="field Of Study"
             name="fieldOfStudy"
@@ -232,6 +234,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         </Form.Group>
         <Form.Group>
           <Form.Control
+            required
             type="text"
             placeholder="bio"
             name="bio"

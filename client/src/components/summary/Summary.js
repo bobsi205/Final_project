@@ -88,7 +88,7 @@ export const Summary = ({
 
   return (
     <Container className="my-5">
-      {!summary.LoadingSummary && summary.summary !== null ? (
+      {!summary.LoadingSummary && summary.summary === null ? (
         <div className="d-flex justify-content-center">
           <LoadingSpinner />
         </div>
@@ -206,13 +206,6 @@ export const Summary = ({
                     <Row>
                       <p>{summary.summary.date.split(/[?T].*/)}</p>
                     </Row>
-                  </Col>
-                  <Col xs="auto">
-                    <Image
-                      src={`/icons/bookmark-${isBookmarked() ? 'b' : 'w'}.svg`}
-                      height="28"
-                      onClick={(e) => bookmarkHandler(e)}
-                    />
                   </Col>
                 </Row>
               </Col>
