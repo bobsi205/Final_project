@@ -7,6 +7,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  UPDATE_BOOKMARK,
   LOGOUT,
 } from './types';
 import S3 from 'react-aws-s3';
@@ -52,11 +53,8 @@ export const register = (formData, profileImage) => async (dispatch) => {
       dispatch(loadUser()),
     ]);
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
+    console.log(err);
+    dispatch(setAlert('There was an error', 'danger'));
 
     dispatch({
       type: REGISTER_FAIL,
@@ -75,14 +73,10 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
+    console.log(err);
+    dispatch(setAlert('There was an error', 'danger'));
 
     dispatch({
       type: LOGIN_FAIL,
@@ -92,3 +86,21 @@ export const login = (email, password) => async (dispatch) => {
 
 // Logout
 export const logout = () => ({ type: LOGOUT });
+
+export const updateBookmark = (id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/summary/bookmark/${id}`);
+
+    dispatch({
+      type: UPDATE_BOOKMARK,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch(setAlert('There was an error', 'danger'));
+
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};

@@ -93,29 +93,28 @@ const ProfileEdit = ({
     },
   ]);
 
-  useEffect(async () => {
-    try {
-      await getProfile().then(() => {
-        setLocalProfile({
-          bio: profile.profile.profile.bio,
-          institution: profile.profile.profile.education[0].school,
-          fieldOfStudy: profile.profile.profile.education[0].degree,
-        });
-        let interestsArr = user.educationsOfInterest[0].education.split(',');
-        interestsArr.splice(0, 1);
-        console.log(interestsArr);
-        let tempInterests = interests;
-        interestsArr.map((interest) => {
-          tempInterests.map((cat) => {
-            if (cat.objName === interest) cat.checked = true;
-          });
-        });
-        setInterests(tempInterests);
+  const load = () => {
+    setLocalProfile({
+      bio: profile.profile.profile.bio,
+      institution: profile.profile.profile.education[0].school,
+      fieldOfStudy: profile.profile.profile.education[0].degree,
+    });
+    let interestsArr = user.educationsOfInterest[0].education.split(',');
+    interestsArr.splice(0, 1);
+    console.log(interestsArr);
+    let tempInterests = interests;
+    interestsArr.map((interest) => {
+      tempInterests.map((cat) => {
+        if (cat.objName === interest) cat.checked = true;
       });
-    } catch (err) {
-      console.log(err);
-    }
-  }, [getProfile]);
+    });
+    setInterests(tempInterests);
+  };
+
+  useEffect(() => {
+    getProfile();
+    load();
+  }, [getProfile, load]);
 
   const onChange = (e) => {
     setLocalProfile({ ...localProfile, [e.target.name]: e.target.value });

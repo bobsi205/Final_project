@@ -21,7 +21,6 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-
 // @route    POST api/auth
 // @desc     Authenticate user & get token
 // @access   Public
@@ -68,7 +67,7 @@ router.post(
         { expiresIn: '5 days' },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.json({ token, user });
         }
       );
     } catch (err) {

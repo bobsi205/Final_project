@@ -1,11 +1,10 @@
 import {
   REGISTER_SUCCESS,
-  //REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
-  //LOGIN_FAIL,
   LOGOUT,
+  UPDATE_BOOKMARK,
 } from '../actions/types';
 
 const initialState = {
@@ -20,11 +19,12 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case USER_LOADED:
+    case UPDATE_BOOKMARK:
       return {
         ...state,
+        user: payload,
         isAuthenticated: true,
         loading: false,
-        user: payload,
       };
     case REGISTER_SUCCESS:
       return {
@@ -36,7 +36,8 @@ export default function (state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        ...payload,
+        user: payload.user,
+        token: payload.token,
         isAuthenticated: true,
         loading: false,
       };

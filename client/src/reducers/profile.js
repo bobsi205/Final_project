@@ -1,9 +1,4 @@
-import {
-  PROFILE_NOTUPDATED,
-  UPDATE_PROFILE,
-  GET_PROFILE,
-  PROFILE_ERROR,
-} from '../actions/types';
+import { UPDATE_PROFILE, GET_PROFILE, PROFILE_ERROR } from '../actions/types';
 
 const initialState = {
   profile: null,
@@ -15,6 +10,11 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case GET_PROFILE:
+      return {
+        ...state,
+        profile: payload,
+        loading: false,
+      };
     case UPDATE_PROFILE:
       return {
         ...state,
@@ -26,26 +26,9 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: payload,
-        loading: false,
+        loading: true,
         profile: null,
       };
-    // case CLEAR_PROFILE:
-    //   return {
-    //     ...state,
-    //     profile: null,
-    //     repos: [],
-    //   };
-    // case GET_REPOS:
-    //   return {
-    //     ...state,
-    //     repos: payload,
-    //     loading: false,
-    //   };
-    // case NO_REPOS:
-    //   return {
-    //     ...state,
-    //     repos: [],
-    //   };
     default:
       return state;
   }

@@ -13,7 +13,8 @@ const initialState = {
   summary: null,
   users: [],
   summaries: [],
-  loading: true,
+  loadingSummary: true,
+  loadingSummaries: true,
 };
 
 export default function (state = initialState, action) {
@@ -25,30 +26,30 @@ export default function (state = initialState, action) {
         ...state,
         summary: payload,
         users: [],
-        loading: false,
+        loadingSummary: false,
       };
     case ADD_SUMMARY:
     case ADD_COMMENT:
     case UPDATE_RATING:
-    case UPDATE_BOOKMARK:
     case UPDATE_VIEW:
       return {
         ...state,
         summary: payload,
         users: [],
-        loading: true,
+        loadingSummary: true,
       };
     case GET_USER_SUMMARIES:
       return {
         ...state,
         summaries: payload,
-        loading: false,
+        loadingSummaries: false,
       };
     case SUMMARY_ERROR:
       return {
         ...state,
         error: payload,
-        loading: false,
+        loadingSummaries: false,
+        loadingSummary: false,
         summary: null,
       };
     default:

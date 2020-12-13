@@ -4,11 +4,12 @@ import StarFull from './images/star_full.svg';
 import StarEmpty from './images/star_empty.svg';
 
 import ReactStars from 'react-rating-stars-component';
-export default function Rate({ rate }) {
+export default function Rate({ rate, userRating }) {
   return (
     <ReactStars
       count={5}
       onChange={rate}
+      value={userRating()}
       size={24}
       emptyIcon={<Image src={StarEmpty} height="20" />}
       fullIcon={<Image src={StarFull} height="20" />}
