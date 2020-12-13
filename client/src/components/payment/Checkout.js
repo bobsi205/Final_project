@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 import Paypal from './Paypal';
 
 export default function Checkout() {
@@ -8,41 +8,53 @@ export default function Checkout() {
 
   const onHandleChange = (e) => {
     setAmount(e.target.value);
-    console.log(checkout);
+    console.log(amount);
   };
 
   return (
     <Container className="text-center p-2 bg-light">
-      <p className="display-3">Add coins to your wallet</p>
-      <div className="d-flex justify-content-center" style={{ width: '50%' }}>
-        <input
-          value={amount}
-          placeholder="How many coins would you like to purchase"
-          onChange={(e) => onHandleChange(e)}
-          type="range"
-          className="form-control-range"
-          min="5"
-          max="100"
-        ></input>
-        <Button className="m-2 rounded-circle">{amount}$</Button>
-      </div>
+      <Card>
+        <Card.Header>
+          <p className="display-3">Your wallet</p>
+          <Card.Title>
+            <p className="">How many coins would tou like to purchase? </p>
+            <p className="">5$ = 25 points</p>
 
-      <Button
-        className="m-2"
-        onClick={() => {
-          setCheckout(true);
-        }}
-      >
-        Checkout
-      </Button>
-
-      {checkout ? (
-        <div className="invisible">
-          <Paypal amount={amount} />
-        </div>
-      ) : (
-        ''
-      )}
+          </Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <div className="d-flex justify-content-center m-2 px-auto w-auto">
+            <input
+              value={amount}
+              onChange={(e) => onHandleChange(e)}
+              type="range"
+              className="form-control-range m-2"
+              min="5"
+              max="100"
+              step="5"
+            ></input>
+            <Button className="m-2 rounded-pill">{amount}$</Button>
+            <Card.Title className="m-2 rounded-pill">{amount * 5} point</Card.Title>
+          </div>
+        </Card.Body>
+        <Card.Footer>
+          <Button
+            className="m-2"
+            onClick={() => {
+              setCheckout(true);
+            }}
+          >
+            Checkout
+          </Button>
+          {checkout ? (
+            <div className="invisible">
+              <Paypal amount={amount} />
+            </div>
+          ) : (
+            ''
+          )}
+        </Card.Footer>
+      </Card>
     </Container>
   );
 }
