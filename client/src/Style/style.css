@@ -28,3 +28,9 @@
 .nav-profile .dropdown-menu {
   left: -100px;
 }
+.navbar-toggler-icon{
+  position:relative;
+  padding: top 0;
+
+}
+

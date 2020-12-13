@@ -32,24 +32,27 @@ const Navigation = ({ auth, logout }) => {
     setSearch({ value: e.target.value, redirect: false });
   };
   return (
-    <Navbar className="p-0" bg="light" expand="lg" sticky="top">
-      <Navbar.Brand className="m-0" as={Link} to={'/'} eventKey="home">
-        <Image src="/logo.svg" width="160" height="40" />
-      </Navbar.Brand>
-      <Nav.Link
-        className="mr-auto"
-        as={Link}
-        to={'/summaryUpload'}
-        eventKey="summaryUpload"
-      >
-        <Image
-          src="/icons/plus-sign.svg"
-          width="28"
-          height="28"
-          alt="plus"
-          className="m-1"
-        />
-      </Nav.Link>
+    <Navbar className=" p-0" bg="light" expand="lg" sticky="top">
+      <Nav className="pt-0">
+        <Navbar.Brand className="d-flex m-0" as={Link} to={'/'} eventKey="home">
+          <Image  className="m-2" src="/logo.svg" width="160" height="40" />
+
+          <Nav.Link
+            className="mr-auto"
+            as={Link}
+            to={'/summaryUpload'}
+            eventKey="summaryUpload"
+          >
+            <Image
+              src="/icons/plus-sign.svg"
+              width="28"
+              height="28"
+              alt="plus"
+              className="m-1"
+            />
+          </Nav.Link>
+        </Navbar.Brand>
+      </Nav>
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse
@@ -76,8 +79,8 @@ const Navigation = ({ auth, logout }) => {
 
         {/* //right side */}
         {auth.isAuthenticated ? (
-          <Nav className="d-flex align-items-center">
-            <NavDropdown title="Categories">
+          <Nav className="d-flex px-auto sm-mr-auto">
+            <NavDropdown className="pt-2 mr-sm-0" title="Categories">
               {categoriesData.map((cat) => (
                 <>
                   <NavDropdown.Item
@@ -99,7 +102,7 @@ const Navigation = ({ auth, logout }) => {
 
             <Nav.Link as={Link} to={'/profile'} eventKey="bookmark">
               <Image
-              className="pt-2"
+                className="pt-2"
                 src="/Icons/bookmark-w.svg"
                 width="30"
                 height="30"
