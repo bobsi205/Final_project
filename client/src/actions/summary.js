@@ -4,6 +4,7 @@ import {
   GET_SUMMARY,
   GET_USER_SUMMARIES,
   ADD_COMMENT,
+  UPDATE_RATING,
 } from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
@@ -78,6 +79,28 @@ export const addComment = (id, comment) => async (dispatch) => {
     const res = await api.post(`/summary/comment/${id}`, text);
     dispatch({
       type: ADD_COMMENT,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: SUMMARY_ERROR,
+    });
+  }
+};
+
+export const addRating = (id, rating) => async (dispatch) => {
+  try {
+    let data = { rate: rating };
+    const res = await api.put(`/summary/rate/${id}`, data);
+
+    dispatch({
+      type: UPDATE_RATING,
       payload: res.data,
     });
   } catch (err) {

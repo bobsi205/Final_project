@@ -133,7 +133,7 @@ router.put('/rate/:id', [auth, checkObjectId('id')], async (req, res) => {
 
     await summary.save();
 
-    return res.json(summary.rating);
+    return res.json(summary);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
