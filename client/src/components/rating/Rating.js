@@ -22,8 +22,8 @@ export default function Rating(props) {
 
   return (
     <div className="d-flex m-2">
-      {star.map((s) => (
-        <Image src={s} height="20" />
+      {star.map((s, index) => (
+        <Image key={index} src={s} height="20" />
       ))}
     </div>
   );

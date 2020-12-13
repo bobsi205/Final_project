@@ -4,7 +4,6 @@ import {
   Nav,
   NavDropdown,
   Dropdown,
-  DropdownButton,
   Form,
   FormControl,
   Button,
@@ -35,7 +34,7 @@ const Navigation = ({ auth, logout }) => {
     <Navbar className=" p-0" bg="light" expand="lg" sticky="top">
       <Nav className="pt-0">
         <Navbar.Brand className="d-flex m-0" as={Link} to={'/'} eventKey="home">
-          <Image  className="m-2" src="/logo.svg" width="160" height="40" />
+          <Image className="m-2" src="/logo.svg" width="160" height="40" />
 
           <Nav.Link
             className="mr-auto"
@@ -82,7 +81,7 @@ const Navigation = ({ auth, logout }) => {
           <Nav className="d-flex px-auto sm-mr-auto">
             <NavDropdown className="pt-2 mr-sm-0" title="Categories">
               {categoriesData.map((cat) => (
-                <>
+                <div key={cat.id}>
                   <NavDropdown.Item
                     className="d-flex align-items-center px-4 py-2"
                     as={Link}
@@ -96,7 +95,7 @@ const Navigation = ({ auth, logout }) => {
                     {cat.name}
                   </NavDropdown.Item>
                   {cat.name == 'Communication' ? false : <Dropdown.Divider />}
-                </>
+                </div>
               ))}
             </NavDropdown>
 

@@ -5,6 +5,8 @@ import {
   GET_USER_SUMMARIES,
   ADD_COMMENT,
   UPDATE_RATING,
+  UPDATE_BOOKMARK,
+  UPDATE_VIEW,
 } from '../actions/types';
 
 const initialState = {
@@ -19,14 +21,22 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case GET_SUMMARY:
-    case ADD_SUMMARY:
-    case ADD_COMMENT:
-    case UPDATE_RATING:
       return {
         ...state,
         summary: payload,
         users: [],
         loading: false,
+      };
+    case ADD_SUMMARY:
+    case ADD_COMMENT:
+    case UPDATE_RATING:
+    case UPDATE_BOOKMARK:
+    case UPDATE_VIEW:
+      return {
+        ...state,
+        summary: payload,
+        users: [],
+        loading: true,
       };
     case GET_USER_SUMMARIES:
       return {

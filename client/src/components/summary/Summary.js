@@ -6,18 +6,20 @@ import {
   Image,
   Row,
   Col,
-  Media,
-  InputGroup,
   Form,
 } from 'react-bootstrap';
 import Rating from '../rating/Rating';
 import Rate from '../rating/Rate';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import SummaryText from './text.json';
 import eye from './images/eye.svg';
-import dropArrow from './images/down-arrow.svg';
-import { getSummary, addComment, addRating } from '../../actions/summary';
+import {
+  getSummary,
+  addComment,
+  addRating,
+  updateBookmark,
+  updateView,
+} from '../../actions/summary';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
 import { Comments } from './Comments';
 
@@ -28,14 +30,25 @@ export const Summary = ({
   match,
   addComment,
   addRating,
+  updateBookmark,
+  updateView,
 }) => {
   useEffect(() => {
     getSummary(match.params.id);
-  }, []);
+    // updateView(match.params.id);
+  }, [getSummary]);
 
   const [comment, setComment] = useState('');
   const onChange = (e) => {
     setComment(e.target.value);
+  };
+
+  const isBookmarked = () => {
+    for (let index = 0; index < auth.user.bookmarkedSummaries.length; index++) {
+      const sm = auth.user.bookmarkedSummaries[index];
+      if (sm._id.toString() === summary._id) return true;
+    }
+    return false;
   };
 
   const onSubmit = (e) => {
@@ -58,13 +71,17 @@ export const Summary = ({
     addRating(summary._id, rating);
   };
 
+  const bookmarkHandler = () => {
+    updateBookmark(summary._id);
+  };
+
   return (
     <Container className="my-5">
       {loading ? (
         <div className="d-flex justify-content-center">
           <LoadingSpinner />
         </div>
-      ) : (
+      ) : auth.isAuthenticated ? (
         <Card>
           <Card.Header className="">
             <Row className="d-flex align-items-center">
@@ -88,7 +105,11 @@ export const Summary = ({
                     </Row>
                   </Col>
                   <Col xs="auto">
-                    <Image src={dropArrow} height="28" />
+                    <Image
+                      src={`/icons/bookmark-${isBookmarked() ? 'b' : 'w'}.svg`}
+                      height="28"
+                      onClick={(e) => bookmarkHandler(e)}
+                    />
                   </Col>
                 </Row>
               </Col>
@@ -113,7 +134,7 @@ export const Summary = ({
                   <Col xs="auto" className="user image">
                     <Image
                       className="rounded-circle"
-                      src="lilach-katzabi.jpg"
+                      src={summary.picture}
                       height="58"
                     />
                   </Col>
@@ -148,6 +169,8 @@ export const Summary = ({
             })}
           </Card.Footer>
         </Card>
+      ) : (
+        <p>log in to view summary (temp)</p>
       )}
     </Container>
   );
@@ -159,6 +182,8 @@ Summary.propTypes = {
   getSummary: PropTypes.func.isRequired,
   addComment: PropTypes.func.isRequired,
   addRating: PropTypes.func.isRequired,
+  updateBookmark: PropTypes.func.isRequired,
+  updateView: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -166,6 +191,10 @@ const mapStateToProps = (state) => ({
   summary: state.summary,
 });
 
-export default connect(mapStateToProps, { getSummary, addComment, addRating })(
-  Summary
-);
+export default connect(mapStateToProps, {
+  getSummary,
+  addComment,
+  addRating,
+  updateBookmark,
+  updateView,
+})(Summary);
