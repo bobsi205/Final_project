@@ -32,14 +32,14 @@ const Navigation = ({ auth, logout }) => {
   return (
     <Navbar className=" p-0" bg="light" expand="lg" sticky="top">
       <Nav className="pt-0">
-        <Navbar.Brand className="d-flex m-0" as={Link} to={'/'} eventKey="home">
+        <Navbar.Brand className="d-flex m-0" as={Link} to={'/'} eventkey="home">
           <Image className="m-2" src="/logo.svg" width="160" height="40" />
         </Navbar.Brand>
         <Nav.Link
           className="mr-auto"
           as={Link}
           to={'/summaryUpload'}
-          eventKey="summaryUpload"
+          eventkey="summaryUpload"
         >
           <Image
             src="/icons/plus-sign.svg"
@@ -97,7 +97,7 @@ const Navigation = ({ auth, logout }) => {
               ))}
             </NavDropdown>
 
-            <Nav.Link as={Link} to={'/profile'} eventKey="bookmark">
+            <Nav.Link as={Link} to={'/profile'} eventkey="bookmark">
               <Image
                 className="pt-2"
                 src="/Icons/bookmark-w.svg"
@@ -106,7 +106,7 @@ const Navigation = ({ auth, logout }) => {
                 alt="bookmark"
               />
             </Nav.Link>
-            <Nav.Link as={Link} to={'/checkout'} eventKey="checkout">
+            <Nav.Link as={Link} to={'/checkout'} eventkey="checkout">
               <Button
                 style={{ borderRadius: '1rem' }}
                 className="d-flex align-items-center"
@@ -134,7 +134,7 @@ const Navigation = ({ auth, logout }) => {
               }
               className="nav-profile "
             >
-              <Dropdown.Item as={Link} to={'/profile'} eventKey="profile">
+              <Dropdown.Item as={Link} to={'/profile'} eventkey="profile">
                 <Image
                   src={auth.user.picture}
                   width="68"

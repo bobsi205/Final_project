@@ -31,16 +31,16 @@ export const Profile = ({
             className="d-flex justify-content-around mb-4"
             defaultActiveKey="Recent"
           >
-            <Tab eventKey="Recent" title="Recent" block>
+            <Tab eventkey="Recent" title="Recent" block>
               <ProfileDeck cards={summary.summaries.recent} />
             </Tab>
-            <Tab className="" eventKey="Owned" title="Owned">
+            <Tab className="" eventkey="Owned" title="Owned">
               <ProfileDeck cards={summary.summaries.bought} />
             </Tab>
-            <Tab className="" eventKey="Bookmarked" title="Bookmarked">
+            <Tab className="" eventkey="Bookmarked" title="Bookmarked">
               <ProfileDeck cards={summary.summaries.bookmarked} />
             </Tab>
-            <Tab className="" eventKey="Uploaded" title="Uploaded">
+            <Tab className="" eventkey="Uploaded" title="Uploaded">
               <ProfileDeck cards={summary.summaries.uploaded} />
             </Tab>
           </Tabs>
