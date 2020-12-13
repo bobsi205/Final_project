@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
-import { Form, Button,Container } from 'react-bootstrap';
+import { Form, Button, Container } from 'react-bootstrap';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -55,7 +55,13 @@ const Login = ({ login, isAuthenticated }) => {
         <br />
         <h4>New member?</h4>
         <hr />
-        <Button variant="outline-primary" type="submit" block>
+        <Button
+          as={Link}
+          to="/register"
+          variant="outline-primary"
+          type="submit"
+          block
+        >
           Sign Up
         </Button>
       </Form>
