@@ -68,17 +68,16 @@ const Navigation = ({ auth, logout }) => {
 
         <Nav>
           <Form inline onSubmit={(e) => searchOnPress(e)}>
-            <InputGroup>
+            <InputGroup className="mx-0">
               <FormControl
-                style={{ borderLeft: 'white' }}
+                style={{ borderRight: 'white' }}
                 type="text"
-                className="mr-sm-2"
                 onChange={(e) => onChange(e)}
                 value={search.value}
                 placeholder="Search"
               />
               <InputGroup.Prepend>
-                <InputGroup.Text className="bg-white">
+                <InputGroup.Text  style={{ borderLeft: 'white' }} className="bg-white">
                   <Image src="/search.svg" width="18" />
                 </InputGroup.Text>
               </InputGroup.Prepend>
