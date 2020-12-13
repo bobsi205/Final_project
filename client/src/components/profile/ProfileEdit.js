@@ -96,7 +96,6 @@ const ProfileEdit = ({
   useEffect(async () => {
     try {
       await getProfile().then(() => {
-        console.log(profile);
         setLocalProfile({
           bio: profile.profile.profile.bio,
           institution: profile.profile.profile.education[0].school,
@@ -225,6 +224,7 @@ const ProfileEdit = ({
                   className="m-2"
                   type="checkbox"
                   data-index={index}
+                  key={index}
                   label={cat.name}
                   name={cat.objName}
                   checked={cat.checked}

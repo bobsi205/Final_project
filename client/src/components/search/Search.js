@@ -13,7 +13,7 @@ export const Search = ({ search, getSearch, match }) => {
     <Container className="bg-light my-4 py-4 d-flex justify-content-around flex-wrap">
       {search.search !== null && search.search.length > 0 ? (
         search.search.map((obj) => {
-          return <SearchCard summary={obj} />;
+          return <SearchCard key={obj._id} summary={obj} />;
         })
       ) : (
         <h1>No summaries found</h1>
