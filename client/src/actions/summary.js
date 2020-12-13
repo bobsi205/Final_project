@@ -6,6 +6,7 @@ import {
   ADD_COMMENT,
   UPDATE_RATING,
   UPDATE_BOOKMARK,
+  UPDATE_VIEW,
 } from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
@@ -138,23 +139,24 @@ export const updateBookmark = (id) => async (dispatch) => {
   }
 };
 
-// export const addView = (id) => async (dispatch) => {
-//   try {
-//     const res = await api.get(`/summary/view/${id}`);
+export const updateView = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/summary/view/${id}`);
+    
 
-//     dispatch({
-//       type: ADD_VIEW,
-//       payload: res.data,
-//     });
-//   } catch (err) {
-//     const errors = err.response.data.errors;
+    dispatch({
+      type: UPDATE_VIEW,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
 
-//     if (errors) {
-//       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-//     }
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
 
-//     dispatch({
-//       type: SUMMARY_ERROR,
-//     });
-//   }
-// };
+    dispatch({
+      type: SUMMARY_ERROR,
+    });
+  }
+};

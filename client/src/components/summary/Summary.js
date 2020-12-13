@@ -18,6 +18,7 @@ import {
   addComment,
   addRating,
   updateBookmark,
+  updateView,
 } from '../../actions/summary';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
 import { Comments } from './Comments';
@@ -30,9 +31,11 @@ export const Summary = ({
   addComment,
   addRating,
   updateBookmark,
+  updateView,
 }) => {
   useEffect(() => {
     getSummary(match.params.id);
+    // updateView(match.params.id);
   }, [getSummary]);
 
   const [comment, setComment] = useState('');
@@ -45,7 +48,6 @@ export const Summary = ({
       const sm = auth.user.bookmarkedSummaries[index];
       if (sm._id.toString() === summary._id) return true;
     }
-    console.log('here');
     return false;
   };
 
@@ -79,7 +81,7 @@ export const Summary = ({
         <div className="d-flex justify-content-center">
           <LoadingSpinner />
         </div>
-      ) : (
+      ) : auth.isAuthenticated ? (
         <Card>
           <Card.Header className="">
             <Row className="d-flex align-items-center">
@@ -167,6 +169,8 @@ export const Summary = ({
             })}
           </Card.Footer>
         </Card>
+      ) : (
+        <p>log in to view summary (temp)</p>
       )}
     </Container>
   );
@@ -179,6 +183,7 @@ Summary.propTypes = {
   addComment: PropTypes.func.isRequired,
   addRating: PropTypes.func.isRequired,
   updateBookmark: PropTypes.func.isRequired,
+  updateView: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -191,4 +196,5 @@ export default connect(mapStateToProps, {
   addComment,
   addRating,
   updateBookmark,
+  updateView,
 })(Summary);
