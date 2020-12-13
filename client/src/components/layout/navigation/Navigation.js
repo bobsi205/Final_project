@@ -80,8 +80,10 @@ const Navigation = ({ isAuthenticated, logout }) => {
         )}
         {/* //right side */}
         {isAuthenticated ? (
-          <Nav className="d-flex align-items-center">
-            <NavDropdown title="Categories">
+          <Nav
+            className="d-flex px-auto sm-mr-auto"
+          >
+            <NavDropdown className="pt-2 mr-sm-0" title="Categories">
               {categoriesData.map((cat) => (
                 <>
                   <NavDropdown.Item
@@ -103,6 +105,7 @@ const Navigation = ({ isAuthenticated, logout }) => {
 
             <Nav.Link as={Link} to={'/bookmark'} eventKey="bookmark">
               <Image
+              className="pt-2"
                 src="/Icons/bookmark-w.svg"
                 width="30"
                 height="30"
@@ -135,10 +138,11 @@ const Navigation = ({ isAuthenticated, logout }) => {
                   roundedCircle
                 />
               }
-              className="nav-profile"
+              className="nav-profile "
             >
               <Dropdown.Item as={Link} to={'/profile'} eventKey="profile">
                 <Image
+                className="px-auto"
                   src="/lilach-katzabi.jpg"
                   width="68"
                   height="68"
@@ -155,7 +159,7 @@ const Navigation = ({ isAuthenticated, logout }) => {
                   className="mr-1"
                   src="/navIconDrop/down-arrow.svg"
                   width="16"
-                />{' '}
+                />
                 Downloads
               </Dropdown.Item>
               <Dropdown.Item className="d-flex align-items-center">
@@ -189,7 +193,7 @@ const Navigation = ({ isAuthenticated, logout }) => {
             </NavDropdown>
           </Nav>
         ) : (
-          <Nav className="d-flex align-items-center">
+          <Nav className="d-flex sm-mr-auto">
             <LoginModal />
             <Link to="/register" className="nav-link">
               Sign-Up

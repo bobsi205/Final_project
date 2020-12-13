@@ -10,7 +10,7 @@ import imgYoutube from './images/soc_youtube.png';
 const Footer = () => {
   return (
     <footer className="bg-light text-center pb-0" style={{ marginTop: '100px' }}>
-      <Container className="py-2">
+      <Container className="py-2 pb-0">
         <h2>For students, by students</h2>
         <p>Stay Connected With Our Social Media!</p>
         <ul
