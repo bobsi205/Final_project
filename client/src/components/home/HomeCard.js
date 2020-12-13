@@ -4,7 +4,6 @@ import { Card } from 'react-bootstrap';
 export const HomeCard = (props) => {
   return (
     <Card
-      key={props.index}
       className="col-3 m-2 "
       style={{
         minWidth: '18rem',
