@@ -10,7 +10,6 @@ import {
   Image,
 } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
-import LoginModal from '../../auth/LoginModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import categoriesData from '../../../utils/categoriesData.json';
@@ -177,7 +176,7 @@ const Navigation = ({ auth, logout }) => {
   );
 };
 
-LoginModal.propTypes = {
+Navigation.propTypes = {
   auth: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
 };

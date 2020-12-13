@@ -120,7 +120,7 @@ export const Home = ({ auth }) => {
         <Row>
           {categoriesData.map((cat) => {
             return (
-              <Col xs={6} md={3} className="p-0 m-auto">
+              <Col key={cat.id} xs={6} md={3} className="p-0 m-auto">
                 <CategoryBox cat={cat} />
               </Col>
             );
