@@ -48,8 +48,8 @@ export default function (state = initialState, action) {
       return {
         ...state,
         error: payload,
-        loadingSummaries: false,
-        loadingSummary: false,
+        loadingSummaries: true,
+        loadingSummary: true,
         summary: null,
       };
     default:

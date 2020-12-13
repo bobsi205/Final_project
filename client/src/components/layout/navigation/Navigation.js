@@ -19,7 +19,6 @@ import { logout } from '../../../actions/auth';
 const Navigation = ({ auth, logout }) => {
   const [search, setSearch] = useState({ value: '', redirect: false });
   const history = useHistory();
-  // console.log(auth.user.firstName +" "+auth.user.lastName);
   const searchOnPress = (e) => {
     e.preventDefault();
 
@@ -76,7 +75,7 @@ const Navigation = ({ auth, logout }) => {
                 </InputGroup.Text>
               </InputGroup.Prepend>
               <FormControl
-              style={{ borderLeft: "white"}}
+                style={{ borderLeft: 'white' }}
                 type="text"
                 className="mr-sm-2"
                 onChange={(e) => onChange(e)}
@@ -160,7 +159,9 @@ const Navigation = ({ auth, logout }) => {
                   alt="user img"
                   roundedCircle
                 />
-                {/* <h5 className="p-4">{auth.user.firstName +" "+auth.user.lastName}</h5> */}
+                <h5 className="p-4">
+                  {auth.user.firstName + ' ' + auth.user.lastName}
+                </h5>
               </Dropdown.Item>
               <Dropdown.Item as={Link} to={'/profile/edit'}>
                 Edit profile

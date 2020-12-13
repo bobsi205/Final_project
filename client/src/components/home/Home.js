@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Image, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { HomeDeck } from './HomeDeck';
 import { CategoryBox } from './CategoryBox';
+import { getUserSummaries } from '../../actions/summary';
 import categoriesData from '../../utils/categoriesData.json';
 import PropTypes from 'prop-types';
 
-export const Home = ({ auth }) => {
+export const Home = ({ auth, getUserSummaries, summary }) => {
   const [data] = useState([
     {
       title: 'Computer Science1',
@@ -49,6 +50,10 @@ export const Home = ({ auth }) => {
         'In computer science, a Boolean expression is an expression used in programming languages that produces a Boolean value when evaluated. A Boolean value is either true or false.',
     },
   ]);
+
+  useEffect(() => {
+    if (auth.isAuthenticated) getUserSummaries();
+  }, [getUserSummaries, auth.isAuthenticated]);
 
   const [scroll, setScroll] = useState({
     isDown: false,
@@ -97,8 +102,9 @@ export const Home = ({ auth }) => {
       </>
 
       <Container onMouseUp={(e) => mouseUp(e)}>
-        {auth.isAuthenticated ? (
+        {auth.isAuthenticated && !summary.loadingSummaries ? (
           <>
+            {console.log(summary)}
             <Row className="my-3">
               <h2 className="ml-4 mt-2 text-primary">Recent</h2>
               <Container
@@ -109,39 +115,50 @@ export const Home = ({ auth }) => {
                 onMouseDown={(e) => mouseDown(e, 'Recent')}
                 onMouseMove={(e) => mouseMove(e, 'Recent')}
               >
+                <HomeDeck cards={summary.summaries.recent} />
+              </Container>
+            </Row>
+            <hr />
+            <Row>
+              {categoriesData.map((cat) => {
+                return (
+                  <Col key={cat.id} xs={6} md={3} className="p-0 m-auto">
+                    <CategoryBox cat={cat} />
+                  </Col>
+                );
+              })}
+            </Row>
+            <hr />
+
+            <Row className="my-3">
+              <h2 className="ml-4 mt-2 text-primary">Recommended</h2>
+              <Container
+                className="scrollbarClean"
+                fluid
+                style={{ overflow: 'auto' }}
+                id="Recommended"
+                onMouseDown={(e) => mouseDown(e, 'Recommended')}
+                onMouseMove={(e) => mouseMove(e, 'Recommended')}
+              >
                 <HomeDeck cards={data} />
               </Container>
             </Row>
             <hr />
           </>
         ) : (
-          <></>
+          <>
+            <Row>
+              {categoriesData.map((cat) => {
+                return (
+                  <Col key={cat.id} xs={6} md={3} className="p-0 m-auto">
+                    <CategoryBox cat={cat} />
+                  </Col>
+                );
+              })}
+            </Row>
+            <hr />
+          </>
         )}
-        <Row>
-          {categoriesData.map((cat) => {
-            return (
-              <Col key={cat.id} xs={6} md={3} className="p-0 m-auto">
-                <CategoryBox cat={cat} />
-              </Col>
-            );
-          })}
-        </Row>
-        <hr />
-
-        <Row className="my-3">
-          <h2 className="ml-4 mt-2 text-primary">Recommended</h2>
-          <Container
-            className="scrollbarClean"
-            fluid
-            style={{ overflow: 'auto' }}
-            id="Recommended"
-            onMouseDown={(e) => mouseDown(e, 'Recommended')}
-            onMouseMove={(e) => mouseMove(e, 'Recommended')}
-          >
-            <HomeDeck cards={data} />
-          </Container>
-        </Row>
-        <hr />
 
         <Row className="my-3">
           <h2 className="ml-4 mt-2 text-primary">Popular</h2>
@@ -178,10 +195,13 @@ export const Home = ({ auth }) => {
 
 Home.protoType = {
   auth: PropTypes.object.isRequired,
+  getUserSummaries: PropTypes.func.isRequired,
+  summary: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  summary: state.summary,
 });
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, { getUserSummaries })(Home);

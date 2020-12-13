@@ -29,7 +29,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
+        <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
           <Navbar />
           <div className="flex-fill">
             <Switch>
