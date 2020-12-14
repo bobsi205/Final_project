@@ -22,6 +22,7 @@ import {
 import { updateBookmark, updateRecent, buySummary } from '../../actions/auth';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
 import { Comments } from './Comments';
+import { Link } from 'react-router-dom';
 
 export const Summary = ({
   auth,
@@ -94,9 +95,7 @@ export const Summary = ({
 
   return (
     <Container className="my-5">
-      {!summary.LoadingSummary &&
-      summary.summary === null &&
-      auth.user === null ? (
+      {!summary.LoadingSummary && summary.summary === null ? (
         <div className="d-flex justify-content-center">
           <LoadingSpinner />
         </div>
@@ -220,7 +219,7 @@ export const Summary = ({
                     </Row>
                   </Col>
                   <Col className="p-2">
-                    <Button onClick={() => buySummary(match.params.id)}>
+                    <Button as={Link} to="/login">
                       Buy
                     </Button>
                   </Col>
