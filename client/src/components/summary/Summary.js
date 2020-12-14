@@ -98,10 +98,8 @@ export const Summary = ({
               <Col xs="auto" className="view rate download pt-0">
                 <Row>
                   <Col xs="auto">
-                    <Row>
+                  <Row className="align-items-center p-0">
                       <Rating rate={calculateRating()} />
-                    </Row>
-                    <Row className="ml-2">
                       <span>{summary.summary.rating.length}</span>
                     </Row>
                     <Row className="ml-2">
@@ -110,16 +108,19 @@ export const Summary = ({
                     </Row>
                   </Col>
                   <Col xs="auto" className="mx-4 pr-2">
-                    <Row>
+                    <Row className="p-2">
                       <p>{summary.summary.date.split(/[?T].*/)}</p>
                     </Row>
                   </Col>
-                  <Col xs="auto">
+                  <Col className="p-2" xs="auto">
                     <Image
                       src={`/icons/bookmark-${isBookmarked() ? 'b' : 'w'}.svg`}
                       height="28"
                       onClick={(e) => bookmarkHandler(e)}
                     />
+                  </Col>
+                  <Col className="p-2">
+                  <Button>Buy</Button>
                   </Col>
                 </Row>
               </Col>
@@ -194,19 +195,18 @@ export const Summary = ({
               <Col xs="auto" className="view rate download pt-0">
                 <Row>
                   <Col xs="auto">
-                    <Row>
+                    <Row className="align-items-center">
                       <Rating rate={calculateRating()} />
-                    </Row>
-                    <Row className="ml-2">
                       <span>{summary.summary.rating.length}</span>
                     </Row>
+                   
                     <Row className="ml-2">
                       {summary.summary.views.length}
                       <Image className="mx-1 mt-1" src={eye} height="20" />
                     </Row>
                   </Col>
                   <Col xs="auto" className="mx-4 pr-2">
-                    <Row>
+                    <Row className="p-2">
                       <p>{summary.summary.date.split(/[?T].*/)}</p>
                     </Row>
                   </Col>

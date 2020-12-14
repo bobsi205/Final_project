@@ -19,7 +19,7 @@ const Footer = () => {
       }}
     >
       <Container className="py-2 ">
-        <h2>For students, by students</h2>
+        <h2>For students, By students</h2>
         <p>Stay Connected With Our Social Media!</p>
         <ul
           className="list-unstyled d-flex justify-content-between mx-auto"
