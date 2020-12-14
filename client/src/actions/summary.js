@@ -102,21 +102,13 @@ export const addRating = (id, rating) => async (dispatch) => {
   }
 };
 
-
-
 export const updateView = (id) => async (dispatch) => {
   try {
-    const res = await api.get(`/summary/view/${id}`);
+    const res = await api.put(`/summary/view/${id}`);
 
     dispatch({
       type: UPDATE_VIEW,
       payload: res.data,
     });
-  } catch (err) {
-    console.log(err);
-    dispatch(setAlert('There was an error', 'danger'));
-    dispatch({
-      type: SUMMARY_ERROR,
-    });
-  }
+  } catch (err) {}
 };

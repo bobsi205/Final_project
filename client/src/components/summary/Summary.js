@@ -35,8 +35,8 @@ export const Summary = ({
 }) => {
   useEffect(() => {
     getSummary(match.params.id);
-    // updateView(match.params.id);
-  }, [getSummary, match.params.id]);
+    updateView(match.params.id);
+  }, [getSummary, updateView, match.params.id]);
 
   const [comment, setComment] = useState('');
   const onChange = (e) => {
