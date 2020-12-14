@@ -115,20 +115,11 @@ export const updateView = (id) => async (dispatch) => {
 
 export const CheckOwn = (id) => async (dispatch) => {
   try {
-    console.log('trying to get auth');
-    const user = await api.get('/auth');
-    console.log(user);
-    // owned.forEach((sm) => {
-    //   if (sm._id.toString() === id.toString()) {
-    //     dispatch({
-    //       type: CHECK_OWN,
-    //       payload: true,
-    //     });
-    //   }
-    // });
+    const res = await api.get(`/summary/owned/${id}`);
+
     dispatch({
       type: CHECK_OWN,
-      payload: false,
+      payload: res.data.owned,
     });
   } catch (err) {}
 };

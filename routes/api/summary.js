@@ -284,6 +284,25 @@ router.put('/buy/:id', [auth, checkObjectId('id')], async (req, res) => {
   }
 });
 
+// @route    GET api/summary/owned/:id'
+// @desc     Check if summary is owned
+// @access   Private
+router.get('/owned/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    var user = await User.findById(req.user.id);
+    console.log(user);
+    user.boughtSummaries.forEach((sm) => {
+      if (sm._id.toString() === req.params.id.toString()) {
+        res.json({ owned: true });
+      }
+    });
+    res.json({ owned: false });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // // @route    DELETE api/posts/comment/:id/:comment_id
 // // @desc     Delete comment
 // // @access   Private
