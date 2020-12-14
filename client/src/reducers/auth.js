@@ -43,7 +43,7 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
-    case AUTH_ERROR:
+    // case AUTH_ERROR:
     case LOGOUT:
       return {
         ...state,
