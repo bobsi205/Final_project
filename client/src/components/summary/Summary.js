@@ -35,14 +35,24 @@ export const Summary = ({
   updateView,
   updateRecent,
   buySummary,
-  CheckOwn,
 }) => {
+  const [owned, setOwned] = useState(false);
+
+  const updateOwned = () => {
+    auth.user.boughtSummaries.forEach((ele) => {
+      if (ele._id.toString() === match.params.id.toString()) {
+        setOwned(true);
+        console.log('here');
+      }
+    });
+  };
+
   useEffect(() => {
     getSummary(match.params.id);
     updateView(match.params.id);
     updateRecent(match.params.id);
-    CheckOwn(match.params.id);
-  }, [getSummary, updateView, updateRecent, match.params.id, CheckOwn]);
+    // updateOwned();
+  }, [match.params.id]);
 
   const [comment, setComment] = useState('');
   const onChange = (e) => {
@@ -95,11 +105,18 @@ export const Summary = ({
 
   return (
     <Container className="my-5">
-      {!summary.LoadingSummary && summary.summary === null ? (
+      {!summary.LoadingSummary &&
+      summary.summary === null &&
+      auth.user === null ? (
         <div className="d-flex justify-content-center">
           <LoadingSpinner />
         </div>
-      ) : auth.isAuthenticated && auth.user.summaryOwned ? (
+      ) : auth.isAuthenticated &&
+        auth.user.boughtSummaries.forEach((ele) => {
+          if (ele._id.toString() === match.params.id.toString()) {
+            return true;
+          }
+        }) ? (
         <Card>
           <Card.Header className="">
             <Row className="d-flex align-items-center">
@@ -126,11 +143,6 @@ export const Summary = ({
                       height="28"
                       onClick={(e) => bookmarkHandler(e)}
                     />
-                  </Col>
-                  <Col className="p-2">
-                    <Button onClick={() => buySummary(match.params.id)}>
-                      Buy
-                    </Button>
                   </Col>
                 </Row>
               </Col>
@@ -288,7 +300,6 @@ Summary.propTypes = {
   updateView: PropTypes.func.isRequired,
   updateRecent: PropTypes.func.isRequired,
   buySummary: PropTypes.func.isRequired,
-  CheckOwn: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -304,5 +315,4 @@ export default connect(mapStateToProps, {
   updateView,
   updateRecent,
   buySummary,
-  CheckOwn,
 })(Summary);
