@@ -69,7 +69,7 @@ export const Home = ({ auth, getUserSummaries, summary }) => {
         <div className="bg-light p-2 mb-4"></div>
       </>
 
-      <Container onMouseUp={(e) => mouseUp(e)}>
+      <Container>
         {auth.isAuthenticated && !summary.loadingSummaries ? (
           <>
             {summary.summaries.recent.length > 0 ? (
@@ -80,8 +80,6 @@ export const Home = ({ auth, getUserSummaries, summary }) => {
                   fluid
                   style={{ overflow: 'auto' }}
                   id="Recent"
-                  onMouseDown={(e) => mouseDown(e, 'Recent')}
-                  onMouseMove={(e) => mouseMove(e, 'Recent')}
                 >
                   <HomeDeck cards={summary.summaries.recent} />
                 </Container>
@@ -110,8 +108,6 @@ export const Home = ({ auth, getUserSummaries, summary }) => {
                     fluid
                     style={{ overflow: 'auto' }}
                     id="Recommended"
-                    onMouseDown={(e) => mouseDown(e, 'Recommended')}
-                    onMouseMove={(e) => mouseMove(e, 'Recommended')}
                   >
                     <HomeDeck cards={summary.summaries.recommended} />
                   </Container>
@@ -145,8 +141,6 @@ export const Home = ({ auth, getUserSummaries, summary }) => {
                 fluid
                 style={{ overflow: 'auto' }}
                 id="Popular"
-                onMouseDown={(e) => mouseDown(e, 'Popular')}
-                onMouseMove={(e) => mouseMove(e, 'Popular')}
               >
                 <HomeDeck cards={data.popular} />
               </Container>
@@ -160,8 +154,6 @@ export const Home = ({ auth, getUserSummaries, summary }) => {
                 fluid
                 style={{ overflow: 'auto' }}
                 id="New"
-                onMouseDown={(e) => mouseDown(e, 'New')}
-                onMouseMove={(e) => mouseMove(e, 'New')}
               >
                 <HomeDeck cards={data.new} />
               </Container>
