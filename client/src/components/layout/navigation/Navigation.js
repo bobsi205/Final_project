@@ -77,7 +77,10 @@ const Navigation = ({ auth, logout }) => {
                 placeholder="Search"
               />
               <InputGroup.Prepend>
-                <InputGroup.Text  style={{ borderLeft: 'white' }} className="bg-white">
+                <InputGroup.Text
+                  style={{ borderLeft: 'white' }}
+                  className="bg-white"
+                >
                   <Image src="/search.svg" width="18" />
                 </InputGroup.Text>
               </InputGroup.Prepend>
@@ -108,14 +111,6 @@ const Navigation = ({ auth, logout }) => {
               ))}
             </NavDropdown>
 
-            <Nav.Link as={Link} to={'/profile'} eventKey="bookmark">
-              <Image
-                className="mx-1 p-0"
-                src="/Icons/bookmark-w.svg"
-                width="28"
-                alt="bookmark"
-              />
-            </Nav.Link>
             <Nav.Link as={Link} to={'/checkout'} eventKey="checkout">
               <Button
                 style={{ borderRadius: '1rem' }}
@@ -134,8 +129,10 @@ const Navigation = ({ auth, logout }) => {
             <NavDropdown
               title={
                 <Image
+                  className="p-0"
                   src={auth.user.picture}
-                  width="30"
+                  width="48"
+                  height="48"
                   alt="user img"
                   roundedCircle
                 />
