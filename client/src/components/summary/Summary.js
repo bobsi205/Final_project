@@ -19,9 +19,10 @@ import {
   addRating,
   updateView,
 } from '../../actions/summary';
-import { updateBookmark, updateRecent } from '../../actions/auth';
+import { updateBookmark, updateRecent, buySummary } from '../../actions/auth';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
 import { Comments } from './Comments';
+import { Link } from 'react-router-dom';
 
 export const Summary = ({
   auth,
@@ -33,12 +34,15 @@ export const Summary = ({
   updateBookmark,
   updateView,
   updateRecent,
+  buySummary,
 }) => {
+  const [owned, setOwned] = useState(false);
+
   useEffect(() => {
     getSummary(match.params.id);
     updateView(match.params.id);
     updateRecent(match.params.id);
-  }, [getSummary, updateView, updateRecent, match.params.id]);
+  }, [match.params.id]);
 
   const [comment, setComment] = useState('');
   const onChange = (e) => {
@@ -123,9 +127,6 @@ export const Summary = ({
                       onClick={(e) => bookmarkHandler(e)}
                     />
                   </Col>
-                  <Col className="p-2">
-                    <Button>Buy</Button>
-                  </Col>
                 </Row>
               </Col>
               <Col></Col>
@@ -151,6 +152,7 @@ export const Summary = ({
                       className="rounded-circle"
                       src={summary.summary.picture}
                       height="58"
+                      width="58"
                     />
                   </Col>
                 </Row>
@@ -216,6 +218,11 @@ export const Summary = ({
                       <p>{summary.summary.date.split(/[?T].*/)}</p>
                     </Row>
                   </Col>
+                  <Col className="p-2">
+                    <Button as={Link} to="/login">
+                      Buy
+                    </Button>
+                  </Col>
                 </Row>
               </Col>
               <Col></Col>
@@ -275,6 +282,7 @@ Summary.propTypes = {
   updateBookmark: PropTypes.func.isRequired,
   updateView: PropTypes.func.isRequired,
   updateRecent: PropTypes.func.isRequired,
+  buySummary: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -289,4 +297,5 @@ export default connect(mapStateToProps, {
   updateBookmark,
   updateView,
   updateRecent,
+  buySummary,
 })(Summary);

@@ -6,10 +6,12 @@ import {
   ADD_COMMENT,
   UPDATE_RATING,
   UPDATE_VIEW,
+  CHECK_OWN,
 } from '../actions/types';
 
 const initialState = {
   summary: null,
+  summaryOwned: false,
   users: [],
   summaries: [],
   loadingSummary: true,
@@ -24,6 +26,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         summary: payload,
+        summaryOwned: false,
         users: [],
         loadingSummary: false,
       };
@@ -36,6 +39,11 @@ export default function (state = initialState, action) {
         summary: payload,
         users: [],
         loadingSummary: true,
+      };
+    case CHECK_OWN:
+      return {
+        ...state,
+        summaryOwned: true,
       };
     case GET_USER_SUMMARIES:
       return {

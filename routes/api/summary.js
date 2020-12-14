@@ -265,7 +265,7 @@ router.put('/recent/:id', [auth, checkObjectId('id')], async (req, res) => {
 router.put('/buy/:id', [auth, checkObjectId('id')], async (req, res) => {
   try {
     const summary = await Summary.findById(req.params.id);
-    var user = await User.findById(req.user.id);
+    var user = await User.findById(req.user.id).select('-password');
     if (user.balance < 5)
       return res.status(403).json({ msg: 'Not enough coins' });
 
@@ -278,6 +278,25 @@ router.put('/buy/:id', [auth, checkObjectId('id')], async (req, res) => {
     user.balance -= 5;
     await user.save();
     res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route    GET api/summary/owned/:id'
+// @desc     Check if summary is owned
+// @access   Private
+router.get('/owned/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    var user = await User.findById(req.user.id);
+    console.log(user);
+    user.boughtSummaries.forEach((sm) => {
+      if (sm._id.toString() === req.params.id.toString()) {
+        res.json({ owned: true });
+      }
+    });
+    res.json({ owned: false });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

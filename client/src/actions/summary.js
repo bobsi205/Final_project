@@ -7,6 +7,7 @@ import {
   UPDATE_RATING,
   UPDATE_BOOKMARK,
   UPDATE_VIEW,
+  CHECK_OWN,
 } from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
@@ -32,7 +33,6 @@ export const addSummary = (summary) => async (dispatch) => {
 
 export const getSummary = (id) => async (dispatch) => {
   try {
-    // await api.get(`/summary/view/${id}`);
     const res = await api.get(`/summary/${id}`);
 
     dispatch({
@@ -109,6 +109,17 @@ export const updateView = (id) => async (dispatch) => {
     dispatch({
       type: UPDATE_VIEW,
       payload: res.data,
+    });
+  } catch (err) {}
+};
+
+export const CheckOwn = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/summary/owned/${id}`);
+
+    dispatch({
+      type: CHECK_OWN,
+      payload: res.data.owned,
     });
   } catch (err) {}
 };

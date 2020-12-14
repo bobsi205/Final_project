@@ -6,7 +6,7 @@
   },
   {
     "name": "Social work",
-    "id": "social-work",
+    "id": "socialWork",
     "img": "cat/socialWork.png"
   },
   {
@@ -26,7 +26,7 @@
   },
   {
     "name": "Medical Studies",
-    "id": "medical-studies",
+    "id": "medicalStudies",
     "img": "cat/medical.png"
   },
   {
@@ -41,7 +41,7 @@
   },
   {
     "name": "Computer Science",
-    "id": "computer-science",
+    "id": "computerScience",
     "img": "cat/computerScience.png"
   },
   {
@@ -51,7 +51,7 @@
   },
   {
     "name": "Social Sciences",
-    "id": "social-sciences",
+    "id": "socialSciences",
     "img": "cat/socialSciences.png"
   },
   {

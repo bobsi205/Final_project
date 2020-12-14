@@ -19,9 +19,9 @@ export const Home = ({ auth, getUserSummaries, summary }) => {
     });
   };
   useEffect(() => {
-    if (auth.isAuthenticated) getUserSummaries();
+    getUserSummaries();
     getNewAndPopular();
-  }, [getUserSummaries, auth.isAuthenticated, getNewAndPopular]);
+  }, [auth.isAuthenticated]);
 
   const [scroll, setScroll] = useState({
     isDown: false,

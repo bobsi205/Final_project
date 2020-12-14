@@ -156,9 +156,6 @@ const Navigation = ({ auth, logout }) => {
                   {auth.user.firstName + ' ' + auth.user.lastName}
                 </h5>
               </Dropdown.Item>
-              <Dropdown.Item as={Link} to={'/profile/edit'}>
-                Edit profile
-              </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item
                 className="d-flex align-items-center"
@@ -175,7 +172,7 @@ const Navigation = ({ auth, logout }) => {
           </Nav>
         ) : (
           <Nav className="d-flex sm-mr-auto">
-            <NavDropdown className="p-2 mr-sm-0" title="Categories">
+            <NavDropdown className="p-0 mr-sm-0" title="Categories">
               {categoriesData.map((cat) => (
                 <div key={cat.id}>
                   <NavDropdown.Item

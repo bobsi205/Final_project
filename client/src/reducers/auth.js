@@ -6,6 +6,7 @@ import {
   LOGOUT,
   UPDATE_BOOKMARK,
   UPDATE_RECENT,
+  BUY_SUMMARY,
 } from '../actions/types';
 
 const initialState = {
@@ -22,6 +23,7 @@ export default function (state = initialState, action) {
     case USER_LOADED:
     case UPDATE_BOOKMARK:
     case UPDATE_RECENT:
+    case BUY_SUMMARY:
       return {
         ...state,
         user: payload,
@@ -43,7 +45,6 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
-    // case AUTH_ERROR:
     case LOGOUT:
       return {
         ...state,

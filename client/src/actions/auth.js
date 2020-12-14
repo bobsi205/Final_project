@@ -10,6 +10,7 @@ import {
   UPDATE_BOOKMARK,
   UPDATE_RECENT,
   LOGOUT,
+  BUY_SUMMARY,
 } from './types';
 import S3 from 'react-aws-s3';
 
@@ -116,3 +117,18 @@ export const updateRecent = (id) => async (dispatch) => {
     });
   } catch (err) {}
 };
+
+export const buySummary = (id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/summary/buy/${id}`);
+    console.log('here');
+    dispatch({
+      type: BUY_SUMMARY,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch(setAlert('Unable to buy summary', 'danger'));
+  }
+};
+
+
