@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/navigation/Navigation';
 import Footer from './components/layout/footer/Footer';
 import Home from './components/home/Home';
-import Routes from './components/routing/Routes';
+import Routes from './components/Routing/Routes';
 import { LOGOUT } from './actions/types';
 
 // Redux
