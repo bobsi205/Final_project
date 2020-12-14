@@ -18,7 +18,6 @@ import {
   addComment,
   addRating,
   updateView,
-  CheckOwn,
 } from '../../actions/summary';
 import { updateBookmark, updateRecent, buySummary } from '../../actions/auth';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
@@ -38,20 +37,10 @@ export const Summary = ({
 }) => {
   const [owned, setOwned] = useState(false);
 
-  const updateOwned = () => {
-    auth.user.boughtSummaries.forEach((ele) => {
-      if (ele._id.toString() === match.params.id.toString()) {
-        setOwned(true);
-        console.log('here');
-      }
-    });
-  };
-
   useEffect(() => {
     getSummary(match.params.id);
     updateView(match.params.id);
     updateRecent(match.params.id);
-    // updateOwned();
   }, [match.params.id]);
 
   const [comment, setComment] = useState('');
@@ -111,12 +100,7 @@ export const Summary = ({
         <div className="d-flex justify-content-center">
           <LoadingSpinner />
         </div>
-      ) : auth.isAuthenticated &&
-        auth.user.boughtSummaries.forEach((ele) => {
-          if (ele._id.toString() === match.params.id.toString()) {
-            return true;
-          }
-        }) ? (
+      ) : auth.isAuthenticated ? (
         <Card>
           <Card.Header className="">
             <Row className="d-flex align-items-center">

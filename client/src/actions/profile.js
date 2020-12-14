@@ -23,10 +23,6 @@ export const updateProfile = (profile) => async (dispatch) => {
     dispatch(setAlert('Profile Updated', 'success'));
   } catch (err) {
     dispatch(setAlert('Profile Not Updated', 'danger'));
-
-    dispatch({
-      type: PROFILE_NOTUPDATED,
-    });
   }
 };
 
