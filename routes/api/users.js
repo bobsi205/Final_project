@@ -116,7 +116,7 @@ router.put(
     const { coins } = req.body;
     try {
       const user = await User.findById(req.user.id);
-      user.balance += coins;
+      user.balance += parseInt(coins, 10);
       await user.save();
       res.json(user);
     } catch (err) {
