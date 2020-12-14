@@ -69,7 +69,7 @@ export const Summary = ({
   };
 
   const calculateRating = () => {
-    if (summary.summary !== undefined) {
+    if (summary.summary.rating !== undefined) {
       if (summary.summary.rating.length === 0) return 0;
       let rating = 0,
         count = 0;
@@ -180,7 +180,9 @@ export const Summary = ({
                   </Form.Group>
                 </Col>
 
-                <Button type="submit">Post</Button>
+                <Button style={{ height: '40px' }} type="submit">
+                  Post
+                </Button>
               </Row>
             </Form>
             {summary.summary.comments.length > 0 ? (
