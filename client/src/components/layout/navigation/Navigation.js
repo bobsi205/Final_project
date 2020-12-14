@@ -175,6 +175,25 @@ const Navigation = ({ auth, logout }) => {
           </Nav>
         ) : (
           <Nav className="d-flex sm-mr-auto">
+            <NavDropdown className="p-2 mr-sm-0" title="Categories">
+              {categoriesData.map((cat) => (
+                <div key={cat.id}>
+                  <NavDropdown.Item
+                    className="d-flex align-items-center px-4 py-2"
+                    as={Link}
+                    to={`/search/category/${cat.id}`}
+                  >
+                    <Image
+                      className="mr-1"
+                      width="16"
+                      src={`/cat/catIcon/${cat.id}.svg`}
+                    />
+                    {cat.name}
+                  </NavDropdown.Item>
+                  {cat.name == 'Communication' ? false : <Dropdown.Divider />}
+                </div>
+              ))}
+            </NavDropdown>
             <Link to="/login" className="nav-link">
               Sign-in
             </Link>
