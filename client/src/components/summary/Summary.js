@@ -35,8 +35,8 @@ export const Summary = ({
 }) => {
   useEffect(() => {
     getSummary(match.params.id);
-    updateView(match.params.id);
-  }, [getSummary, updateView, match.params.id]);
+    // updateView(match.params.id);
+  }, [getSummary, match.params.id]);
 
   const [comment, setComment] = useState('');
   const onChange = (e) => {
@@ -63,7 +63,6 @@ export const Summary = ({
         return rate.rate;
       }
     }
-
     return 0;
   };
 
@@ -179,9 +178,13 @@ export const Summary = ({
                 <Button type="submit">Post</Button>
               </Row>
             </Form>
-            {summary.summary.comments.map((comment) => {
-              return <Comments comment={comment} />;
-            })}
+            {summary.summary.comments.length > 0 ? (
+              summary.summary.comments.map((comment) => {
+                return <Comments comment={comment} />;
+              })
+            ) : (
+              <h2>No comments</h2>
+            )}
           </Card.Footer>
         </Card>
       ) : (
@@ -243,9 +246,13 @@ export const Summary = ({
             dangerouslySetInnerHTML={{ __html: summary.summary.text }}
           ></Card.Body>
           <Card.Footer>
-            {summary.summary.comments.map((comment) => {
-              return <Comments comment={comment} />;
-            })}
+            {summary.summary.comments.length > 0 ? (
+              summary.summary.comments.map((comment) => {
+                return <Comments comment={comment} />;
+              })
+            ) : (
+              <h2>No comments</h2>
+            )}
           </Card.Footer>
         </Card>
       )}
