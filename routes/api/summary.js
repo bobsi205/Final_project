@@ -265,7 +265,7 @@ router.put('/recent/:id', [auth, checkObjectId('id')], async (req, res) => {
 router.put('/buy/:id', [auth, checkObjectId('id')], async (req, res) => {
   try {
     const summary = await Summary.findById(req.params.id);
-    var user = await User.findById(req.user.id);
+    var user = await User.findById(req.user.id).select('-password');
     if (user.balance < 5)
       return res.status(403).json({ msg: 'Not enough coins' });
 

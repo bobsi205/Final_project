@@ -18,8 +18,9 @@ import {
   addComment,
   addRating,
   updateView,
+  CheckOwn,
 } from '../../actions/summary';
-import { updateBookmark, updateRecent } from '../../actions/auth';
+import { updateBookmark, updateRecent, buySummary } from '../../actions/auth';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
 import { Comments } from './Comments';
 
@@ -33,12 +34,15 @@ export const Summary = ({
   updateBookmark,
   updateView,
   updateRecent,
+  buySummary,
+  CheckOwn,
 }) => {
   useEffect(() => {
     getSummary(match.params.id);
     updateView(match.params.id);
     updateRecent(match.params.id);
-  }, [getSummary, updateView, updateRecent, match.params.id]);
+    CheckOwn(match.params.id);
+  }, [getSummary, updateView, updateRecent, match.params.id, CheckOwn]);
 
   const [comment, setComment] = useState('');
   const onChange = (e) => {
@@ -95,7 +99,7 @@ export const Summary = ({
         <div className="d-flex justify-content-center">
           <LoadingSpinner />
         </div>
-      ) : auth.isAuthenticated ? (
+      ) : auth.isAuthenticated && auth.user.summaryOwned ? (
         <Card>
           <Card.Header className="">
             <Row className="d-flex align-items-center">
@@ -124,7 +128,9 @@ export const Summary = ({
                     />
                   </Col>
                   <Col className="p-2">
-                    <Button>Buy</Button>
+                    <Button onClick={() => buySummary(match.params.id)}>
+                      Buy
+                    </Button>
                   </Col>
                 </Row>
               </Col>
@@ -151,6 +157,7 @@ export const Summary = ({
                       className="rounded-circle"
                       src={summary.summary.picture}
                       height="58"
+                      width="58"
                     />
                   </Col>
                 </Row>
@@ -216,6 +223,11 @@ export const Summary = ({
                       <p>{summary.summary.date.split(/[?T].*/)}</p>
                     </Row>
                   </Col>
+                  <Col className="p-2">
+                    <Button onClick={() => buySummary(match.params.id)}>
+                      Buy
+                    </Button>
+                  </Col>
                 </Row>
               </Col>
               <Col></Col>
@@ -275,6 +287,8 @@ Summary.propTypes = {
   updateBookmark: PropTypes.func.isRequired,
   updateView: PropTypes.func.isRequired,
   updateRecent: PropTypes.func.isRequired,
+  buySummary: PropTypes.func.isRequired,
+  CheckOwn: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -289,4 +303,6 @@ export default connect(mapStateToProps, {
   updateBookmark,
   updateView,
   updateRecent,
+  buySummary,
+  CheckOwn,
 })(Summary);

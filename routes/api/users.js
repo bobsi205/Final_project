@@ -206,27 +206,5 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
-// // @route    GET api/users/recommended
-// // @desc     Get recommended summaries
-// // @access   private
-// router.get('/recommended', auth, async (req, res) => {
-//   try {
-//     const user = await User.findById(req.user.id);
-//     console.log(user.educationsOfInterest[0].education);
-//     let interests = user.educationsOfInterest[0].education.split(',');
-//     interests.splice(0, 1);
-//     let summaries = [];
-//     for (let i = 0; i < interests.length; i++) {
-//       const interest = interests[i];
-//       let temp = await Summary.find({ category: interest }).limit(5);
-//       summaries = summaries.concat(temp);
-//     }
-//     res.json(summaries);
-//   } catch (err) {
-//     console.error(err.message);
-
-//     res.status(500).send('Server Error');
-//   }
-// });
 
 module.exports = router;

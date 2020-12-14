@@ -101,7 +101,6 @@ const ProfileEdit = ({
     });
     let interestsArr = user.educationsOfInterest[0].education.split(',');
     interestsArr.splice(0, 1);
-    console.log(interestsArr);
     let tempInterests = interests;
     interestsArr.map((interest) => {
       tempInterests.map((cat) => {
@@ -114,7 +113,7 @@ const ProfileEdit = ({
   useEffect(() => {
     getProfile();
     load();
-  }, [getProfile, load]);
+  }, []);
 
   const onChange = (e) => {
     setLocalProfile({ ...localProfile, [e.target.name]: e.target.value });
