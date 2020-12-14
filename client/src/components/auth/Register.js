@@ -204,6 +204,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           ></Form.Control>
         </Form.Group>
         <Form.Group>
+          <p>Date of birth</p>
           <Form.Control
             required
             type="date"
@@ -216,7 +217,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           <Form.Control
             required
             type="text"
-            placeholder="institution"
+            placeholder="Institution"
             name="institution"
             value={institution}
             onChange={(e) => onChange(e)}
@@ -226,7 +227,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           <Form.Control
             required
             type="text"
-            placeholder="field Of Study"
+            placeholder="Field Of Study"
             name="fieldOfStudy"
             value={fieldOfStudy}
             onChange={(e) => onChange(e)}
@@ -236,7 +237,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           <Form.Control
             required
             type="text"
-            placeholder="bio"
+            placeholder="Bio"
             name="bio"
             value={bio}
             onChange={(e) => onChange(e)}

@@ -46,7 +46,7 @@ const Navigation = ({ auth, logout }) => {
           eventKey="summaryUpload"
         >
           <Image
-            src="/icons/plus-sign.svg"
+            src="/Icons/plus-sign.svg"
             width="28"
             height="28"
             alt="plus"

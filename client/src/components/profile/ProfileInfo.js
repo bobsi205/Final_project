@@ -32,7 +32,7 @@ export const ProfileInfo = ({ profile, user, summary }) => {
     <>
       <Link className="ml-3" to="/profile/edit">
         <Image
-          src="icons/edit-g.svg"
+          src="/Icons/edit-g.svg"
           style={{
             width: '20px',
             height: '20px',
@@ -74,7 +74,7 @@ export const ProfileInfo = ({ profile, user, summary }) => {
               className="mr-2"
               width="18px"
               height="18px"
-              src="icons/star-b.svg"
+              src="/Icons/star-b.svg"
             />
             <p>{countRating()}</p>
           </Row>
@@ -83,7 +83,7 @@ export const ProfileInfo = ({ profile, user, summary }) => {
               className="mr-2"
               width="18px"
               height="18px"
-              src="icons/eye.svg"
+              src="/Icons/eye.svg"
             />
             <p>{countSummariesViews()}</p>
           </Row>

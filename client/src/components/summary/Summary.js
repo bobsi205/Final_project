@@ -69,14 +69,16 @@ export const Summary = ({
   };
 
   const calculateRating = () => {
-    if (summary.summary.rating.length === 0) return 0;
-    let rating = 0,
-      count = 0;
-    summary.summary.rating.forEach((rate) => {
-      rating += rate.rate;
-      count++;
-    });
-    return rating / count;
+    if (summary.summary !== undefined) {
+      if (summary.summary.rating.length === 0) return 0;
+      let rating = 0,
+        count = 0;
+      summary.summary.rating.forEach((rate) => {
+        rating += rate.rate;
+        count++;
+      });
+      return rating / count;
+    }
   };
 
   const rateSummary = (rating) => {
@@ -116,7 +118,7 @@ export const Summary = ({
                   </Col>
                   <Col className="p-2" xs="auto">
                     <Image
-                      src={`/icons/bookmark-${isBookmarked() ? 'b' : 'w'}.svg`}
+                      src={`/Icons/bookmark-${isBookmarked() ? 'b' : 'w'}.svg`}
                       height="28"
                       onClick={(e) => bookmarkHandler(e)}
                     />

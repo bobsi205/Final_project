@@ -114,12 +114,5 @@ export const updateRecent = (id) => async (dispatch) => {
       type: UPDATE_RECENT,
       payload: res.data,
     });
-  } catch (err) {
-    console.log(err);
-    dispatch(setAlert('There was an error', 'danger'));
-
-    dispatch({
-      type: AUTH_ERROR,
-    });
-  }
+  } catch (err) {}
 };
