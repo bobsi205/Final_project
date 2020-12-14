@@ -5,7 +5,6 @@ import {
   GET_USER_SUMMARIES,
   ADD_COMMENT,
   UPDATE_RATING,
-  UPDATE_BOOKMARK,
   UPDATE_VIEW,
 } from '../actions/types';
 

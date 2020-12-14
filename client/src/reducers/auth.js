@@ -5,6 +5,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   UPDATE_BOOKMARK,
+  UPDATE_RECENT,
 } from '../actions/types';
 
 const initialState = {
@@ -20,6 +21,7 @@ export default function (state = initialState, action) {
   switch (type) {
     case USER_LOADED:
     case UPDATE_BOOKMARK:
+    case UPDATE_RECENT:
       return {
         ...state,
         user: payload,

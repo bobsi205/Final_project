@@ -25,3 +25,4 @@ export const GET_USER = 'GET_USER';
 export const GET_USER_SUMMARIES = 'GET_USER_SUMMARIES';
 export const UPDATE_BOOKMARK = 'UPDATE_BOOKMARK';
 export const UPDATE_VIEW = 'UPDATE_VIEW';
+export const UPDATE_RECENT = 'UPDATE_RECENT';

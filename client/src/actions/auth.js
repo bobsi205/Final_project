@@ -8,6 +8,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   UPDATE_BOOKMARK,
+  UPDATE_RECENT,
   LOGOUT,
 } from './types';
 import S3 from 'react-aws-s3';
@@ -93,6 +94,24 @@ export const updateBookmark = (id) => async (dispatch) => {
 
     dispatch({
       type: UPDATE_BOOKMARK,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch(setAlert('There was an error', 'danger'));
+
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+export const updateRecent = (id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/summary/recent/${id}`);
+
+    dispatch({
+      type: UPDATE_RECENT,
       payload: res.data,
     });
   } catch (err) {

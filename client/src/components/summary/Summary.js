@@ -19,7 +19,7 @@ import {
   addRating,
   updateView,
 } from '../../actions/summary';
-import { updateBookmark } from '../../actions/auth';
+import { updateBookmark, updateRecent } from '../../actions/auth';
 import { LoadingSpinner } from '../layout/LoadingSpinner';
 import { Comments } from './Comments';
 
@@ -32,11 +32,13 @@ export const Summary = ({
   addRating,
   updateBookmark,
   updateView,
+  updateRecent,
 }) => {
   useEffect(() => {
     getSummary(match.params.id);
     updateView(match.params.id);
-  }, [getSummary, updateView, match.params.id]);
+    updateRecent(match.params.id);
+  }, [getSummary, updateView, updateRecent, match.params.id]);
 
   const [comment, setComment] = useState('');
   const onChange = (e) => {
@@ -98,7 +100,7 @@ export const Summary = ({
               <Col xs="auto" className="view rate download pt-0">
                 <Row>
                   <Col xs="auto">
-                  <Row className="align-items-center p-0">
+                    <Row className="align-items-center p-0">
                       <Rating rate={calculateRating()} />
                       <span>{summary.summary.rating.length}</span>
                     </Row>
@@ -120,7 +122,7 @@ export const Summary = ({
                     />
                   </Col>
                   <Col className="p-2">
-                  <Button>Buy</Button>
+                    <Button>Buy</Button>
                   </Col>
                 </Row>
               </Col>
@@ -199,7 +201,7 @@ export const Summary = ({
                       <Rating rate={calculateRating()} />
                       <span>{summary.summary.rating.length}</span>
                     </Row>
-                   
+
                     <Row className="ml-2">
                       {summary.summary.views.length}
                       <Image className="mx-1 mt-1" src={eye} height="20" />
@@ -268,6 +270,7 @@ Summary.propTypes = {
   addRating: PropTypes.func.isRequired,
   updateBookmark: PropTypes.func.isRequired,
   updateView: PropTypes.func.isRequired,
+  updateRecent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -281,4 +284,5 @@ export default connect(mapStateToProps, {
   addRating,
   updateBookmark,
   updateView,
+  updateRecent,
 })(Summary);
