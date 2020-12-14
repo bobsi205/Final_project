@@ -11,18 +11,20 @@ import { useHistory } from 'react-router-dom';
 // update profile
 export const updateProfile = (profile) => async (dispatch) => {
   try {
-    const history = useHistory();
     const res = await api.put('/profile/update', profile);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
-    let path = `/profile`;
-    history.push(path);
+
     dispatch(setAlert('Profile Updated', 'success'));
   } catch (err) {
     dispatch(setAlert('Profile Not Updated', 'danger'));
+
+    dispatch({
+      type: PROFILE_NOTUPDATED,
+    });
   }
 };
 
