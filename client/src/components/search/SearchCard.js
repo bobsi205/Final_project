@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Image } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import StarEmpty from './images/star_empty.svg';
+import categoriesData from '../../utils/categoriesData.json';
 
 export const SearchCard = ({ summary }) => {
   const history = useHistory();
@@ -21,7 +22,13 @@ export const SearchCard = ({ summary }) => {
       return rating / count;
     }
   };
-  console.log(summary);
+
+  const findCatName = (catId) => {
+    console.log(catId, categoriesData);
+    let foundCat = categoriesData.find((cat) => catId === cat.id);
+    return foundCat.name;
+  };
+
   return (
     <Card
       key={summary._id}
@@ -44,13 +51,21 @@ export const SearchCard = ({ summary }) => {
           dangerouslySetInnerHTML={{ __html: summary.text }}
         ></Card.Text>
         <Card.Text className="text-muted text-right">
-          {/* views */}
-          <Image src="/eye.svg" height="20" className="mb-1" />{' '}
-          {summary.views.length}
-          <span> </span>
-          {/* rating */}
-          <Image src={StarEmpty} height="20" className="mb-1" />{' '}
-          {calculateRating()}
+          <div className="d-flex">
+            <div className="mr-auto">
+              {/* category */}
+              <p>{findCatName(summary.category)}</p>
+            </div>
+            <div className="">
+              {/* views */}
+              <Image src="/eye.svg" height="20" className="mb-1" />{' '}
+              {summary.views.length}
+              <span> </span>
+              {/* rating */}
+              <Image src={StarEmpty} height="20" className="mb-1" />{' '}
+              {calculateRating()}
+            </div>
+          </div>
         </Card.Text>
       </Card.Body>
     </Card>
